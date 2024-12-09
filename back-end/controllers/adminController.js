@@ -3,10 +3,11 @@ import { Admin } from "../models/admin.js";
 const createAdmin = async (request, response) => {
   try {
     const result = await Admin.create({
-      name: "Sarnai",
-      email: "sarnai@email.com",
-      password: "Sarnai123",
-      phoneNumber: "99445566",
+      name: "Badamaa",
+      email: "badamaa@email.com",
+      password: "Badamaa123",
+      phoneNumber: "77668899",
+      role: "admin",
     });
     response.json({ success: true, data: result });
   } catch (error) {
@@ -17,9 +18,9 @@ const createAdmin = async (request, response) => {
   }
 };
 
-const getAllAdmin = async () => {
+const getAllAdmin = async (request, response) => {
   try {
-    const allAdmin = Admin.find();
+    const allAdmin = await Admin.find();
     response.json({ success: true, result: allAdmin });
   } catch (error) {
     response.json({

@@ -19,7 +19,7 @@ const createMedicine = async (request, response) => {
 
 const getAllMedicine = async () => {
   try {
-    const allMedicine = User.find();
+    const allMedicine = await Medicine.find();
     response.json({ success: true, result: allMedicine });
   } catch (error) {
     response.json({

@@ -3,10 +3,11 @@ import { User } from "../models/user.js";
 const createUser = async (request, response) => {
   try {
     const result = await User.create({
-      name: "Boloroo",
-      email: "boloroo@email.com",
-      password: "Boloroo123",
-      phoneNumber: "99887766",
+      name: "Sarnai",
+      email: "Sarnai@email.com",
+      password: "Sarnai123",
+      phoneNumber: "88776655",
+      role: "user",
     });
     response.json({ success: true, data: result });
   } catch (error) {
@@ -17,9 +18,9 @@ const createUser = async (request, response) => {
   }
 };
 
-const getAllUser = async () => {
+const getAllUser = async (request, response) => {
   try {
-    const allUser = User.find();
+    const allUser = await User.find();
     response.json({ success: true, result: allUser });
   } catch (error) {
     response.json({
