@@ -1,3 +1,5 @@
-export default function Homepage() {
+import Homepage from "@/pages/Homepage";
+
+export default function Home() {
   return <Homepage />;
 }
