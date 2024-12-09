@@ -1,9 +1,9 @@
-import Homepage from "@/pages/Homepage";
+import Body from "./_component/body-page/Body";
 
 export default function Home() {
   return (
     <div>
-      <Homepage />
+      <Body />
     </div>
   );
 }
