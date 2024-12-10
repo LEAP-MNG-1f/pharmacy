@@ -1,9 +1,10 @@
-import Body from "./_component/body-page/Body";
+import Homepage from "@/pages/Homepage";
 
 export default function Home() {
   return (
-    <div>
-      <Body />
+    <div className="bg-slate-500">
+      {/* <GooglePage /> */}
+      <Homepage />
     </div>
   );
 }

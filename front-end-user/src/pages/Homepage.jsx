@@ -1,5 +1,5 @@
-import { Orderpage } from "@/_component/orderpage/Orderpage";
-
 export default function Homepage() {
-  return<Orderpage />;
+
+  return <div className="bg-green-100 text-red-300 ">Testeeeeeeeeee</div>;
+
 }

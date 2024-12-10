@@ -1,3 +1,3 @@
 export default function Confirmation() {
-  return;
+  return <div></div>;
 }
