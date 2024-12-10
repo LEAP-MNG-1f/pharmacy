@@ -7,6 +7,7 @@ import userRouter from "./routers/userRoute.js";
 import medicineRouter from "./routers/medicineRoute.js";
 import adminRouter from "./routers/adminRoute.js";
 import orderRouter from "./routers/orderRoute.js";
+import categoryRouter from "./routers/categoryRoute.js";
 
 const server = express();
 const PORT = 8368;
@@ -21,6 +22,7 @@ server.use("/api", userRouter);
 server.use("/api", medicineRouter);
 server.use("/api", adminRouter);
 server.use("/api", orderRouter);
+server.use("/api", categoryRouter);
 
 server.listen(PORT, () => {
   console.log(`http://localhost:${PORT} server ajillaj ehellee`);
