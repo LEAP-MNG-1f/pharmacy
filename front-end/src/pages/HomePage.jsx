@@ -1,11 +1,16 @@
-import { Footer } from "@/components/ui/Footer";
+import CarouselAds from "@/components/home-page/CarouselAds";
+import FAQ from "@/components/home-page/FAQ";
+import Footer from "@/components/ui/Footer";
+
 import Header from "@/components/ui/Header";
 
 export default function HomePage() {
   return (
-    <div className="flex items-center justify-center flex-col text-red-300">
+    <div >
       <Header />
-      <Footer />
+      <CarouselAds/>
+      <FAQ/>
+     <Footer/>
     </div>
   );
 }
