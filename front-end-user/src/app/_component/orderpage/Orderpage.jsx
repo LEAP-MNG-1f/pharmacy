@@ -6,8 +6,8 @@ export const Orderpage = () => {
           <img src="https://khurmen.mn/wp-content/uploads/2021/03/ubVista.jpg" alt="" />
         </div>
         <div className="flex-col">
-          <div>Витагриф</div>
-          <div>Хүрмэн Эмийн Сан</div>
+          <div className="text-[#F1F5F9]">Витагриф</div>
+          <div className="text-black">Хүрмэн Эмийн Сан</div>
           <div className="flex flex-row">
             <p>Хаяг</p>
             <p>Энх тайвaны өргөн чөлөө 46, БГД, Гранд плаза, 1 давхар, Улаанбаатар</p>
