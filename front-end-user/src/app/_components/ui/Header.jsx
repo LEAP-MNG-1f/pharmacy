@@ -1,5 +1,5 @@
-import { Basket } from "../svg/Basket";
-import { Logo } from "../svg/Logo";
+import { Basket } from "../../../../../front-end/src/components/svg/Basket";
+import { Logo } from "../../../../../front-end/src/components/svg/Logo";
 
 export default function Header() {
   return (

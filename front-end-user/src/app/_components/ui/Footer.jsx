@@ -1,5 +1,5 @@
-import { FacebookIcon } from "../svg/FacebookIcon";
-import { InstaIcon } from "../svg/InstaIcon";
+import { FacebookIcon } from "../../../../../front-end/src/components/svg/FacebookIcon";
+import { InstaIcon } from "../../../../../front-end/src/components/svg/InstaIcon";
 
 export const Footer = () => {
   return (
