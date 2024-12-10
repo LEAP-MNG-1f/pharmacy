@@ -5,6 +5,11 @@ const medicineSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  categoryId: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Category",
+    required: true,
+  },
   price: {
     type: String,
     required: true,
