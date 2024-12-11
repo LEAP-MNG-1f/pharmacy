@@ -12,16 +12,18 @@ const List = ({ selectedLocation }) => {
       <div className="flex flex-col gap-3 w-full h-auto overflow-y-auto py-2">
         {selectedLocation.map((data) => {
           return (
-            <ListCard
-              key={data.cityNames}
-              imageUrl={data?.imageUrl}
-              title={data?.title}
-              star={data?.star}
-              type={data?.type}
-              bedrooms={data?.bedrooms}
-              bathrooms={data?.bathrooms}
-              amenities={data?.amenities}
-            />
+            <div key={data.title}>
+              <ListCard
+                key={data.cityNames}
+                imageUrl={data?.imageUrl}
+                title={data?.title}
+                star={data?.star}
+                type={data?.type}
+                bedrooms={data?.bedrooms}
+                bathrooms={data?.bathrooms}
+                amenities={data?.amenities}
+              />
+            </div>
           );
         })}
       </div>
