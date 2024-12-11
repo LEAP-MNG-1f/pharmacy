@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import data from "../../../mock/data.json";
 
-import GoogleHeader from "./GoogleHeader";
-import GoogleBody from "./GoogleBody";
+import Select from "react-select";
+import List from "./List";
+import { GoogleMap } from "./Google";
 
 export const GoogleHomePage = () => {
   const [districtOptions, setDistrictOptions] = useState([]);
@@ -57,14 +58,24 @@ export const GoogleHomePage = () => {
   }, []);
 
   return (
-    <main>
-      {" "}
-      <div className="container flex flex-col justify-center items-center max-w-[1366px] max-h-[1024px] mt-7 rounded-3xl">
-        <GoogleHeader
-          districtOptions={districtOptions}
-          handleSelectChange={handleSelectCityChange}
-        />
-        <GoogleBody selectedLocation={filterCity} />
+    <main className="w-screen flex justify-center items-center">
+      <div className="w-full flex flex-col justify-center items-center max-w-[1366px] max-h-[1024px] mt-7 rounded-3xl">
+        <div className="flex items-center gap-6">
+          <Select
+            defaultValue={[]}
+            isMulti
+            name="districts"
+            options={districtOptions}
+            className="basic-multi-select w-[626px] text-black"
+            classNamePrefix="select"
+            onChange={handleSelectCityChange}
+          />
+        </div>
+
+        <div className="flex">
+          <List selectedLocation={filterCity} />
+          <GoogleMap selectedLocation={filterCity} />
+        </div>
       </div>
     </main>
   );

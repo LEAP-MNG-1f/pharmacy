@@ -1,3 +1,5 @@
+"use client";
+
 import GoogleHomePage from "@/components/map/GoogleHome";
 
 export default function SearchHomePage() {
