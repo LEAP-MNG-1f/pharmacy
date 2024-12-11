@@ -6,8 +6,10 @@ export default function Header() {
   return (
     <div className="w-full h-[80px] flex justify-between items-center bg-[#E9F6FE] px-3">
       <div className="flex gap-2">
-        <Logo />
-        <p className="font-bold text-2xl text-[#0b2c3b]">Pharma</p>
+        <Link href="./" className="flex gap-2">
+          <Logo />
+          <p className="font-bold text-2xl text-[#0b2c3b]">Pharma</p>
+        </Link>
       </div>
       <div className="">
         <label className="input input-bordered h-11 rounded-3xl flex items-center gap-2">

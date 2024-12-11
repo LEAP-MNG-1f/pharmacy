@@ -1,6 +1,7 @@
 "use client";
 
 import CarouselAds from "@/components/home-page/CarouselAds";
+import Collab from "@/components/home-page/Collab";
 import FAQ from "@/components/home-page/FAQ";
 import GoogleHomePage from "@/components/map/GoogleHome";
 import Footer from "@/components/ui/Footer";
@@ -11,8 +12,13 @@ export default function HomePage() {
   return (
     <div>
       <Header />
-      <CarouselAds />
-      <GoogleHomePage />
+
+      <div className="flex ">
+        <CarouselAds />
+        <FAQ />
+        <Collab />
+      </div>
+
       <FAQ />
       <Footer />
     </div>
