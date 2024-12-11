@@ -1,5 +1,3 @@
-"use client";
-
 import { Loader } from "@googlemaps/js-api-loader";
 import React, { useEffect, useRef } from "react";
 
@@ -24,7 +22,7 @@ export const GoogleMap = ({ selectedLocation }) => {
       // map option
 
       const mapOptions = {
-        center: { lat: 35.52942047350689, lng: -97.47191031062086 },
+        center: { lat: 47.920295308332754, lng: 106.89387227273458 },
         zoom: 4,
         mapId: "MY_NEXTJSID",
       };

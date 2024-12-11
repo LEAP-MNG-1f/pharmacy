@@ -1,7 +1,4 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import data from "../../../mock/data.json";
 
 import Select from "react-select";
 import List from "./List";
@@ -11,7 +8,6 @@ import { BACKEND_URL } from "../../../constant/constant";
 export const GoogleHomePage = () => {
   const [districtOptions, setDistrictOptions] = useState([]);
   const [filterCity, setFilterCity] = useState([]);
-  const [properties, setProperties] = useState([]);
 
   const [medicines, setMedicine] = useState([]);
 
@@ -30,39 +26,39 @@ export const GoogleHomePage = () => {
     try {
       const uniqueCityOptions = [];
       const citySet = new Set();
-      data.properties.forEach((property) => {
-        if (!citySet.has(property.City)) {
-          citySet.add(property.City);
+      medicines.forEach((medicine) => {
+        if (!citySet.has(medicine.name)) {
+          citySet.add(medicine.name);
           uniqueCityOptions.push({
-            value: property.City,
-            label: property.City,
+            value: medicine.name,
+            label: medicine.name,
           });
         }
       });
 
       setDistrictOptions(uniqueCityOptions);
-      setProperties(data.properties);
+      setMedicine(medicines);
     } catch (error) {
       console.error("Error:", error);
     }
   };
+  console.log(medicines);
 
   const handleSelectCityChange = (selectedOptions) => {
     const selectedCities = selectedOptions.map((option) => option.value);
 
-    const newSelectedLocations = properties
-      .filter((property) => selectedCities.includes(property.City))
-      .map((property) => ({
-        lat: parseFloat(property.lat),
-        lng: parseFloat(property.long),
-        title: property.title,
-        cityName: property.City,
-        imageUrl: property.imageUrl,
-        star: property.star,
-        type: property.type,
-        bedrooms: property.bedrooms,
-        bathrooms: property.bathrooms,
-        amenities: property.amenities[0],
+    const newSelectedLocations = medicines
+      .filter((medicine) => selectedCities.includes(medicine.name))
+      .map((medicine) => ({
+        _id: medicine._id,
+        lat: parseFloat(medicine.lat),
+        lng: parseFloat(medicine.long),
+        categoryId: medicine.categoryId,
+        name: medicine.name,
+        balance: medicine.balance,
+        imageUrl: medicine.image,
+        location: medicine.location,
+        type: medicine.recipeType,
       }));
     setFilterCity(newSelectedLocations);
   };
@@ -84,7 +80,7 @@ export const GoogleHomePage = () => {
           <Select
             defaultValue={[]}
             isMulti
-            name="districts"
+            name="name"
             options={districtOptions}
             className="basic-multi-select w-[626px] text-black"
             classNamePrefix="select"
