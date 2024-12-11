@@ -1,106 +1,108 @@
 "use client";
 import { useState } from "react";
+import { useDataContext } from "../context/dataContext";
 
 export const Cart = () => {
-  let [count, setCount] = useState(0);
-  function Nemeh() {
-    count = count + 1;
-    setCount(count);
-  }
-  function Hasah() {
-    count = count - 1;
-    setCount(count);
-  }
+  const [spaceImage, setSpaceImage] = useState({});
+  const [imagePreview, setImagePreview] = useState();
+  // let [count, setCount] = useState(0);
+  // function Nemeh() {
+  //   count = count + 1;
+  //   setCount(count);
+  // }
+  // function Hasah() {
+  //   count = count - 1;
+  //   setCount(count);
+  // }
+
+  const { medicines } = useDataContext();
+
+  const handleFileChange = (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSpaceImage({ image: file });
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="flex w-full h-full bg-white justify-center items-center">
-      <div className="flex w-[60%] h-[90%] bg-[#E9F6FE] rounded-2xl border-[1px] border-gray-400 gap-3 p-3">
-        <div className="w-[50%] h-full flex flex-col border-[1px] border-gray-400 rounded-tl-xl rounded-bl-xl items-center py-4 gap-4">
-          <div className="text-zinc-700 font-semibold">Таны сагс</div>
-          <div className="w-[95%] h-[17%] bg-white rounded-lg p-2 items-center justify-center ">
-            <div className="flex flex-row items-center justify-between">
-              <div className="flex flex-row gap-1 items-center">
-                <div className="text-stone-700 text-sm font-semibold">
-                  Витагриф:
+      <div className="flex flex-col items-center   w-[1200px] h-[90%] bg-[#E9F6FE] rounded-2xl border-[1px] border-gray-400 gap-3 p-3">
+        <div className="text-zinc-700 font-semibold">Таны сагс</div>
+        <div className="w-[90%] flex flex-col gap-3">
+          {medicines?.map((medicine) => {
+            return (
+              <div
+                key={medicine?._id}
+                className="w-full   bg-white rounded-lg py-3 px-5 items-center justify-between flex"
+              >
+                <div className="w-[70%] flex flex-col">
+                  <div className="flex flex-row gap-3 items-center">
+                    <p className="text-stone-700 text-sm font-semibold">
+                      Эмийн нэр:
+                    </p>
+                    <p className="text-stone-700 text-sm">{medicine?.name}</p>
+                  </div>
+                  <div className="flex flex-row gap-3 items-center">
+                    <p className="text-stone-700 text-sm font-semibold">
+                      Эмийн сангийн хаяг:
+                    </p>
+                    <p className="text-stone-700 text-sm">
+                      {medicine?.location}
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-3 items-center">
+                    <p className="text-stone-700 text-sm font-semibold">Үнэ:</p>
+                    <p className="text-stone-700 text-sm">{medicine?.price}₮</p>
+                  </div>
+                  <div className="flex flex-row gap-3 items-center">
+                    <p className="text-stone-700 text-sm font-semibold">
+                      Эмийн төрөл
+                    </p>
+                    <p className="text-stone-700 text-sm">
+                      {medicine?.categoryId.name}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-stone-700 text-sm">Хүрмэн Эмийн Сан</div>
+                {medicine?.categoryId.name === "Жортой" ? (
+                  <div className="flex flex-col gap-1">
+                    <div className="max-w-[210px] w-full h-[50px] p-2 flex flex-col justify-center items-center gap-2 border border-dashed border-[#D6D7DC] bg-[rgba(186,188,196,0.12)] rounded-lg">
+                      <input
+                        type="file"
+                        id="uploadFile1"
+                        name="uploadFile1"
+                        className="hidden"
+                        onChange={handleFileChange}
+                      />
+                      <label
+                        htmlFor="uploadFile1"
+                        className="px-1 py-2 rounded-lg bg-SecondColor text-black font-inter text-base font-bold cursor-pointer"
+                      >
+                        Жорын зургийг оруулна уу
+                      </label>
+                    </div>
+                    {imagePreview && (
+                      <div className="mt-4">
+                        <img
+                          src={imagePreview}
+                          alt="Prescription Preview"
+                          className="w-full h-[200px] object-contain border border-black border-dashed p-2"
+                        />
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
-              <div className="flex text-stone-700 gap-2 items-center">
-                <button
-                  className="w-4 h-4 justify-center items-center flex  rounded-sm bg-[#26b2b9]"
-                  onClick={Nemeh}
-                >
-                  +
-                </button>
-                <div>{count}</div>
-                <button
-                  className="w-4 h-4 justify-center items-center flex rounded-sm bg-[#26b2b9]"
-                  onClick={Hasah}
-                >
-                  -
-                </button>
-              </div>
-            </div>
-            <div className="text-stone-700 text-xs">
-              Энх тайвaны өргөн чөлөө 46, БГД, Гранд плаза, 1 давхар,
-              Улаанбаатар
-            </div>
-          </div>
-          <div className="w-[95%] h-[17%] bg-white rounded-lg p-2 items-center justify-center ">
-            <div className="flex flex-row items-center justify-between">
-              <div className="flex flex-row gap-1 items-center">
-                <div className="text-stone-700 text-sm font-semibold">
-                  Витагриф:
-                </div>
-                <div className="text-stone-700 text-sm">Хүрмэн Эмийн Сан</div>
-              </div>
-              <div className="flex text-stone-700 gap-2 items-center">
-                <button
-                  className="w-4 h-4 justify-center items-center flex  rounded-sm bg-[#26b2b9]"
-                  onClick={Nemeh}
-                >
-                  +
-                </button>
-                <div>{count}</div>
-                <button
-                  className="w-4 h-4 justify-center items-center flex rounded-sm bg-[#26b2b9]"
-                  onClick={Hasah}
-                >
-                  -
-                </button>
-              </div>
-            </div>
-            <div className="text-stone-700 text-xs">
-              Энх тайвaны өргөн чөлөө 46, БГД, Гранд плаза, 1 давхар,
-              Улаанбаатар
-            </div>
-          </div>
+            );
+          })}
         </div>
-        <div className="w-[50%] h-full flex flex-col border-[1px] border-gray-400 rounded-tr-xl rounded-br-xl items-center py-4 gap-4">
-          <div className="text-zinc-700 font-semibold">Баталгаажуулах</div>
-          <div className="w-[95%] h-[10%] bg-white flex justify-between items-center px-4 rounded-lg text-sm">
-            <label for="districts" className="text-stone-700">
-              Дүүрэг сонгох
-            </label>
-            <select
-              name="districts"
-              id="district"
-              className="bg-white text-stone-700"
-            >
-              <option value="">Баянзүрх</option>
-              <option value="saab">Сүхбаатар</option>
-              <option value="mercedes">Хан-Уул</option>
-              <option value="audi">Баянгол</option>
-            </select>
-          </div>
-          <div className="w-[95%] h-[20%] text-sm text-stone-700 bg-white rounded-t-lg ">
-            <p className="p-1 px-4 "> Хаягийн дэлгэрэнгүйг бичнэ үү!</p>
-            <input
-              type="text"
-              className="bg-white text-stone-700 w-full h-full rounded-lg text-sm px-4"
-              spaceholder="Хаягийн дэлгэрэнгүйг бичнэ үү!"
-            />
-          </div>
-        </div>
+        <button>Захиалах</button>
       </div>
     </div>
   );
