@@ -1,3 +1,7 @@
+
+import OrderPage from "@/pages/OrderPage";
+
 export default function Home() {
-  return <div>Order Page</div>;
+  return <OrderPage />;
+
 }
