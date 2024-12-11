@@ -1,14 +1,14 @@
 export default function FAQ() {
   return (
     <div className="w-full flex justify-center ">
-      <div className="w-[1200px] flex flex-col gap-4 p-4 justify-center items-center">
-        <div className="font-bold text-3xl">Түгээмэл асуултууд</div>
-        <div className="collapse collapse-arrow bg-base-200">
+      <div className="w-[800px] flex flex-col gap-4 py-10 justify-center items-center">
+        <div className="font-bold text-2xl">Түгээмэл асуултууд</div>
+        <div className=" collapse collapse-arrow  bg-[#E9F6FE]">
           <input type="radio" name="my-accordion-2" defaultChecked />
-          <div className="collapse-title text-xl font-medium">
+          <div className="collapse-title text-lg  font-bold">
             Захиалга хийхэд болон хүргэлтийн үнэ хэд вэ? Хүргэлт хэр уддаг вэ?
           </div>
-          <div className="collapse-content">
+          <div className="collapse-content ">
             <p>
               Манай захиалга энгийн хүргэлтээр 6 цагын дотор 5000 төгрөгөөр
               хүргэгдэнэ. Яаралтай 10000 төгрөгний нэмэгдэлтэй 1-2 цагын дотор
@@ -16,9 +16,9 @@ export default function FAQ() {
             </p>
           </div>
         </div>
-        <div className="collapse collapse-arrow bg-base-200">
+        <div className="collapse collapse-arrow bg-[#E9F6FE]">
           <input type="radio" name="my-accordion-2" />
-          <div className="collapse-title text-xl font-medium">
+          <div className="collapse-title text-lg font-bold">
             Гэр хороолол руу хүргэлт хийдэг үү?
           </div>
           <div className="collapse-content">
@@ -28,9 +28,9 @@ export default function FAQ() {
             </p>
           </div>
         </div>
-        <div className="collapse collapse-arrow bg-base-200">
+        <div className="collapse collapse-arrow bg-[#E9F6FE]">
           <input type="radio" name="my-accordion-2" />
-          <div className="collapse-title text-xl font-medium">
+          <div className="collapse-title text-lg font-bold">
             Антибиотик хүргэдэг үү?
           </div>
           <div className="collapse-content">
