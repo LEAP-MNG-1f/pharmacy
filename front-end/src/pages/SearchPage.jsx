@@ -1,11 +1,9 @@
-
 "use client";
 
 import GoogleHomePage from "@/components/map/GoogleHome";
 
 import { ProductList } from "@/components/search-page/PorductList";
 import Header from "@/components/ui/Header";
-
 
 export default function SearchPage() {
   return (
@@ -15,9 +13,6 @@ export default function SearchPage() {
         <div className="flex flex-col gap-4 w-[50%] h-full justify-center  ">
           <ProductList />
         </div>
-        {/* <div className="flex w-[50%] h-full">
-          <GoogleHomePage />
-        </div> */}
       </div>
     </div>
   );
