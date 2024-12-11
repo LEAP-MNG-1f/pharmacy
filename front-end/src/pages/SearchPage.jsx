@@ -1,5 +1,11 @@
+
+"use client";
+
+import GoogleHomePage from "@/components/map/GoogleHome";
+
 import { ProductList } from "@/components/search-page/PorductList";
 import Header from "@/components/ui/Header";
+
 
 export default function SearchPage() {
   return (
