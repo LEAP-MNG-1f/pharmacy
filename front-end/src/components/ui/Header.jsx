@@ -30,9 +30,11 @@ export default function Header() {
       </div>
       <div className="flex gap-2">
         <Basket />
-        <button className="bg-[#33E4DB] w-[100px] h-[36px] rounded-xl font-bold text-white">
-          Нэвтрэх
-        </button>
+        <Link href={"/dashboard"}>
+          <button className="bg-[#33E4DB] w-[100px] h-[36px] rounded-xl font-bold text-white">
+            Нэвтрэх
+          </button>
+        </Link>
       </div>
     </div>
   );

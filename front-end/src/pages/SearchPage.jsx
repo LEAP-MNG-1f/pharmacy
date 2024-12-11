@@ -1,10 +1,20 @@
-import GoogleHomePage from "@/components/map/GoogleHome";
+"use client";
 
-export default function SearchHomePage() {
+import GoogleHomePage from "@/components/map/GoogleHome";
+import { Cart } from "@/components/order-page/Cart";
+
+import { ProductList } from "@/components/search-page/PorductList";
+import Header from "@/components/ui/Header";
+
+export default function SearchPage() {
   return (
-    <div className="flex items-center justify-center flex-col text-green-300">
-      Google
-      <GoogleHomePage />
+    <div className="w-screen h-auto flex flex-col">
+      <Header />
+      <div className="w-screen h-auto flex items-center justify-between flex-row bg-white py-5 px-5">
+        <div className="flex flex-col gap-4 w-[50%] h-full justify-center  ">
+        <ProductList/>
+        </div>
+      </div>
     </div>
   );
 }

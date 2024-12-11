@@ -8,12 +8,6 @@ export const GoogleMap = ({ selectedLocation }) => {
   const mapInstance = useRef(null);
   const markerInstances = useRef([]);
 
-  // const [searchValue, setSearchValue] = useState("");
-
-  // const filteredProperty = data.properties.filter((property) =>
-  //   property?.City?.toLowerCase().includes(searchValue)
-  // );
-
   useEffect(() => {
     const initMap = async () => {
       const loader = new Loader({
@@ -26,13 +20,6 @@ export const GoogleMap = ({ selectedLocation }) => {
       // init marker
 
       const { Marker } = await loader.importLibrary("marker");
-
-      const position = {
-        lat: 43.642693,
-        lng: -79.3871189,
-        // lat: properties.lat,
-        // lng: properties.long,
-      };
 
       // map option
 
@@ -49,14 +36,8 @@ export const GoogleMap = ({ selectedLocation }) => {
       }
 
       // put up a marker
-
-      // const marker = new Marker({
-      //   map: map,
-      //   position: position,
-      // });
     };
     initMap();
-    // setSearchValue();
   }, []);
 
   useEffect(() => {
