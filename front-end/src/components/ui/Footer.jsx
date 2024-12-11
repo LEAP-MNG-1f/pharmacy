@@ -16,10 +16,10 @@ export default function Footer() {
             </Link>
           </div>
           <div className="flex gap-2 p-3">
-            <a href="https://www.facebook.com/monosemiinsan/">
+            <a href="https://www.facebook.com/monosemiinsan/" target="_blank" rel="noreferrer">
               <FacebookIcon />
             </a>
-            <a href="https://www.instagram.com/aloebrand_monos/">
+            <a href="https://www.instagram.com/aloebrand_monos/" target="_blank" rel="noreferrer">
               <InstaIcon />
             </a>
           </div>
@@ -44,9 +44,11 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex gap-3 justify-center items-center">
-        <MapIcon />
-        <p className="">Ulaanbaatar , Mongolia</p>
+      <div>
+        <a className="flex gap-3 justify-center items-center" target="_blank" rel="noreferrer" href="https://www.google.com/maps/place/Monos+%D1%8D%D0%BC%D0%B8%D0%B9%D0%BD+%D0%B1%D3%A9%D3%A9%D0%BD%D0%B8%D0%B9+%D1%82%D3%A9%D0%B2/@47.9175604,106.8955712,584m/data=!3m2!1e3!4b1!4m6!3m5!1s0x5d96925827684173:0xc44e131a8a952b15!8m2!3d47.9175604!4d106.8981461!16s%2Fg%2F1tfcbxmx?entry=ttu&g_ep=EgoyMDI0MTIwOC4wIKXMDSoASAFQAw%3D%3D">
+          <MapIcon />
+          <p className="">Ulaanbaatar , Mongolia</p>
+        </a>
       </div>
     </div>
   );

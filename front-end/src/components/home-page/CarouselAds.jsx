@@ -66,36 +66,36 @@ export default function CarouselAds() {
     <div className="w-full flex justify-center ">
       <div className="w-[200px] flex justify-center">
         <div className="relative">
-          <div className="carousel w-full overflow-x-scroll scroll-smooth flex">
+          <div className="carousel w-[300px] overflow-x-scroll scroll-smooth flex">
             <div
               id="slide1"
-              className="carousel-item relative w-full h-[400px] flex-none"
+              className="carousel-item relative w-full h-[600px] flex-none"
             >
               <img
-                src="/freshpack.jpg"
+                src="/ads.jpg"
                 className="w-full h-full object-cover"
               />
             </div>
             <div
               id="slide2"
-              className="carousel-item relative w-full h-[400px] flex-none"
+              className="carousel-item relative w-full h-[600px] flex-none"
             >
-              <img src="/mbank.png" className="w-full h-full object-cover" />
+              <img src="/tsitron.jpg" className="w-full h-full object-cover" />
             </div>
             <div
               id="slide3"
-              className="carousel-item relative w-full h-[400px] flex-none"
+              className="carousel-item relative w-full h-[600px] flex-none"
             >
               <img
-                src="/casadavinci.jpg"
+                src="/adss.jpg"
                 className="w-full h-full object-cover"
               />
             </div>
             <div
               id="slide4"
-              className="carousel-item relative w-full h-[400px] flex-none"
+              className="carousel-item relative w-full h-[600px] flex-none"
             >
-              <img src="/kfc.jpg" className="w-full h-full object-cover" />
+              <img src="/medicineAds.jpg" className="w-full h-full object-cover" />
             </div>
           </div>
 
