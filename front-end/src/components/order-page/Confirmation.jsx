@@ -1,12 +1,7 @@
 "use client";
 import * as React from "react";
-import Checkbox from "@mui/material/Checkbox";
-export const Confirmation = () => {
-  const [checked, setChecked] = React.useState(true);
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
+export const Confirmation = () => {
   return (
     <div className="flex w-screen h-screen bg-white justify-center items-center">
       <div className="flex w-[60%] h-[90%] bg-[#E9F6FE] rounded-2xl border-[1px] border-gray-400 gap-3 p-3">
@@ -97,68 +92,12 @@ export const Confirmation = () => {
             </div>
             <div className="flex w-[35%] items-center justify-between px-2">
               <div className="text-[#0b2c3b] text-base">Төлөх сонголт</div>
-              <div className="flex items-center">
-                <Checkbox
-                  checked={checked}
-                  onChange={handleChange}
-                  inputProps={{ "aria-label": "controlled" }}
-                />
-                <div className="text-[#0b2c3b] text-base">Бэлэн</div>
-              </div>
-              <div className="flex  items-center">
-                <Checkbox
-                  checked={checked}
-                  onChange={handleChange}
-                  inputProps={{ "aria-label": "controlled" }}
-                />
-                <div className="text-[#0b2c3b] text-base">Карт</div>
-              </div>
             </div>
             <button className="bg-[#26b2b9] w-[12%] h-[40%] text-white rounded-xl text-xl hover:bg-amber-300 hover:text-[#0b2c3b]">
               Захиалах
             </button>
           </div>
         </div>
-        <div className="w-[95%] h-[30px] bg-white flex justify-between items-center px-4 rounded-lg text-sm">
-          <label htmlFor="districts" className="text-stone-700">
-            Хороо сонгох
-          </label>
-          <select
-            name="districts"
-            id="district"
-            className="bg-white text-stone-700"
-          >
-            <option value="">Баянзүрх</option>
-            <option value="saab">Сүхбаатар</option>
-            <option value="mercedes">Хан-Уул</option>
-            <option value="audi">Баянгол</option>
-          </select>
-        </div>
-        <div className="w-[95%] h-[30px] bg-white flex justify-between items-center px-4 rounded-lg text-sm">
-          <label htmlFor="districts" className="text-stone-700">
-            Байр сонгох
-          </label>
-          <select
-            name="districts"
-            id="district"
-            className="bg-white text-stone-700"
-          >
-            <option value="">Баянзүрх</option>
-            <option value="saab">Сүхбаатар</option>
-            <option value="mercedes">Хан-Уул</option>
-            <option value="audi">Баянгол</option>
-          </select>
-        </div>
-        <div className="w-[95%] h-[150px] text-sm text-stone-700 bg-white rounded-t-lg ">
-          {/* <p className="p-1 px-4 "> Хаягийн дэлгэрэнгүйг оруулна уу!</p> */}
-          <input
-            placeholder="Хаягийн дэлгэрэнгүй мэдээллийг оруулна уу!"
-            type="text"
-            className="bg-white text-stone-700 w-full h-full rounded-lg text-sm px-4"
-            spaceholder="Хаягийн дэлгэрэнгүйг бичнэ үү!"
-          />
-        </div>
-        <button></button>
       </div>
     </div>
   );
