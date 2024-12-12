@@ -119,6 +119,46 @@ export const Confirmation = () => {
             </button>
           </div>
         </div>
+        <div className="w-[95%] h-[30px] bg-white flex justify-between items-center px-4 rounded-lg text-sm">
+          <label htmlFor="districts" className="text-stone-700">
+            Хороо сонгох
+          </label>
+          <select
+            name="districts"
+            id="district"
+            className="bg-white text-stone-700"
+          >
+            <option value="">Баянзүрх</option>
+            <option value="saab">Сүхбаатар</option>
+            <option value="mercedes">Хан-Уул</option>
+            <option value="audi">Баянгол</option>
+          </select>
+        </div>
+        <div className="w-[95%] h-[30px] bg-white flex justify-between items-center px-4 rounded-lg text-sm">
+          <label htmlFor="districts" className="text-stone-700">
+            Байр сонгох
+          </label>
+          <select
+            name="districts"
+            id="district"
+            className="bg-white text-stone-700"
+          >
+            <option value="">Баянзүрх</option>
+            <option value="saab">Сүхбаатар</option>
+            <option value="mercedes">Хан-Уул</option>
+            <option value="audi">Баянгол</option>
+          </select>
+        </div>
+        <div className="w-[95%] h-[150px] text-sm text-stone-700 bg-white rounded-t-lg ">
+          {/* <p className="p-1 px-4 "> Хаягийн дэлгэрэнгүйг оруулна уу!</p> */}
+          <input
+            placeholder="Хаягийн дэлгэрэнгүй мэдээллийг оруулна уу!"
+            type="text"
+            className="bg-white text-stone-700 w-full h-full rounded-lg text-sm px-4"
+            spaceholder="Хаягийн дэлгэрэнгүйг бичнэ үү!"
+          />
+        </div>
+        <button></button>
       </div>
     </div>
   );

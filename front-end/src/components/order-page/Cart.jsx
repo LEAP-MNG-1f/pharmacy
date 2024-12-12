@@ -4,7 +4,7 @@ import { useDataContext } from "../context/dataContext";
 
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
-  // const [imagePreview, setImagePreview] = useState();
+  const [imagePreview, setImagePreview] = useState();
   // let [count, setCount] = useState(0);
   // function Nemeh() {
   //   count = count + 1;
