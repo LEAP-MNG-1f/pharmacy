@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
-import { Basket } from "../svg/Basket";
+
 import { Logo } from "../svg/Logo";
+import { useUser } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
+import Basket from "../svg/Basket";
 
 export default function Header() {
+  const { isSignedIn, isLoaded } = useUser();
   return (
     <div className="w-full h-[80px] flex justify-between items-center bg-[#E9F6FE] px-3">
       <div className="flex gap-2">
@@ -30,11 +36,15 @@ export default function Header() {
       </div>
       <div className="flex gap-2">
         <Basket />
-        <Link href={"/dashboard"}>
-          <button className="bg-[#33E4DB] w-[100px] h-[36px] rounded-xl font-bold text-white">
-            Нэвтрэх
-          </button>
-        </Link>
+        {isSignedIn ? (
+          <UserButton afterSignOutUrl="/" />
+        ) : (
+          <Link href="/sign-in?redirect=/orderpage">
+            <button className="bg-[#33E4DB] w-[100px] h-[36px] rounded-xl font-bold text-white">
+              Нэвтрэх
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

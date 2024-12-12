@@ -1,9 +1,9 @@
-"use client";
-import { useUser } from "@clerk/nextjs";
+// "use client";
+// import { useUser } from "@clerk/nextjs";
 
-const Dashboard = () => {
-  const { user } = useUser();
-  console.log("user", user?.fullName);
-  return <div>Dashboard</div>;
-};
-export default Dashboard;
+// const Dashboard = () => {
+//   const { user } = useUser();
+//   console.log("user", user?.fullName);
+//   return <div>Dashboard</div>;
+// };
+// export default Dashboard;
