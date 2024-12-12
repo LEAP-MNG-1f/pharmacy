@@ -1,3 +1,4 @@
+// "use client";
 import { BACKEND_URL } from "@/constants/constants";
 
 export const Products = () => {
