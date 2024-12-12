@@ -12,6 +12,7 @@ export default function HomePage() {
   return (
     <div>
       <Header />
+      <GoogleHomePage />
 
       <div className="flex ">
         <CarouselAds />

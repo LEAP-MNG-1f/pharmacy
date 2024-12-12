@@ -19,6 +19,5 @@
     "mongoose": "^8.8.4",
     "nodemon": "^3.1.7"
   },
-  "devDependencies": {},
   "description": ""
 }
