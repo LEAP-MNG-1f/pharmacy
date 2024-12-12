@@ -25,5 +25,20 @@ const getAllCategory = async (request, response) => {
     });
   }
 };
+const deleteCategory = async (request, response) => {
+  const { _id } = body.request;
+  try {
+    const allCategory = await Category.find();
+    const leftCategory = allCategory.filter((category) => {
+      category?._id !== _id;
+    });
+    response.json({ success: true, result: leftCategory });
+  } catch (error) {
+    response.json({
+      success: false,
+      error: error,
+    });
+  }
+};
 
 export { createCategory, getAllCategory };

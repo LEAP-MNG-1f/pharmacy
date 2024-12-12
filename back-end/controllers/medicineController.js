@@ -22,7 +22,7 @@ const createMedicine = async (request, response) => {
   }
 };
 
-const getAllMedicine = async (rewuest, response) => {
+const getAllMedicine = async (request, response) => {
   try {
     const allMedicine = await Medicine.find().populate("categoryId");
     response.json({ success: true, result: allMedicine });
@@ -33,5 +33,25 @@ const getAllMedicine = async (rewuest, response) => {
     });
   }
 };
+const deleteMedicine = async (request, response) => {
+  const { _id } = body.request;
 
-export { createMedicine, getAllMedicine };
+  try {
+    const allMedicine = await Medicine?.find();
+    const leftMedicine = allMedicine?.filter((medicine) => {
+      medicine?._id !== _id;
+    });
+
+    response.json({
+      success: true,
+      result: leftMedicine,
+    });
+  } catch (error) {
+    response.json({
+      success: false,
+      error: error,
+    });
+  }
+};
+
+export { createMedicine, getAllMedicine, deleteMedicine };
