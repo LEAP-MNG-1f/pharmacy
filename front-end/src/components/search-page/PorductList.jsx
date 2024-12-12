@@ -2,7 +2,7 @@ export const ProductList = () => {
   return (
     <div className="flex w-full h-full bg-white flex-row">
       <div className="flex flex-row  w-[90%] !h-[200px] justify-center items-center bg-[#e9f6fe] rounded-xl  hover:bg-[#deedf7] ">
-        <div className="flex  p-4 ">
+        <div className="flex p-4 ">
           <img
             src="https://khurmen.mn/wp-content/uploads/2021/03/ubVista.jpg"
             alt=""
