@@ -1,5 +1,6 @@
 "use client";
 
+import Advice from "@/components/home-page/Advice";
 import CarouselAds from "@/components/home-page/CarouselAds";
 import Collab from "@/components/home-page/Collab";
 import FAQ from "@/components/home-page/FAQ";
@@ -19,7 +20,7 @@ export default function HomePage() {
         <FAQ />
         <Collab />
       </div>
-
+<Advice/>
       <FAQ />
       <Footer />
     </div>
