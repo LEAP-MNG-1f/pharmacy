@@ -3,7 +3,7 @@ import { StarIcon } from "../svg/Star";
 const ListCard = ({ imageUrl, name, ObjectId, type, balance, location }) => {
   return (
     <div className="flex flex-col w-full h-auto bg-white rounded-2xl p-3 gap-5">
-      <div className="flex w-auto h-[215px] rounded-2xl shadow-md p-3">
+      <div className="flex w-auto h-[235px] rounded-2xl shadow-md p-3">
         <div
           className="w-[248px] h-auto"
           style={{

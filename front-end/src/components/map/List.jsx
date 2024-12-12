@@ -11,7 +11,7 @@ const List = ({ selectedLocation }) => {
 
   console.log(selectedLocation.name);
   return (
-    <div className="flex flex-col w-full h-[900px] pr-8 gap-5">
+    <div className="flex flex-col w-[500px] pr-8 gap-5">
       <div className="flex flex-col gap-3 w-full h-auto overflow-y-auto py-2">
         <div key={selectedLocation._id}>
           <ListCard
