@@ -11,16 +11,14 @@ import Header from "@/components/ui/Header";
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="w-full flex flex-col ">
       <Header />
-      <GoogleHomePage />
-
-      <div className="flex ">
+      <div className="w-full flex gap-[100px] mt-[80px] h-[1200px]">
         <CarouselAds />
-        <FAQ />
+        <GoogleHomePage />
         <Collab />
       </div>
-<Advice/>
+      <Advice />
       <FAQ />
       <Footer />
     </div>
