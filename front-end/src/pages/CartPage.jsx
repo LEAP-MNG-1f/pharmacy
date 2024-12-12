@@ -6,7 +6,7 @@ import Header from "@/components/ui/Header";
 export default function CartPage() {
   return (
     <DataProvider>
-      <div className="flex w-screen h-screen flex-col">
+      <div>
         <Header />
         <Cart />
         <Footer />
