@@ -33,6 +33,7 @@ export const DataProvider = ({ children }) => {
     medicines,
     loading,
     error,
+    setMedicines,
   };
 
   return (
