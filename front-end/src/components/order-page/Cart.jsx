@@ -5,15 +5,7 @@ import { useDataContext } from "../context/dataContext";
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
   const [imagePreview, setImagePreview] = useState();
-  // let [count, setCount] = useState(0);
-  // function Nemeh() {
-  //   count = count + 1;
-  //   setCount(count);
-  // }
-  // function Hasah() {
-  //   count = count - 1;
-  //   setCount(count);
-  // }
+  const [quantities, setQuantities] = useState({});
 
   const { medicines } = useDataContext();
   const slicedData = medicines.slice(0, 3);
@@ -30,35 +22,83 @@ export const Cart = () => {
     }
   };
 
+  const calculatePiecePrice = (price) => {
+    return price / 10;
+  };
+
+  const handleQuantityChange = (medicineId, value) => {
+    const newValue = Math.max(0, parseInt(value) || 0);
+    setQuantities((prev) => ({
+      ...prev,
+      [medicineId]: newValue,
+    }));
+  };
+
+  const calculateItemTotal = (medicine) => {
+    const piecePrice = calculatePiecePrice(medicine.price);
+    const quantity = quantities[medicine._id] || 0;
+    return piecePrice * quantity;
+  };
+
+  const calculateTotal = () => {
+    return slicedData.reduce((total, medicine) => {
+      return total + calculateItemTotal(medicine);
+    }, 0);
+  };
+
   return (
-    <div className="flex w-full  bg-white justify-center items-center py-6">
-      <div className="flex flex-col items-center   w-[1200px] h-[90%] rounded-2xl border-[1px] border-gray-400 gap-3 p-3">
-        <div className="text-zinc-700 font-semibold">Таны сагс</div>
-        <div className="w-[90%] flex flex-col gap-3">
+    <div className="flex w-full min-h-screen bg-white justify-center items-start py-4 px-2 sm:py-6 ">
+      <div className="flex flex-col items-center w-full max-w-[1200px] rounded-2xl border border-gray-400 gap-3 p-4 sm:p-6">
+        <h2 className="text-zinc-700 text-lg sm:text-xl font-semibold mb-4">
+          Таны сагс
+        </h2>
+
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {slicedData?.map((medicine) => {
+            const piecePrice = calculatePiecePrice(medicine.price);
+            const itemTotal = calculateItemTotal(medicine);
+
             return (
               <div
                 key={medicine?._id}
-                className="  w-[400px] h-[200px] bg-[#577774] rounded-lg py-3 px-5 items-center justify-between flex"
+                className="w-full bg-[#577774] rounded-lg p-4 flex flex-col justify-between transform transition-transform hover:scale-105"
               >
-                <div className=" flex flex-col">
-                  <div className="flex flex-row gap-3 items-center">
-                    <p className="text-white  font-bold  text-2xl">
-                      {medicine?.name}
-                    </p>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-white font-bold text-lg sm:text-xl break-words">
+                    {medicine?.name}
+                  </h3>
+
+                  <p className="text-white font-bold text-sm sm:text-base">
+                    Хайрцгийн үнэ: {medicine?.price.toLocaleString()}₮
+                  </p>
+
+                  <p className="text-white font-semibold text-sm sm:text-base">
+                    Ширхэгийн үнэ: {piecePrice.toLocaleString()}₮
+                  </p>
+
+                  <p className="text-white text-xs sm:text-sm">
+                    {medicine?.location}
+                  </p>
+                  <p className="text-white font-bold text-xs sm:text-sm">
+                    {medicine?.categoryId.name}
+                  </p>
+
+                  <div className="mt-2">
+                    <input
+                      type="number"
+                      placeholder="Тоо ширхэг... "
+                      value={quantities[medicine._id] || ""}
+                      onChange={(e) =>
+                        handleQuantityChange(medicine._id, e.target.value)
+                      }
+                      min="0"
+                      className="w-full p-2 rounded-lg text-black text-sm sm:text-base"
+                    />
                   </div>
 
-                  <div className="flex flex-row gap-3 items-center">
-                    <p className="text-white font-bold text-lg">
-                      {medicine?.price}₮
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-3 items-center">
-                    <p className="text-white  text-sm">{medicine?.location}</p>
-                  </div>
-                  <div className="flex flex-row gap-3 items-center">
-                    <p className="text-white text-sm">
-                      {medicine?.categoryId.name}
+                  <div className="text-white text-right mt-2">
+                    <p className="text-base sm:text-lg font-bold">
+                      Нийт дүн: {itemTotal.toFixed(0).toLocaleString()}₮
                     </p>
                   </div>
                 </div>
@@ -66,8 +106,22 @@ export const Cart = () => {
             );
           })}
         </div>
-        <div className="flex flex-col gap-1">
-          <div className="max-w-[210px] w-full h-[50px] p-2 flex flex-col justify-center items-center gap-2 border border-dashed border-[#D6D7DC] bg-[rgba(186,188,196,0.12)] rounded-lg">
+
+        <div className="w-full max-w-md mt-6 sm:mt-8">
+          <div className="bg-gray-50 p-4 rounded-lg shadow">
+            <div className="flex justify-between items-center">
+              <span className="text-base sm:text-lg font-semibold">
+                Нийт дүн:
+              </span>
+              <span className="text-lg sm:text-xl font-bold text-[#577774]">
+                {calculateTotal().toFixed(0).toLocaleString()}₮
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center gap-4 mt-6 w-full max-w-md">
+          <div className="w-full p-4 border border-dashed border-gray-400 bg-gray-50 rounded-lg">
             <input
               type="file"
               id="uploadFile1"
@@ -77,22 +131,35 @@ export const Cart = () => {
             />
             <label
               htmlFor="uploadFile1"
-              className="px-1 py-2 rounded-lg bg-SecondColor text-black font-inter text-base font-bold cursor-pointer"
+              className="block w-full py-3 text-center rounded-lg bg-[#577774] text-white font-bold cursor-pointer hover:bg-[#466461] transition-colors"
             >
               Жорын зургийг оруулна уу
             </label>
           </div>
+
           {imagePreview && (
-            <div className="mt-4">
+            <div className="w-full mt-2">
               <img
                 src={imagePreview}
                 alt="Prescription Preview"
-                className="w-full h-[200px] object-contain border border-black border-dashed p-2"
+                className="w-full h-[200px] object-contain border border-gray-400 border-dashed rounded-lg p-2"
               />
             </div>
           )}
+
+          <button
+            className="w-full py-3 mt-4 bg-[#577774] text-white font-bold rounded-lg hover:bg-[#466461] transition-colors"
+            onClick={() => {
+              console.log("Order details:", {
+                items: quantities,
+                prescription: spaceImage,
+                totalAmount: calculateTotal(),
+              });
+            }}
+          >
+            Захиалах
+          </button>
         </div>
-        <button>Захиалах</button>
       </div>
     </div>
   );
