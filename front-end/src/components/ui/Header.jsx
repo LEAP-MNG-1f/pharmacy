@@ -4,8 +4,8 @@ import Link from "next/link";
 
 import { Logo } from "../svg/Logo";
 import { useUser } from "@clerk/nextjs";
-import { UserButton } from "@clerk/nextjs";
 import Basket from "../svg/Basket";
+import CustomUserButton from "./custom-user-button";
 
 export default function Header() {
   const { isSignedIn, isLoaded } = useUser();
@@ -37,7 +37,7 @@ export default function Header() {
       <div className="flex gap-2">
         <Basket />
         {isSignedIn ? (
-          <UserButton afterSignOutUrl="/" />
+          <CustomUserButton afterSignOutUrl="/" />
         ) : (
           <Link href="/sign-in?redirect=/orderpage">
             <button className="bg-[#33E4DB] w-[100px] h-[36px] rounded-xl font-bold text-white">
