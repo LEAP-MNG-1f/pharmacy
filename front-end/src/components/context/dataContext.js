@@ -8,6 +8,8 @@ export const DataProvider = ({ children }) => {
   const [medicines, setMedicines] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const fetchDatas = async () => {
     setLoading(true); // Start loading
@@ -29,11 +31,26 @@ export const DataProvider = ({ children }) => {
     fetchDatas();
   }, []); // Empty dependency array to fetch only on mount
 
+  const filteredMedincine = medicines?.filter((medicine) =>
+    medicine?.name?.toLowerCase().includes(searchValue)
+  );
+
+  const handleInputChange = (event) => {
+    setIsOpen(true);
+    setSearchValue(event.target.value);
+  };
+
   const contextValue = {
     medicines,
     loading,
     error,
     setMedicines,
+    searchValue,
+    setSearchValue,
+    isOpen,
+    setIsOpen,
+    filteredMedincine,
+    handleInputChange,
   };
 
   return (

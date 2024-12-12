@@ -10,13 +10,13 @@ import MedicineSelector from "@/components/map/Test";
 
 export default function HomePage() {
   return (
-    <div>
-      {/* <GoogleHomePage /> */}
-      <MedicineSelector />
-      <CarouselAds />
-      <FAQ />
-      <Collab />
-
+    <div className="w-full flex flex-col ">
+      <Header />
+      <div className="w-full flex gap-[100px] mt-[80px] h-[1200px]">
+        <CarouselAds />
+        <GoogleHomePage />
+        <Collab />
+      </div>
       <Advice />
       <FAQ />
     </div>
