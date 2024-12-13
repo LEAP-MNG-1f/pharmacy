@@ -3,9 +3,6 @@ import List from "./List";
 import { GoogleMap } from "./Google";
 import { useDataContext } from "../context/dataContext";
 import { SearchIcon } from "lucide-react";
-import CarouselAds from "../home-page/CarouselAdsTop";
-import CarouselAdsTop from "../home-page/CarouselAdsTop";
-import CarouselAdsBottom from "../home-page/CarousalAdsBottom";
 
 export const GoogleHomePage = () => {
   const { medicines, setMedicines } = useDataContext();
