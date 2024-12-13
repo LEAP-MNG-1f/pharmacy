@@ -1,3 +1,9 @@
+import { Product } from "./Product";
+
 export default function Products() {
-  return <div>bi bi</div>;
+  return (
+    <div>
+      <Product />
+    </div>
+  );
 }
