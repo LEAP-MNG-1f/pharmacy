@@ -1,3 +1,10 @@
+import { Table } from "./Table";
+
 export default function Orders() {
-  return <div>zahialguud</div>;
+  return (
+    <div>
+      {" "}
+      <Table />{" "}
+    </div>
+  );
 }
