@@ -9,22 +9,11 @@ import GoogleHomePage from "@/components/map/GoogleHome";
 export default function HomePage() {
   return (
     <div>
-<<<<<<< HEAD
-      <Header />
       <CarouselAds />
       <GoogleHomePage />
-
       <FAQ />
       <Collab />
-=======
-      <GoogleHomePage />
 
-      <div className="flex ">
-        {/* <CarouselAds /> */}
-        <FAQ />
-        <Collab />
-      </div>
->>>>>>> 53c1ae5 (layout)
       <Advice />
       <FAQ />
     </div>
