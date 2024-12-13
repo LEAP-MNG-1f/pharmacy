@@ -12,10 +12,10 @@ export default function HomePage() {
   return (
     <div className="w-full flex flex-col ">
       <Header />
-      <div className="w-full flex gap-[100px] mt-[80px] h-[1200px]">
+      <div className="w-full flex  gap-[100px] mt-[80px] h-[1200px]">
         <CarouselAds />
         <GoogleHomePage />
-        <Collab />
+        {/* <Collab /> */}
       </div>
       <Advice />
       <FAQ />

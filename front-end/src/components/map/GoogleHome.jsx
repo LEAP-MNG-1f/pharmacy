@@ -30,14 +30,14 @@ export const GoogleHomePage = () => {
             placeholder="Хайх эмийн нэрийг оруулна уу"
             value={searchValue}
             type="text"
-            className="w-[600px] pl-[20px] bg-slate-100  text-black "
+            className="w-[600px] pl-[20px] bg-slate-100  text-black border-none"
             onChange={handleInputChange}
           />
           <Link href={"./resultpage"}>
             <SearchIcon />
           </Link>
         </div>
-        <div
+        {/* <div
           className={`${
             searchValue ? "flex flex-col" : "hidden"
           } flex flex-col gap-1`}
@@ -53,13 +53,13 @@ export const GoogleHomePage = () => {
               </Link>
             );
           })}
-        </div>
+        </div> */}
       </div>
-      <div className="flex flex-col">
+      <div className="flex ">
         <div className="">
           <GoogleMap selectedLocation={filteredMedincine} />
         </div>
-        {/* <div className="">
+        <div className="">
           {filteredMedincine.slice(0, 3).map((medicine) => {
             return (
               <div key={medicine?._id}>
@@ -67,7 +67,7 @@ export const GoogleHomePage = () => {
               </div>
             );
           })}
-        </div> */}
+        </div>
       </div>
     </main>
   );
