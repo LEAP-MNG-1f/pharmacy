@@ -1,7 +1,7 @@
 export default function FAQ() {
   return (
     <div className="w-full flex justify-center ">
-      <div className="w-[800px] flex flex-col gap-4 py-10 justify-center items-center ">
+      <div className="w-[600px] flex flex-col gap-4 py-10 justify-center items-center ">
         <div className="flex flex-col items-center gap-2">
           <div className="font-bold  text-3xl">Түгээмэл асуултууд</div>
           <div className="w-[120px] h-[7px] bg-[#33E4DB]"></div>
