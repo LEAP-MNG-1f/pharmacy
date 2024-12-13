@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+}
+.menu {
+  flex: 1;
+  background-color: var(--bgSoft);
+  padding: 30px;
+  height: 1206px;
+}
+.content {
+  flex: 5;
+  padding: 20px;
+}

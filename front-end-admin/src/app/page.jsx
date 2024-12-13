@@ -1,5 +1,3 @@
-import ProductPage from "@/page/ProductPage";
-
 export default function Home() {
-  return <ProductPage />;
+  return <div className="bg-white w-screen h-screen text-black">homepage</div>;
 }
