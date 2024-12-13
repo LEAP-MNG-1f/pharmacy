@@ -11,19 +11,17 @@ const List = ({ selectedLocation }) => {
 
   console.log(selectedLocation.name);
   return (
-    <div className="flex flex-col w-[500px] pr-8 gap-5">
-      <div className="flex flex-col gap-3 w-full h-auto overflow-y-auto py-2">
-        <div key={selectedLocation._id}>
-          <ListCard
-            key={selectedLocation._id}
-            imageUrl={selectedLocation?.image}
-            categoryId={selectedLocation?.categoryId}
-            name={selectedLocation?.name}
-            type={selectedLocation?.recipeType}
-            balance={selectedLocation?.balance}
-            location={selectedLocation?.location}
-          />
-        </div>
+    <div className="flex flex-col w-full h-full items-stretch">
+      <div key={selectedLocation._id}>
+        <ListCard
+          key={selectedLocation._id}
+          imageUrl={selectedLocation?.image}
+          categoryId={selectedLocation?.categoryId}
+          name={selectedLocation?.name}
+          type={selectedLocation?.recipeType}
+          balance={selectedLocation?.balance}
+          location={selectedLocation?.location}
+        />
       </div>
     </div>
   );

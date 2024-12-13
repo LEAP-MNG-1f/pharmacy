@@ -72,5 +72,5 @@ export const GoogleMap = ({ selectedLocation }) => {
     }
   }, [selectedLocation]);
 
-  return <div ref={mapRef} className="rounded-2xl w-[1900px] h-[900px]"></div>;
+  return <div ref={mapRef} className="rounded-xl w-full h-[500px]"></div>;
 };
