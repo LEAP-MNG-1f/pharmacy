@@ -13,14 +13,12 @@ export default function HomePage() {
   return (
     <div>
       <Header />
+      <CarouselAds />
       <GoogleHomePage />
 
-      <div className="flex ">
-        <CarouselAds />
-        <FAQ />
-        <Collab />
-      </div>
-<Advice/>
+      <FAQ />
+      <Collab />
+      <Advice />
       <FAQ />
       <Footer />
     </div>
