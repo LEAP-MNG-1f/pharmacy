@@ -21,10 +21,10 @@ export const GoogleHomePage = () => {
   };
 
   return (
-    <main className="flex justify-center">
+    <main className="flex w-full justify-center">
       <div className="w-[1300px] flex flex-col items-center ">
         <div className="py-10">
-          <label className="input input-bordered rounded-3xl flex items-center gap-2 outline-none w-[500px] h-14">
+          <label className="input input-bordered rounded-3xl flex items-center gap-2 border-[#33E4DB] shadow-lg outline-none w-[600px] h-14">
             <input
               type="text"
               className="grow"
@@ -58,7 +58,7 @@ export const GoogleHomePage = () => {
             <SearchIcon />
           </div>
         </div> */}
-        <div className="flex gap-2 h-[700px] w-full">
+        <div className="flex gap-2 h-[550px] w-full">
           <div className="w-3/5">
             <GoogleMap selectedLocation={filteredMedincine} />
           </div>

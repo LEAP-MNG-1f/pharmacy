@@ -4,7 +4,7 @@ export default function Collab() {
       <p className="font-bold text-lg text-[#00BBD3]">
         Хамтрагч байгууллагууд:
       </p>
-      <div className="w-[600px]  grid grid-cols-4 gap-4">
+      <div className="w-[1300px] flex justify-between">
         <img src="/monos.jpg" alt="" className="w-[100px] h-[100px]" />
         <img src="/cityfarm.jpg" alt="" className="w-[100px] h-[100px]" />
         <img src="/khurmen.png" alt="" className="w-[100px] h-[100px]" />

@@ -9,14 +9,14 @@ import GoogleHomePage from "@/components/map/GoogleHome";
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="w-full flex flex-col items-center">
       <GoogleHomePage />
+
       <CarouselAds />
       <FAQ />
       <Collab />
 
       <Advice />
-      <FAQ />
     </div>
   );
 }
