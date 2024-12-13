@@ -3,6 +3,7 @@ import List from "./List";
 import { GoogleMap } from "./Google";
 import { useDataContext } from "../context/dataContext";
 import { SearchIcon } from "lucide-react";
+import Select from "react-select";
 
 export const GoogleHomePage = () => {
   const { medicines, setMedicines } = useDataContext();
@@ -23,6 +24,18 @@ export const GoogleHomePage = () => {
   return (
     <main className="w-screen flex flex-col justify-center mt-10 items-center gap-x-10">
       <div className="flex justify-between items-center bg-slate-100 outline-none  text-black mb-10 pr-10 w-[800px] h-16 border-gray-400  rounded-3xl">
+        <details className="dropdown">
+          <summary className="btn bg-slate-100">All</summary>
+          <ul className="menu dropdown-content bg-slate-100 rounded-box z-[1] w-52 p-2 shadow">
+            <li>
+              <a>Жортой</a>
+            </li>
+            <li>
+              <a>Жоргүй</a>
+            </li>
+          </ul>
+        </details>
+
         <input
           placeholder="Search"
           value={searchValue}

@@ -20,7 +20,7 @@ export default function HomePage() {
         <FAQ />
         <Collab />
       </div>
-<Advice/>
+      <Advice />
       <FAQ />
       <Footer />
     </div>

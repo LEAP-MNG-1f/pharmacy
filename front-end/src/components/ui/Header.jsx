@@ -6,8 +6,9 @@ import { Logo } from "../svg/Logo";
 import { useUser } from "@clerk/nextjs";
 import Basket from "../svg/Basket";
 import CustomUserButton from "./custom-user-button";
+import Select from "react-select";
 
-export default function Header() {
+export default function Header({ nameOptions, handlehandleInputChange }) {
   const { isSignedIn, isLoaded } = useUser();
   return (
     <div className="w-full h-[80px] flex justify-between items-center bg-[#E9F6FE] px-3">
@@ -20,6 +21,15 @@ export default function Header() {
       <div className="">
         <label className="input input-bordered h-11 rounded-3xl flex items-center gap-2">
           <input type="text" className="grow" placeholder="Search" />
+          <Select
+            defaultValue={[]}
+            isMulti
+            name="districts"
+            options={nameOptions}
+            className="basic-multi-select w-[626px] text-black"
+            classNamePrefix="select"
+            onChange={handlehandleInputChange}
+          />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
