@@ -37,27 +37,40 @@ const createEm = async (request, response) => {
 // };
 
 const getfilteredEm = async (request, response) => {
-  const { searchValue } = request.query;
   try {
-    const all = await Em.find().populate("aptekId");
+    // Parse queryItems from the request query string
+    const queryItems = JSON.parse(request.query.queryItems);
 
-    // Ensure searchValue is an array
-    const searchTerms = Array.isArray(searchValue)
-      ? searchValue
-      : [searchValue];
+    // Validate input
+    if (
+      !Array.isArray(queryItems) ||
+      !queryItems.every((item) => typeof item === "string")
+    ) {
+      return response
+        .status(400)
+        .json({ error: "queryItems must be an array of strings" });
+    }
 
-    // Filter Em objects based on searchTerms
-    const filteredArray = all.filter((single) => {
-      // Check if the name contains all the search terms
-      return searchTerms.every((term) => single.name.includes(term));
-    });
+    // Find all documents matching the queryItems
+    const allData = await Em.find({ name: { $in: queryItems } });
 
-    response.json({ success: true, result: filteredArray });
+    // Group data by aptekId
+    const groupedData = allData.reduce((acc, item) => {
+      acc[item.aptekId] = acc[item.aptekId] || new Set();
+      acc[item.aptekId].add(item.name);
+      return acc;
+    }, {});
+
+    // Filter aptekIds that contain all queryItems
+    const apteks = Object.keys(groupedData).filter((aptekId) =>
+      queryItems.every((name) => groupedData[aptekId].has(name))
+    );
+
+    // Respond with the filtered apteks
+    response.status(200).json({ apteks });
   } catch (error) {
-    response.json({
-      success: false,
-      error: error.message,
-    });
+    console.error("Error in getfilteredEm:", error);
+    response.status(500).json({ error: "Internal server error" });
   }
 };
 
