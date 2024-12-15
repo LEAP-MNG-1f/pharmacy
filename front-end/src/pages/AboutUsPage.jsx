@@ -5,9 +5,7 @@ import Header from "@/components/ui/Header";
 export default function AboutUsPage() {
   return (
     <div>
-      <Header />
       <AboutUs />
-      <Footer />
     </div>
   );
 }

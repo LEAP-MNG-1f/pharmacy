@@ -17,16 +17,13 @@ import Header from "@/components/ui/Header";
 
 export default function HomePage() {
   return (
-    <div className="w-full flex flex-col ">
-      <Header />
-      <div className="w-full flex  gap-[100px] mt-[80px] h-[1200px]">
-        {/* <CarouselAds /> */}
-        <SelectMedicines />
-        {/* <GoogleHomePage /> */}
-        {/* <Collab /> */}
-      </div>
-      <Advice />
+    <div>
+      {/* <GoogleHomePage /> */}
+      <MedicineSelector />
+      <CarouselAds />
       <FAQ />
+      <Collab />
+      <Advice />
     </div>
   );
 }
