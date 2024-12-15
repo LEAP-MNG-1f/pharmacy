@@ -10,6 +10,8 @@ import orderRouter from "./routers/orderRoute.js";
 import categoryRouter from "./routers/categoryRoute.js";
 import aptekRouter from "./routers/aptekRoute.js";
 import emRouter from "./routers/emRouter.js";
+import emiinsanRouter from "./routers/emiinsanRoute.js";
+import yagRouter from "./routers/yagRoute.js";
 
 const server = express();
 const PORT = 8368;
@@ -27,6 +29,8 @@ server.use("/api", orderRouter);
 server.use("/api", categoryRouter);
 server.use("/api", aptekRouter);
 server.use("/api", emRouter);
+server.use("/api", emiinsanRouter);
+server.use("/api", yagRouter);
 
 server.listen(PORT, () => {
   console.log(`http://localhost:${PORT} server ajillaj ehellee`);
