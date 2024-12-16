@@ -12,22 +12,8 @@ export const DataProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [apteks, setApteks] = useState([]);
   const [yags, setYags] = useState([]);
-
-  const fetchDatas = async () => {
-    setLoading(true); // Start loading
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/medicines`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const datas = await response.json();
-      setMedicines(datas?.result || []); // Safely access the result
-    } catch (error) {
-      setError(error.message); // Set error message
-    } finally {
-      setLoading(false); // End loading
-    }
-  };
+  const [categories, setCategories] = useState([]);
+  const [basket, setBasket] = useState([]);
 
   //////emiinsanguudiig fetch hiij baina
   const fetchEmiinSans = async () => {
@@ -69,7 +55,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     fetchYags();
     fetchEmiinSans();
-    fetchDatas();
+    fetchCategories();
   }, []); // Empty dependency array to fetch only on mount
 
   ///hailtaar iim utga orj irne gej uzeed
@@ -94,8 +80,54 @@ export const DataProvider = ({ children }) => {
     setSearchValue(event.target.value);
   };
 
+  const fetchCategories = async () => {
+    setLoading(true); // Start loading
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/categories`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const datas = await response.json();
+
+      setCategories(datas?.result || []); // Safely access the result
+    } catch (error) {
+      setError(error.message); // Set error message
+    } finally {
+      setLoading(false); // End loading
+    }
+  };
+
+  console.log(basket);
+
+  const addToBasket = (location, _id, name, price, balance, categoryId) => {
+    const getCatName = categories.filter((cat) => {
+      if (cat._id === categoryId) {
+        const catName = cat?.name;
+        return catName;
+      }
+    });
+
+    const selectedMedicine = {
+      location,
+      _id,
+      name,
+      price,
+      balance,
+      getCatName,
+    };
+
+    // Update the basket state by adding the new item
+    setBasket((prevMed) => {
+      const updatedBasket = [...prevMed, selectedMedicine];
+
+      // Store the updated basket in localStorage (after state update)
+      localStorage.setItem("sags", JSON.stringify(updatedBasket));
+
+      return updatedBasket; // return the updated basket to set the state
+    });
+  };
+
   const contextValue = {
-    medicines,
     loading,
     error,
     setMedicines,
@@ -107,6 +139,8 @@ export const DataProvider = ({ children }) => {
     handleInputChange,
     uniqueNames,
     apteks,
+    addToBasket,
+    basket,
   };
 
   return (

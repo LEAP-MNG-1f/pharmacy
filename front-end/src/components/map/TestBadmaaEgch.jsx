@@ -4,7 +4,7 @@ import { useDataContext } from "../context/dataContext";
 import { GoogleMap } from "./Google";
 
 const MedicineSelector = () => {
-  const { uniqueNames, apteks } = useDataContext();
+  const { uniqueNames, apteks, addToBasket } = useDataContext();
   const [selectedMedicines, setSelectedMedicines] = useState([]);
 
   const medicineOptions = uniqueNames.map((name) => ({
@@ -57,15 +57,29 @@ const MedicineSelector = () => {
                     <div className="flex flex-col gap-[5px] h-[240px] overflow-y-auto mr-4">
                       {emiinsan?.emsId.map((em) => {
                         return (
-                          <div key={em._id} className="flex flex-col gap-[2px]">
-                            <p>Эмийн нэр:{em?.name}</p>
-                            <p>Үнэ:{em?.price}</p>
-                            <div className="flex gap-1">
-                              <p>Үлдэгдэл:{em?.balance}</p>
-                              <button className=" border border-green-300 bg-[#33E4DB] rounded-lg">
-                                Сагслах
-                              </button>
-                            </div>
+
+                          <div
+                            key={em._id}
+                            className="flex flex-col gap-[10px] border border-green-500 rounded-xl"
+                          >
+                            <div>{em?.name}</div>
+                            <div>{em?.price}</div>
+                            <div>{em?.balance}</div>
+                            <button
+                              onClick={() => {
+                                addToBasket(
+                                  emiinsan.location,
+                                  em._id,
+                                  em.name,
+                                  em.price,
+                                  em.balance,
+                                  em.categoryId
+                                );
+                              }}
+                            >
+                              AddtoButton
+                            </button>
+
                           </div>
                         );
                       })}

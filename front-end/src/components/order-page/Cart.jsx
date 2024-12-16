@@ -1,14 +1,25 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDataContext } from "../context/dataContext";
 
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
   const [imagePreview, setImagePreview] = useState();
   const [quantities, setQuantities] = useState({});
+  const [parsedData, setParsedData] = useState([]); // State for storing the parsed data from localStorage
 
-  const { medicines } = useDataContext();
-  const slicedData = medicines.slice(0, 3);
+  // Fetch and parse data from localStorage on component mount
+  useEffect(() => {
+    const data = localStorage.getItem("sags");
+    if (data) {
+      const parsed = JSON.parse(data); // Parse the JSON string into an array
+      setParsedData(parsed); // Set the parsed data into state
+    } else {
+      console.log("No data found in localStorage for the key 'sags'.");
+    }
+  }, []); // Empty dependency array ensures this runs only once when the component mounts
+
+  console.log(parsedData);
 
   const handleFileChange = (event) => {
     const file = event.target.files?.[0];
@@ -41,7 +52,7 @@ export const Cart = () => {
   };
 
   const calculateTotal = () => {
-    return slicedData.reduce((total, medicine) => {
+    return parsedData.reduce((total, medicine) => {
       return total + calculateItemTotal(medicine);
     }, 0);
   };
@@ -54,7 +65,7 @@ export const Cart = () => {
         </h2>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {slicedData?.map((medicine) => {
+          {parsedData?.map((medicine) => {
             const piecePrice = calculatePiecePrice(medicine.price);
             const itemTotal = calculateItemTotal(medicine);
 
@@ -72,7 +83,13 @@ export const Cart = () => {
                     Хайрцгийн үнэ: {medicine?.price.toLocaleString()}₮
                   </p>
 
-                  <p className="text-white font-semibold text-sm sm:text-base">
+                  <p
+                    className={`text-white font-semibold text-sm sm:text-base ${
+                      medicine?.getCatName[0].name !== "Жортой"
+                        ? "hidden"
+                        : "flex"
+                    }`}
+                  >
                     Ширхэгийн үнэ: {piecePrice.toLocaleString()}₮
                   </p>
 
@@ -80,7 +97,7 @@ export const Cart = () => {
                     {medicine?.location}
                   </p>
                   <p className="text-white font-bold text-xs sm:text-sm">
-                    {medicine?.categoryId.name}
+                    {medicine?.getCatName[0].name}
                   </p>
 
                   <div className="mt-2">
@@ -113,7 +130,7 @@ export const Cart = () => {
               <span className="text-base sm:text-lg font-semibold">
                 Нийт дүн:
               </span>
-              <span className="text-lg sm:text-xl font-bold text-[#577774]">
+              <span className="text-lg sm:text-xl font-bold text-[#00BBD3]">
                 {calculateTotal().toFixed(0).toLocaleString()}₮
               </span>
             </div>
@@ -121,32 +138,6 @@ export const Cart = () => {
         </div>
 
         <div className="flex flex-col items-center gap-4 mt-6 w-full max-w-md">
-          <div className="w-full p-4 border border-dashed border-gray-400 bg-gray-50 rounded-lg">
-            <input
-              type="file"
-              id="uploadFile1"
-              name="uploadFile1"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            <label
-              htmlFor="uploadFile1"
-              className="block w-full py-3 text-center rounded-lg bg-[#00BBD3] text-white font-bold cursor-pointer hover:bg-[#466461] transition-colors"
-            >
-              Жорын зургийг оруулна уу
-            </label>
-          </div>
-
-          {imagePreview && (
-            <div className="w-full mt-2">
-              <img
-                src={imagePreview}
-                alt="Prescription Preview"
-                className="w-full h-[200px] object-contain border border-gray-400 border-dashed rounded-lg p-2"
-              />
-            </div>
-          )}
-
           <button
             className="w-full py-3 mt-4 bg-[#00BBD3] text-white font-bold rounded-lg hover:bg-[#466461] transition-colors"
             onClick={() => {
