@@ -36,7 +36,10 @@ export default function Header() {
         </label>
       </div> */}
         <div className="flex gap-2">
-          <Basket />
+          <Link href="cartpage">
+            <Basket />
+          </Link>
+
           {isSignedIn ? (
             <UserButton afterSignOutUrl="/" />
           ) : (

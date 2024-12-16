@@ -58,11 +58,9 @@ export const Cart = () => {
   };
 
   return (
-    <div className="flex w-full min-h-screen bg-white justify-center items-start py-4 px-2 sm:py-6 ">
+    <div className="flex w-full  bg-white justify-center items-start py-4 px-2 sm:py-6 ">
       <div className="flex flex-col items-center w-full max-w-[1200px] rounded-2xl border border-gray-400 gap-3 p-4 sm:p-6">
-        <h2 className="text-zinc-700 text-lg sm:text-xl font-semibold mb-4">
-          Таны сагс
-        </h2>
+        <h2 className="text-zinc-700 text-2xl font-semibold mb-4">Таны сагс</h2>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {parsedData?.map((medicine) => {
