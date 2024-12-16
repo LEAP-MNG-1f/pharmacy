@@ -1,4 +1,4 @@
-import ResultPage from "@/pages/ResultPage";
+import ResultPage from "@/components/pages/ResultPage";
 
 export default function Home() {
   return <ResultPage />;

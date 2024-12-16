@@ -1,4 +1,4 @@
-import AboutUsPage from "@/pages/AboutUsPage";
+import AboutUsPage from "@/components/pages/AboutUsPage";
 
 export default function Page() {
   return (
