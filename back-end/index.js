@@ -1,4 +1,4 @@
-import express from "express";
+import express, { request, response } from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
@@ -12,6 +12,7 @@ import aptekRouter from "./routers/aptekRoute.js";
 import emRouter from "./routers/emRouter.js";
 import emiinsanRouter from "./routers/emiinsanRoute.js";
 import yagRouter from "./routers/yagRoute.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const server = express();
 const PORT = 8368;
@@ -34,4 +35,10 @@ server.use("/api", yagRouter);
 
 server.listen(PORT, () => {
   console.log(`http://localhost:${PORT} server ajillaj ehellee`);
+});
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });

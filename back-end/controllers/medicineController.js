@@ -2,18 +2,34 @@ import { Medicine } from "../models/medicine.js";
 
 const createMedicine = async (request, response) => {
   try {
+    const { name, categoryId, price, balance, location } = request.body;
+    const file = request.file;
+
+    if (!file) {
+      return response
+        .status(400)
+        .json({ success: false, message: "Image is required" });
+    }
+
+    const uploadResult = await cloudinary.uploader.upload(file.path, {
+      folder: "jor",
+    });
+
     const result = await Medicine.create({
       name: "Vitamin D 100",
       categoryId: "6757b8206c8c791974a24742",
       price: "55000",
       balance: 2,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTzfX3Tp8M9BMYgqPWBehmkJDbFLUjQUTPUw&s",
+      image: uploadResult.url,
       location: "Гачууртын Зам 19, БЗД - 20 хороо, Гачуурт, Улаанбаатар 13221",
       lat: "47.92559096519269",
       lng: "107.14157922953537",
     });
-    response.json({ success: true, data: result });
+    response.json({
+      success: true,
+      data: result,
+      message: "Zahialga hiigdlee",
+    });
   } catch (error) {
     response.json({
       success: false,
