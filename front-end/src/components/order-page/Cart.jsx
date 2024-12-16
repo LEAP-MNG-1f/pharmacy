@@ -61,7 +61,7 @@ export const Cart = () => {
             return (
               <div
                 key={medicine?._id}
-                className="w-full bg-[#577774] rounded-lg p-4 flex flex-col justify-between transform transition-transform hover:scale-105"
+                className="w-full bg-[#00BBD3] rounded-lg p-4 flex flex-col justify-between transform transition-transform hover:scale-105"
               >
                 <div className="flex flex-col gap-2">
                   <h3 className="text-white font-bold text-lg sm:text-xl break-words">
@@ -92,7 +92,7 @@ export const Cart = () => {
                         handleQuantityChange(medicine._id, e.target.value)
                       }
                       min="0"
-                      className="w-full p-2 rounded-lg text-black text-sm sm:text-base"
+                      className="w-full p-2 rounded-lg bg-white text-sm sm:text-base"
                     />
                   </div>
 
@@ -131,7 +131,7 @@ export const Cart = () => {
             />
             <label
               htmlFor="uploadFile1"
-              className="block w-full py-3 text-center rounded-lg bg-[#577774] text-white font-bold cursor-pointer hover:bg-[#466461] transition-colors"
+              className="block w-full py-3 text-center rounded-lg bg-[#00BBD3] text-white font-bold cursor-pointer hover:bg-[#466461] transition-colors"
             >
               Жорын зургийг оруулна уу
             </label>
@@ -148,7 +148,7 @@ export const Cart = () => {
           )}
 
           <button
-            className="w-full py-3 mt-4 bg-[#577774] text-white font-bold rounded-lg hover:bg-[#466461] transition-colors"
+            className="w-full py-3 mt-4 bg-[#00BBD3] text-white font-bold rounded-lg hover:bg-[#466461] transition-colors"
             onClick={() => {
               console.log("Order details:", {
                 items: quantities,
