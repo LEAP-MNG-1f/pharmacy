@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { Logo } from "../svg/Logo";
-import { useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Basket from "../svg/Basket";
 import CustomUserButton from "./custom-user-button";
 

@@ -5,9 +5,6 @@ import CarouselAds from "@/components/home-page/CarousalAds";
 
 import Collab from "@/components/home-page/Collab";
 import FAQ from "@/components/home-page/FAQ";
-import GoogleHomePage from "@/components/map/GoogleHome";
-
-import MedicineSelector from "@/components/map/Test";
 
 import SelectMedicines from "@/components/map/TestBadmaaEgch";
 import MedicineSelector from "@/components/map/TestBadmaaEgch";
@@ -21,7 +18,7 @@ export default function HomePage() {
       <Header />
       <div className="w-full flex  gap-[100px] mt-[80px] h-[1200px]">
         {/* <CarouselAds /> */}
-        <SelectMedicines />
+        <MedicineSelector />
         {/* <GoogleHomePage /> */}
         {/* <Collab /> */}
       </div>
