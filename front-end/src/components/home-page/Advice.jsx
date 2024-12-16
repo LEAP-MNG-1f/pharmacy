@@ -121,73 +121,146 @@ const AdviceCarousel = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-80 flex justify-center items-center overflow-hidden">
-      <div className="relative w-full max-w-[1200px] mx-auto px-4">
-        <div
-          className="flex gap-4 transition-transform duration-1000 ease-in-out"
-          style={{ transform: `translateX(-${currentSlide * 33.33}%)` }}
-        >
-          {cards.map((card) => (
-            <div
-              key={card.id}
-              className="min-w-[calc(33.33%-1rem)] flex-shrink-0"
-            >
-              <div
-                className="card bg-base-100 image-full shadow-xl cursor-pointer h-64"
-                onClick={() => document.getElementById(card.id).showModal()}
-              >
-                <figure>
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full h-full object-cover"
-                  />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title text-white text-sm md:text-base">
-                    {card.title}
-                  </h2>
-                </div>
-              </div>
+    <>
+      <style jsx global>{`
+        .card.bg-base-100.image-full:before {
+          background-color: rgba(0, 0, 0, 0.3) !important;
+        }
 
-              <dialog
-                id={card.id}
-                className="modal modal-bottom sm:modal-middle"
+        .card.bg-base-100.image-full:hover:before {
+          background-color: rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .card-title-container {
+          background-color: rgba(0, 187, 211, 0.7);
+          padding: 0.75rem;
+          border-radius: 1rem;
+          margin-top: auto;
+          backdrop-filter: blur(2px);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+        }
+
+        .card:hover .card-title-container {
+          background-color: rgba(0, 187, 211, 0.85);
+          transform: translateY(-5px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-box {
+          padding: 10px !important;
+        }
+
+        .modal-content {
+          padding: 24px;
+          max-height: 100vh;
+          overflow-y: auto;
+          background-color: white;
+          scrollbar-width: thin; /* For Firefox */
+          scrollbar-color: #00bbd3 #f1f1f1; /* For Firefox */
+        }
+
+        .modal-content::-webkit-scrollbar {
+          width: 8px !important;
+          background-color: #f1f1f1 !important;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+          background-color: #00bbd3 !important;
+          border-radius: 4px !important;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+          background-color: #f1f1f1 !important;
+          border-radius: 4px !important;
+        }
+
+        .gradient-btn {
+          background: linear-gradient(to right, #33e4db, #00bbd3) !important;
+          color: white !important;
+          border: none !important;
+          transition: all 0.3s ease !important;
+        }
+
+        .gradient-btn:hover {
+          background: linear-gradient(to left, #33e4db, #00bbd3) !important;
+          transform: translateY(-1px);
+        }
+      `}</style>
+
+      <div className="w-full min-h-80 flex justify-center items-center overflow-hidden">
+        <div className="relative w-full max-w-[1200px] mx-auto px-4">
+          <div
+            className="flex gap-4 transition-transform duration-1000 ease-in-out"
+            style={{ transform: `translateX(-${currentSlide * 33.33}%)` }}
+          >
+            {cards.map((card) => (
+              <div
+                key={card.id}
+                className="min-w-[calc(33.33%-1rem)] flex-shrink-0"
               >
-                <div className="modal-box flex flex-col items-center justify-center max-w-xl">
-                  <h3 className="font-bold text-lg">{card.modalTitle}</h3>
-                  <img
-                    className="w-full max-w-md h-auto object-cover my-4"
-                    src={card.image}
-                    alt=""
-                  />
-                  <p className="py-4 text-left whitespace-pre-line">
-                    {card.content}
-                  </p>
-                  <div className="modal-action">
-                    <form method="dialog">
-                      <button className="btn">Хаах</button>
-                    </form>
+                <div
+                  className="card bg-base-100 image-full shadow-xl cursor-pointer h-64"
+                  onClick={() => document.getElementById(card.id).showModal()}
+                >
+                  <figure>
+                    <img
+                      src={card.image}
+                      alt={card.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </figure>
+                  <div className="card-body flex items-end justify-center p-6">
+                    <div className="card-title-container w-full transform transition-all duration-300 hover:scale-105">
+                      <h2 className="card-title text-white text-sm md:text-base justify-center">
+                        {card.title}
+                      </h2>
+                    </div>
                   </div>
                 </div>
-              </dialog>
-            </div>
-          ))}
-        </div>
+                <dialog
+                  id={card.id}
+                  className="modal modal-bottom sm:modal-middle"
+                >
+                  <div className="modal-box flex flex-col items-center justify-center max-w-xl">
+                    <div className="modal-content w-full p-10 custom-scrollbar">
+                      <h3 className="font-bold text-lg text-[#00BBD3]">
+                        {card.modalTitle}
+                      </h3>
+                      <img
+                        className="w-full max-w-md h-auto object-cover my-4 rounded-lg"
+                        src={card.image}
+                        alt=""
+                      />
+                      <p className=" text-left whitespace-pre-line">
+                        {card.content}
+                      </p>
+                      <div className="modal-action flex justify-center ">
+                        <form method="dialog">
+                          <button className="btn gradient-btn">Хаах</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </dialog>
+              </div>
+            ))}
+          </div>
 
-        <div className="absolute -bottom-6 left-0 right-0 flex justify-center gap-2">
-          {[...Array(cards.length - 2)].map((_, index) => (
-            <button
-              key={index}
-              className={`w-2 h-2 rounded-full ${
-                currentSlide === index ? "bg-blue-500" : "bg-gray-300"
-              }`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
+          <div className="absolute -bottom-6 left-0 right-0 flex justify-center gap-2">
+            {[...Array(cards.length - 2)].map((_, index) => (
+              <button
+                key={index}
+                className={`w-2 h-2 rounded-full ${
+                  currentSlide === index ? "bg-[#00BBD3]" : "bg-gray-300"
+                }`}
+                onClick={() => setCurrentSlide(index)}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
