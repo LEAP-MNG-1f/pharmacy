@@ -47,8 +47,6 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  console.log(apteks);
-
   //yags-g fetch hiij baina///////
   const fetchYags = async () => {
     setLoading(true); // Start loading
