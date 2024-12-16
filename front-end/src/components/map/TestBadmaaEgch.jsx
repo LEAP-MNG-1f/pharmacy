@@ -24,8 +24,8 @@ const MedicineSelector = () => {
   });
 
   return (
-    <div className="w-full flex justify-center mt-[80px]">
-      <div className="w-[1200px] flex flex-col gap-[50px] items-center">
+    <div className="w-screen flex justify-center mt-[80px]">
+      <div className="w-full flex flex-col gap-[50px] items-center">
         <Select
           className="w-[800px]"
           options={medicineOptions}
@@ -35,26 +35,37 @@ const MedicineSelector = () => {
           getOptionLabel={(option) => option.label}
           placeholder="Select medicines"
         />
-        <div className="w-full flex">
-          <div>
+        <div className="container flex justify-end gap-10 ">
+          <div className="w-[1/3] overflow-auto h-[600px] overflow-y-auto flex flex-col gap-4">
             {filteredEmiinsan?.map((emiinsan) => {
               return (
-                <div key={emiinsan._id}>
-                  <div className="flex gap-[50px]">
-                    <div className="flex flex-col gap-[100px]">
-                      <img src={emiinsan?.image} alt="" />
-                      <p>Hayg:{emiinsan?.location}</p>
-                    </div>
-                    <div className="flex flex-col gap-[20px]">
+                <div
+                  className="flex flex-col w-full  rounded-2xl "
+                  key={emiinsan._id}
+                >
+                  <p className="font-semibold p-4">Хаяг:{emiinsan?.location}</p>
+                  <div className="flex w-auto h-1/3 rounded-2xl justify-between gap-x-3 ">
+                    <div
+                      className="flex flex-col gap-[10px] w-[280px] h-[240px]"
+                      style={{
+                        backgroundImage: `url(${emiinsan?.image})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        borderRadius: "16px",
+                      }}
+                    ></div>
+                    <div className="flex flex-col gap-[5px] h-[240px] overflow-y-auto mr-4">
                       {emiinsan?.emsId.map((em) => {
                         return (
-                          <div
-                            key={em._id}
-                            className="flex flex-col gap-[10px] border border-green-500 rounded-xl"
-                          >
-                            <div>{em?.name}</div>
-                            <div>{em?.price}</div>
-                            <div>{em?.balance}</div>
+                          <div key={em._id} className="flex flex-col gap-[2px]">
+                            <p>Эмийн нэр:{em?.name}</p>
+                            <p>Үнэ:{em?.price}</p>
+                            <div className="flex gap-1">
+                              <p>Үлдэгдэл:{em?.balance}</p>
+                              <button className=" border border-green-300 bg-[#33E4DB] rounded-lg">
+                                Сагслах
+                              </button>
+                            </div>
                           </div>
                         );
                       })}
@@ -64,8 +75,9 @@ const MedicineSelector = () => {
               );
             })}
           </div>
-
-          <GoogleMap selectedLocation={filteredEmiinsan} />
+          <div className="w-2/3">
+            <GoogleMap selectedLocation={filteredEmiinsan} />
+          </div>
         </div>
       </div>
     </div>
