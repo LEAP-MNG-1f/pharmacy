@@ -8,7 +8,7 @@ export default function FAQ() {
 
         .faq-collapse {
           transition: all 0.3s ease;
-          border: 2px solid transparent;
+          border: 1px solid transparent;
           background-image: linear-gradient(white, white),
             linear-gradient(to right, #33e4db, #00bbd3);
           background-origin: border-box;

@@ -5,24 +5,16 @@ import CarouselAds from "@/components/home-page/CarousalAds";
 
 import Collab from "@/components/home-page/Collab";
 import FAQ from "@/components/home-page/FAQ";
-
-import SelectMedicines from "@/components/map/TestBadmaaEgch";
-import MedicineSelector from "@/components/map/TestBadmaaEgch";
-import Footer from "@/components/ui/Footer";
-
-import Header from "@/components/ui/Header";
+import GoogleHomePage from "@/components/map/GoogleHome";
 
 export default function HomePage() {
   return (
-
-    <div>
-      {/* <GoogleHomePage /> */}
-      <MedicineSelector />
+    <div className="w-full flex flex-col items-center">
+      <GoogleHomePage />
       <CarouselAds />
-
       <FAQ />
-      <Collab />
       <Advice />
+      <Collab />
     </div>
   );
 }
