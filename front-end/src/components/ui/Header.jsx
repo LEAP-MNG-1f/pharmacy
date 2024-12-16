@@ -10,8 +10,8 @@ import CustomUserButton from "./custom-user-button";
 export default function Header() {
   const { isSignedIn, isLoaded } = useUser();
   return (
-    <div className="w-full bg-[#E9F6FE] flex justify-center">
-      <div className="container h-[80px] flex justify-between items-center  px-3">
+    <div className="h-[80px] flex justify-center bg-[#E9F6FE]">
+      <div className="w-[1200px] flex justify-between items-center  px-3">
         <div className="flex gap-2">
           <Link href="./" className="flex gap-2">
             <Logo />
