@@ -4,7 +4,7 @@ import { useDataContext } from "../context/dataContext";
 import { GoogleMap } from "./Google";
 
 const MedicineSelector = () => {
-  const { uniqueNames, apteks } = useDataContext();
+  const { uniqueNames, apteks, addToBasket } = useDataContext();
   const [selectedMedicines, setSelectedMedicines] = useState([]);
 
   const medicineOptions = uniqueNames.map((name) => ({
@@ -55,6 +55,20 @@ const MedicineSelector = () => {
                             <div>{em?.name}</div>
                             <div>{em?.price}</div>
                             <div>{em?.balance}</div>
+                            <button
+                              onClick={() => {
+                                addToBasket(
+                                  emiinsan.location,
+                                  em._id,
+                                  em.name,
+                                  em.price,
+                                  em.balance,
+                                  em.categoryId
+                                );
+                              }}
+                            >
+                              AddtoButton
+                            </button>
                           </div>
                         );
                       })}
