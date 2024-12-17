@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
 
-const paymentEnum = {
-  values: ["Card", "Cash"],
-};
-
 const orderSchema = new mongoose.Schema({
   userId: {
     type: mongoose.SchemaTypes.ObjectId,
@@ -11,13 +7,16 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   orderNumber: {
-    type: Number,
+    type: String,
     required: true,
+  },
+  image_jor: {
+    type: String,
   },
   medicineIds: [
     {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "Medicine",
+      ref: "Yag",
       required: true,
     },
   ],
@@ -53,7 +52,7 @@ const orderSchema = new mongoose.Schema({
   },
   paymentType: {
     type: String,
-    enum: paymentEnum,
+    default: "Card",
   },
 });
 
