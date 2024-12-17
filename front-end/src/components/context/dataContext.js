@@ -97,8 +97,6 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  console.log(basket);
-
   const addToBasket = (location, _id, name, price, balance, categoryId) => {
     const getCatName = categories.filter((cat) => {
       if (cat._id === categoryId) {
