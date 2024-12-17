@@ -9,14 +9,15 @@ export const Cart = () => {
   const [imagePreview, setImagePreview] = useState();
   const [quantities, setQuantities] = useState({});
   const [parsedData, setParsedData] = useState([]);
-  const [yagIdArray, setYagIdArray] = useState([]);
+  // const [yagIdArray, setYagIdArray] = useState([]);
 
   useEffect(() => {
     const data = localStorage.getItem("sags");
     if (data) {
       const parsed = JSON.parse(data);
       setParsedData(parsed);
-      setYagIdArray(parsed?.map((parse) => parse?._id));
+      // const idArray = parsed?.map((parse) => parse?._id);
+      // setYagIdArray(idArray || []);
     } else {
       console.log("No data found in localStorage for the key 'sags'.");
     }
@@ -61,8 +62,7 @@ export const Cart = () => {
   const formik = useFormik({
     initialValues: {
       userId: "6756f77fd78e8837a652da17",
-      orderNumber: Math.floor(Math.random() * 10000),
-      medicineIds: yagIdArray,
+      medicineIds: [],
       totalPrice: "",
       district: "",
       khoroo: "",
@@ -70,13 +70,13 @@ export const Cart = () => {
       phoneNumber: "",
       information: "",
     },
-
     onSubmit: async (values) => {
       const formData = new FormData();
+      const medicineIds = parsedData?.map((item) => item?._id);
 
       formData.append("userId", values.userId);
-      formData.append("orderNumber", toString(values.orderNumber));
-      formData.append("medicineIds", JSON.stringify(values.medicineIds));
+      // formData.append("orderNumber", toString(values.orderNumber));
+      formData.append("medicineIds", JSON.stringify(medicineIds));
       formData.append(
         "totalPrice",
         calculateTotal().toFixed(0).toLocaleString()
@@ -99,6 +99,10 @@ export const Cart = () => {
         });
         const data = await response.json();
         console.log(data);
+        if (data?.success) {
+          localStorage.removeItem("sags");
+          alert("Zahialga amjilttai bolloo");
+        }
       } catch (error) {
         console.error("Error submitting form:", error);
       }

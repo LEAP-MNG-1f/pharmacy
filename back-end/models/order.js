@@ -9,6 +9,7 @@ const orderSchema = new mongoose.Schema({
   orderNumber: {
     type: String,
     required: true,
+    default: Math.floor(Math.random() * 10000),
   },
   image_jor: {
     type: String,
