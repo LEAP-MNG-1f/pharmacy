@@ -36,12 +36,12 @@ export default function Collab() {
         }
       `}</style>
 
-      <div className="w-full flex flex-col justify-center items-center py-7 gap-7">
+      <div className="container flex flex-col justify-center items-center py-7 gap-7">
         <p className="font-bold text-2xl text-[#00BBD3]">
           Хамтрагч байгууллагууд
         </p>
 
-        <div className="w-full overflow-hidden">
+        <div className="container overflow-hidden">
           <div className="carousel-track inline-flex gap-16">
             {duplicatedCollaborators.map((collab, index) => (
               <div

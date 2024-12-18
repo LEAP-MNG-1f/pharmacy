@@ -26,7 +26,7 @@ const MedicineSelector = () => {
   return (
     <div className="w-screen flex justify-center mt-[50px] mb-[50px]  flex-col   items-center ">
       <Select
-        className="w-[800px] mb-[50px]"
+        className="w-[800px] mb-[50px] border rounded-sm border-[#00BBD3]"
         options={medicineOptions}
         value={selectedMedicines}
         onChange={handleMedicineChange}
@@ -35,20 +35,20 @@ const MedicineSelector = () => {
         placeholder="Select medicines"
       />
       <div className="container flex justify-between ">
-        <div className="w-[1/3] h-[600px] overflow-y-auto flex flex-col gap-4  rounded-2xl">
+        <div className="w-1/3 h-[600px] overflow-y-auto flex flex-col gap-4  rounded-2xl">
           {filteredEmiinsan?.map((emiinsan) => {
             return (
               <div
                 className="flex flex-col w-full shadow-md  rounded-2xl "
                 key={emiinsan._id}
               >
-                <div className="flex w-auto rounded-2xl gap-2">
-                  <div className="flex flex-col w-[260px] ">
-                    <p className="font-semibold w-[260px pl-2 ">
+                <div className="flex w-auto rounded-2xl gap-2 p-4">
+                  <div className="flex flex-col w-[200px] ">
+                    <p className="font-semibold pl-2 text-[#00BBD3] ">
                       Хаяг:{emiinsan?.location}
                     </p>{" "}
                     <div
-                      className="flex flex-col w-[260px] h-[240px]"
+                      className="flex flex-col w-[180px] h-[200px]"
                       style={{
                         backgroundImage: `url(${emiinsan?.image})`,
                         backgroundSize: "cover",
@@ -58,8 +58,8 @@ const MedicineSelector = () => {
                     ></div>
                   </div>
 
-                  <div className="flex flex-col gap-[5px] h-[240px] overflow-y-auto mr-4 mt-2">
-                    <p className="font-semibold pt-1">Эмийн жагсаалт</p>
+                  <div className="flex flex-col gap-[5px] h-[200px] overflow-y-auto mr-4 mt-2">
+                    <p className=" pt-1">Эмийн жагсаалт</p>
                     {emiinsan?.emsId.map((em) => {
                       return (
                         <div
@@ -67,15 +67,12 @@ const MedicineSelector = () => {
                           className="flex flex-col gap-[2px] pt-3"
                         >
                           <div className="flex">
-                            Эмийн нэр:{" "}
-                            <p className="font-semibold pl-1">{em?.name}</p>
+                            Эмийн нэр: <p className=" pl-1">{em?.name}</p>
                           </div>
-                          <div>Үнэ:{em?.price}</div>
-                          <div className="flex gap-1">
-                            {" "}
-                            <div>Үлдэгдэл:{em?.balance}</div>
+                          <div className="flex gap-4">
+                            Үнэ:{em?.price}
                             <button
-                              className="bg-gray-100 cursor-pointer rounded-lg pl-1 pr-1"
+                              className="border border-[#00BBD3] cursor-pointer rounded-md pl-2 pr-2 text-[#00BBD3]"
                               onClick={() => {
                                 addToBasket(
                                   emiinsan.location,
@@ -90,6 +87,9 @@ const MedicineSelector = () => {
                               Сагслах
                             </button>
                           </div>
+                          <div className="flex gap-1">
+                            <div>Үлдэгдэл:{em?.balance}</div>
+                          </div>
                         </div>
                       );
                     })}
@@ -99,7 +99,7 @@ const MedicineSelector = () => {
             );
           })}
         </div>
-        <div className="w-2/3">
+        <div className="w-1/2">
           <GoogleMap selectedLocation={filteredEmiinsan} />
         </div>
       </div>
