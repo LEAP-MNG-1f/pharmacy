@@ -16,7 +16,7 @@ const menuItems = [
       },
       {
         title: "Бүх бүтээгдэхүүн",
-        path: "/dashboard/products",
+        path: "/products",
         icon: <Em />,
       },
     ],
@@ -26,7 +26,7 @@ const menuItems = [
     list: [
       {
         title: "Хяналтын самбар",
-        path: "/dashboard/orders",
+        path: "/orders",
         icon: <Orders />,
       },
     ],
@@ -36,7 +36,7 @@ const menuItems = [
     list: [
       {
         title: "Гарах",
-        path: "/Нүүр/logout",
+        path: "/logout",
         icon: <Garah />,
       },
     ],
