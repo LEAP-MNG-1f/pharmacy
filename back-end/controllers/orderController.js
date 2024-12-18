@@ -1,11 +1,10 @@
 import { Order } from "../models/order.js";
-
+import mongoose from "mongoose";
 import { v2 as cloudinary } from "cloudinary";
 
 const createOrder = async (request, response) => {
   const {
     userId,
-    orderNumber,
     medicineIds,
     totalPrice,
     district,
@@ -15,7 +14,6 @@ const createOrder = async (request, response) => {
     information,
     paymentType = "Card",
   } = request.body;
-  console.log(request.body);
 
   const file = request.file;
 
@@ -31,13 +29,12 @@ const createOrder = async (request, response) => {
     });
     const parsedMedicineIds = JSON.parse(medicineIds);
 
-    const objectIds = parsedMedicineIds.map((id) =>
-      mongoose.Types.ObjectId(id)
+    const objectIds = parsedMedicineIds.map(
+      (id) => new mongoose.Types.ObjectId(id)
     );
 
     const result = await Order.create({
       userId,
-      orderNumber,
       medicineIds: objectIds,
       totalPrice,
       district,
