@@ -29,13 +29,18 @@ const createOrder = async (request, response) => {
     });
     const parsedMedicineIds = JSON.parse(medicineIds);
 
-    const objectIds = parsedMedicineIds.map(
-      (id) => new mongoose.Types.ObjectId(id)
-    );
+    // const objectIds = parsedMedicineIds.map(
+    //   (id) => new mongoose.Types.ObjectId(id)
+    // );
+
+    const medicinesWithQuantity = parsedMedicineIds.map((item) => ({
+      name: item.name,
+      quantity: item.quantity,
+    }));
 
     const result = await Order.create({
       userId,
-      medicineIds: objectIds,
+      medicineIds: medicinesWithQuantity,
       totalPrice,
       district,
       khoroo,
