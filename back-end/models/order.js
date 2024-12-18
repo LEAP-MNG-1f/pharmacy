@@ -16,11 +16,11 @@ const orderSchema = new mongoose.Schema({
   },
   medicineIds: [
     {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "Yag",
-      required: true,
+      name: String,
+      quantity: String,
     },
   ],
+
   totalPrice: {
     type: String,
     required: true,

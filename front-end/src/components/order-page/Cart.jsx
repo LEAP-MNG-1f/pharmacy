@@ -3,21 +3,19 @@ import { useEffect, useState } from "react";
 import { useDataContext } from "../context/dataContext";
 import { useFormik } from "formik";
 import { BACKEND_URL } from "../../../constant/constant";
+import { MinusIcon, PlusIcon } from "lucide-react";
 
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
   const [imagePreview, setImagePreview] = useState();
-  const [quantities, setQuantities] = useState({});
+  const [quantities, setQuantities] = useState(1);
   const [parsedData, setParsedData] = useState([]);
-  // const [yagIdArray, setYagIdArray] = useState([]);
 
   useEffect(() => {
     const data = localStorage.getItem("sags");
     if (data) {
       const parsed = JSON.parse(data);
       setParsedData(parsed);
-      // const idArray = parsed?.map((parse) => parse?._id);
-      // setYagIdArray(idArray || []);
     } else {
       console.log("No data found in localStorage for the key 'sags'.");
     }
@@ -70,9 +68,13 @@ export const Cart = () => {
       phoneNumber: "",
       information: "",
     },
+
     onSubmit: async (values) => {
       const formData = new FormData();
-      const medicineIds = parsedData?.map((item) => item?._id);
+
+      const medicineIds = parsedData?.map((item) => {
+        return { name: item?.name, quantity: quantities[item?._id] };
+      });
 
       formData.append("userId", values.userId);
       // formData.append("orderNumber", toString(values.orderNumber));
@@ -152,7 +154,7 @@ export const Cart = () => {
                     {medicine?.getCatName[0].name}
                   </p>
 
-                  <div className="mt-2">
+                  <div className="mt-2 flex gap-[10px]">
                     <input
                       type="number"
                       placeholder="Тоо ширхэг... "
@@ -324,3 +326,8 @@ export const Cart = () => {
     </form>
   );
 };
+
+[
+  { id: 1, quantity: 1 },
+  { id: 1, quantity: 1 },
+];
