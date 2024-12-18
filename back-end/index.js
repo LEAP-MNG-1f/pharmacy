@@ -12,13 +12,13 @@ import aptekRouter from "./routers/aptekRoute.js";
 import emRouter from "./routers/emRouter.js";
 import emiinsanRouter from "./routers/emiinsanRoute.js";
 import yagRouter from "./routers/yagRoute.js";
-import { v2 as cloudinary } from "cloudinary";
+// import { v2 as cloudinary } from "cloudinary";
 
 const server = express();
 const PORT = 8368;
 dotenv.config();
-
 server.use(bodyParser.json());
+server.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URL);
 
@@ -37,8 +37,8 @@ server.listen(PORT, () => {
   console.log(`http://localhost:${PORT} server ajillaj ehellee`);
 });
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+// cloudinary.config({
+//   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+//   api_key: process.env.CLOUDINARY_API_KEY,
+//   api_secret: process.env.CLOUDINARY_API_SECRET,
+// });

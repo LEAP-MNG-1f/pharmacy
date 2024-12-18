@@ -1,43 +1,39 @@
 import { Order } from "../models/order.js";
 import mongoose from "mongoose";
-import { v2 as cloudinary } from "cloudinary";
 
 const createOrder = async (request, response) => {
-  const {
-    userId,
-    medicineIds,
-    totalPrice,
-    district,
-    khoroo,
-    apartment,
-    phoneNumber,
-    information,
-    paymentType = "Card",
-  } = request.body;
-
-  const file = request.file;
-
-  if (!file) {
-    return response
-      .status(400)
-      .json({ success: false, message: "Image is required" });
-  }
-
   try {
-    const uploadResult = await cloudinary.uploader.upload(file.path, {
-      folder: "orders",
-    });
-    const parsedMedicineIds = JSON.parse(medicineIds);
+    const {
+      userId,
+      medicineIds,
+      totalPrice,
+      district,
+      khoroo,
+      apartment,
+      phoneNumber,
+      information,
+      paymentType = "Card",
+      image_jor,
+    } = request.body;
 
-    // const objectIds = parsedMedicineIds.map(
-    //   (id) => new mongoose.Types.ObjectId(id)
-    // );
+    if (!userId || !medicineIds) {
+      return response.status(400).json({
+        success: false,
+        error: "Required fields are missing",
+      });
+    }
 
+    // Parse medicineIds if it's a string
+    const parsedMedicineIds =
+      typeof medicineIds === "string" ? JSON.parse(medicineIds) : medicineIds;
+
+    // Map medicine data
     const medicinesWithQuantity = parsedMedicineIds.map((item) => ({
       name: item.name,
       quantity: item.quantity,
     }));
 
+    // Create new order
     const result = await Order.create({
       userId,
       medicineIds: medicinesWithQuantity,
@@ -48,33 +44,38 @@ const createOrder = async (request, response) => {
       phoneNumber,
       information,
       paymentType,
-      image_jor: uploadResult.url,
+      image_jor,
     });
 
-    response.json({
+    response.status(201).json({
       success: true,
       data: result,
     });
   } catch (error) {
     console.error("Error creating order:", error);
-    response.status(500).json({ success: false, error: error.message });
+    response.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
 };
-
-export default createOrder;
 
 const getAllOrders = async (request, response) => {
   try {
     const result = await Order.find()
       .populate("userId")
-      .populate("medicineIds");
+      .sort({ createdAt: -1 }); // Sort by newest first
 
     response.json({
       success: true,
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching orders:", error);
+    response.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
 };
 
