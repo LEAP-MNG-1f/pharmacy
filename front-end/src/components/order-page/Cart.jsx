@@ -2,12 +2,17 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { BACKEND_URL } from "../../../constant/constant";
+import OrderPage from "../pages/OrderPage";
 
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
   const [imagePreview, setImagePreview] = useState();
   const [quantities, setQuantities] = useState(1);
   const [parsedData, setParsedData] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const CLOUDINARY_UPLOAD_PRESET = "pharmacy_preset";
+  const CLOUDINARY_CLOUD_NAME = "dvsck0zho";
 
   useEffect(() => {
     const data = localStorage.getItem("sags");
@@ -19,15 +24,37 @@ export const Cart = () => {
     }
   }, []);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files?.[0];
-    if (file) {
-      setSpaceImage({ image: file });
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    // Show image preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+    try {
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      formik.setFieldValue("image_jor", data.secure_url);
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("Error uploading image");
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -78,37 +105,51 @@ export const Cart = () => {
       apartment: "",
       phoneNumber: "",
       information: "",
+      image_jor: "",
     },
 
     onSubmit: async (values) => {
-      const formData = new FormData();
-
-      const medicineIds = parsedData?.map((item) => {
-        return { name: item?.name, quantity: quantities[item?._id] };
-      });
-
-      formData.append("userId", values.userId);
-      // formData.append("orderNumber", toString(values.orderNumber));
-      formData.append("medicineIds", JSON.stringify(medicineIds));
-      formData.append(
-        "totalPrice",
-        calculateTotal().toFixed(0).toLocaleString()
-      );
-      formData.append("district", values.district);
-      formData.append("khoroo", values.khoroo);
-      formData.append("apartment", values.apartment);
-      formData.append("phoneNumber", values.phoneNumber);
-      formData.append("information", values.information);
-      formData.append("paymentType", values.paymentType || "Card");
-
-      if (spaceImage.image) {
-        formData.append("image_jor", spaceImage.image);
+      if (!parsedData || parsedData.length === 0) {
+        alert("Сагсанд бараа байхгүй байна!");
+        return;
       }
+
+      const medicineIds = parsedData
+        .map((item) => ({
+          name: item?.name || "",
+          quantity: quantities[item?._id] || 0,
+        }))
+        .filter((item) => item.name && item.quantity > 0);
+
+      if (medicineIds.length === 0) {
+        alert("Эм сонгоогүй байна!");
+        return;
+      }
+
+      const orderData = {
+        userId: values.userId,
+        medicineIds: medicineIds,
+        totalPrice: calculateTotal().toFixed(0),
+        district: values.district,
+        khoroo: values.khoroo,
+        apartment: values.apartment,
+        phoneNumber: values.phoneNumber,
+        information: values.information,
+        paymentType: values.paymentType || "Card",
+        image_jor: values.image_jor, // Include the Cloudinary URL
+      };
+
+      // if (spaceImage.image) {
+      //   formData.append("image_jor", spaceImage.image);
+      // }
 
       try {
         const response = await fetch(`${BACKEND_URL}/api/orders`, {
           method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "application/json", // Ensure correct header
+          },
+          body: JSON.stringify(orderData),
         });
         const data = await response.json();
         console.log(data);
