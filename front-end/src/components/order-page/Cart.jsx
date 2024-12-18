@@ -1,9 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useDataContext } from "../context/dataContext";
 import { useFormik } from "formik";
 import { BACKEND_URL } from "../../../constant/constant";
-import { MinusIcon, PlusIcon } from "lucide-react";
 
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
@@ -45,10 +43,23 @@ export const Cart = () => {
     }));
   };
 
+  // const calculateItemTotal = (medicine) => {
+  //   const piecePrice = calculatePiecePrice(medicine.price);
+  //   const quantity = quantities[medicine._id] || 0;
+  //   return piecePrice * quantity;
+  // };
   const calculateItemTotal = (medicine) => {
     const piecePrice = calculatePiecePrice(medicine.price);
     const quantity = quantities[medicine._id] || 0;
-    return piecePrice * quantity;
+
+    // Check if the medicine category is "Жортой"
+    if (medicine?.getCatName[0].name == "Жортой") {
+      // Calculate total price based on unit price
+      return piecePrice * quantity;
+    } else {
+      // Calculate total price based on box price
+      return medicine.price * quantity;
+    }
   };
 
   const calculateTotal = () => {
@@ -216,20 +227,7 @@ export const Cart = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-4 mt-6 w-full max-w-md">
-          {/* <button
-            className="w-full py-3 mt-4 bg-[#00BBD3] text-white font-bold rounded-lg hover:bg-[#466461] transition-colors"
-            onClick={() => {
-              console.log("Order details:", {
-                items: quantities,
-                prescription: spaceImage,
-                totalAmount: calculateTotal(),
-              });
-            }}
-          >
-            Захиалах
-          </button> */}
-        </div>
+        <div className="flex flex-col items-center gap-4 mt-6 w-full max-w-md"></div>
       </div>
       <div className="flex w-[50%] h-[60%] bg-[#E9F6FE] rounded-2xl border-[1px] border-gray-400 gap-2 p-3">
         <div className="w-full h-full flex flex-col rounded-xl items-center py-4">
