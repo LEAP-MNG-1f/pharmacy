@@ -31,8 +31,8 @@ export default function FAQ() {
         }
       `}</style>
 
-      <div className="w-full flex justify-center">
-        <div className="w-[800px] flex flex-col gap-4 py-10 justify-center items-center">
+      <div className=" w-screen flex justify-center ">
+        <div className=" flex-col gap-4 py-10 container flex justify-between items-center">
           <div className="flex flex-col items-center gap-2">
             <div className="font-bold text-2xl text-[#00BBD3]">
               Түгээмэл асуултууд

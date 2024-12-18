@@ -63,10 +63,10 @@ export default function CarouselAds() {
   };
 
   return (
-    <div className="w-full flex justify-center p-3">
-      <div className="w-[1200px] flex justify-center">
+    <div className=" w-screen  flex justify-center  p-3">
+      <div className="container flex justify-center">
         <div className="relative">
-          <div className="carousel w-[1200px] overflow-x-scroll scroll-smooth flex">
+          <div className="carousel container overflow-x-scroll scroll-smooth flex rounded-sm">
             <div
               id="slide1"
               className="carousel-item relative w-full h-[100px] flex-none"

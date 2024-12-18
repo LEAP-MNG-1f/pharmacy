@@ -188,8 +188,8 @@ const AdviceCarousel = () => {
         }
       `}</style>
 
-      <div className="w-full min-h-80 flex justify-center items-center overflow-hidden">
-        <div className="relative w-full max-w-[1200px] mx-auto px-4">
+      <div className=" min-h-80  items-center overflow-hidden w-full  flex justify-center ">
+        <div className="relative container mx-auto px-4 justify-between items-center">
           <div
             className="flex gap-4 transition-transform duration-1000 ease-in-out"
             style={{ transform: `translateX(-${currentSlide * 33.33}%)` }}
@@ -247,7 +247,7 @@ const AdviceCarousel = () => {
             ))}
           </div>
 
-          <div className="absolute -bottom-6 left-0 right-0 flex justify-center gap-2">
+          <div className="absolute container -bottom-6 left-0 right-0 flex justify-center gap-2">
             {[...Array(cards.length - 2)].map((_, index) => (
               <button
                 key={index}

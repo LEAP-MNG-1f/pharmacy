@@ -24,29 +24,31 @@ const MedicineSelector = () => {
   });
 
   return (
-    <div className="w-screen flex justify-center mt-[80px]">
-      <div className="w-full flex flex-col gap-[50px] items-center">
-        <Select
-          className="w-[800px]"
-          options={medicineOptions}
-          value={selectedMedicines}
-          onChange={handleMedicineChange}
-          isMulti
-          getOptionLabel={(option) => option.label}
-          placeholder="Select medicines"
-        />
-        <div className="container flex justify-end gap-10 ">
-          <div className="w-[1/3] overflow-auto h-[600px] overflow-y-auto flex flex-col gap-4">
-            {filteredEmiinsan?.map((emiinsan) => {
-              return (
-                <div
-                  className="flex flex-col w-full  rounded-2xl "
-                  key={emiinsan._id}
-                >
-                  <p className="font-semibold p-4">Хаяг:{emiinsan?.location}</p>
-                  <div className="flex w-auto h-1/3 rounded-2xl justify-between gap-x-3 ">
+    <div className="w-screen flex justify-center mt-[50px] mb-[50px]  flex-col   items-center ">
+      <Select
+        className="w-[800px] mb-[50px]"
+        options={medicineOptions}
+        value={selectedMedicines}
+        onChange={handleMedicineChange}
+        isMulti
+        getOptionLabel={(option) => option.label}
+        placeholder="Select medicines"
+      />
+      <div className="container flex justify-between ">
+        <div className="w-[1/3] h-[600px] overflow-y-auto flex flex-col gap-4  rounded-2xl">
+          {filteredEmiinsan?.map((emiinsan) => {
+            return (
+              <div
+                className="flex flex-col w-full shadow-md  rounded-2xl "
+                key={emiinsan._id}
+              >
+                <div className="flex w-auto rounded-2xl gap-2">
+                  <div className="flex flex-col w-[260px] ">
+                    <p className="font-semibold w-[260px pl-2 ">
+                      Хаяг:{emiinsan?.location}
+                    </p>{" "}
                     <div
-                      className="flex flex-col gap-[10px] w-[280px] h-[240px]"
+                      className="flex flex-col w-[260px] h-[240px]"
                       style={{
                         backgroundImage: `url(${emiinsan?.image})`,
                         backgroundSize: "cover",
@@ -54,18 +56,26 @@ const MedicineSelector = () => {
                         borderRadius: "16px",
                       }}
                     ></div>
-                    <div className="flex flex-col gap-[5px] h-[240px] overflow-y-auto mr-4">
-                      {emiinsan?.emsId.map((em) => {
-                        return (
+                  </div>
 
-                          <div
-                            key={em._id}
-                            className="flex flex-col gap-[10px] border border-green-500 rounded-xl"
-                          >
-                            <div>{em?.name}</div>
-                            <div>{em?.price}</div>
-                            <div>{em?.balance}</div>
+                  <div className="flex flex-col gap-[5px] h-[240px] overflow-y-auto mr-4 mt-2">
+                    <p className="font-semibold pt-1">Эмийн жагсаалт</p>
+                    {emiinsan?.emsId.map((em) => {
+                      return (
+                        <div
+                          key={em._id}
+                          className="flex flex-col gap-[2px] pt-3"
+                        >
+                          <div className="flex">
+                            Эмийн нэр:{" "}
+                            <p className="font-semibold pl-1">{em?.name}</p>
+                          </div>
+                          <div>Үнэ:{em?.price}</div>
+                          <div className="flex gap-1">
+                            {" "}
+                            <div>Үлдэгдэл:{em?.balance}</div>
                             <button
+                              className="bg-gray-100 cursor-pointer rounded-lg pl-1 pr-1"
                               onClick={() => {
                                 addToBasket(
                                   emiinsan.location,
@@ -77,21 +87,20 @@ const MedicineSelector = () => {
                                 );
                               }}
                             >
-                              AddtoButton
+                              Сагслах
                             </button>
-
                           </div>
-                        );
-                      })}
-                    </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-          <div className="w-2/3">
-            <GoogleMap selectedLocation={filteredEmiinsan} />
-          </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="w-2/3">
+          <GoogleMap selectedLocation={filteredEmiinsan} />
         </div>
       </div>
     </div>
