@@ -188,7 +188,7 @@ const AdviceCarousel = () => {
         }
       `}</style>
 
-      <div className=" min-h-80  items-center overflow-hidden w-full  flex justify-center ">
+      <div className=" min-h-80  items-center overflow-hidden container  flex justify-center ">
         <div className="relative container mx-auto px-4 justify-between items-center">
           <div
             className="flex gap-4 transition-transform duration-1000 ease-in-out"
