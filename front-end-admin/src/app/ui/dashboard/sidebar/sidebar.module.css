@@ -1,6 +1,7 @@
 .container {
   position: sticky;
   top: 40px;
+  width: auto;
 }
 .user {
   display: flex;
