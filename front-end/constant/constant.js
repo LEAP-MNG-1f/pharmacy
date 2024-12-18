@@ -2,3 +2,6 @@
 //   "mongodb+srv://jnglobal444:Qttp2eUlSQhDPg2C@leap-jwz.puuzf.mongodb.net/pharmacy";
 
 export const BACKEND_URL = "http://localhost:8368";
+
+//
+//pharmacy-backend-sepia.vercel.app
