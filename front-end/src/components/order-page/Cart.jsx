@@ -179,7 +179,7 @@ export const Cart = () => {
               type="file"
               id="uploadFile1"
               name="uploadFile1"
-              // className="hidden"
+              className="hidden"
               onChange={handleFileChange}
             />
             <label
