@@ -113,12 +113,12 @@ export const Cart = () => {
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className="flex w-[1200px]  bg-white justify-center items-start py-4 px-2 sm:py-6 gap-[50px]"
+      className="flex flex-col w-full  bg-white justify-center items-center py-4 px-2 sm:py-6 gap-[50px]"
     >
-      <div className=" w-[50%] h-[60%] overflow-auto flex flex-col items-center rounded-2xl border border-gray-400 gap-3 p-4 sm:p-6">
+      <div className="w-[1200px] h-full overflow-auto flex flex-col items-center rounded-2xl border border-gray-[] gap-3 p-4 sm:p-6">
         <h2 className="text-zinc-700 text-2xl font-semibold mb-4">Таны сагс</h2>
 
-        <div className="w-full h-[500px] overflow-auto flex flex-col gap-4">
+        <div className="w-full h-full overflow-auto  grid grid-cols-3 gap-4">
           {parsedData?.map((medicine) => {
             const piecePrice = calculatePiecePrice(medicine.price);
             const itemTotal = calculateItemTotal(medicine);
@@ -126,12 +126,14 @@ export const Cart = () => {
             return (
               <div
                 key={medicine?._id}
-                className="w-[500px] overflow-auto bg-[#00BBD3] rounded-lg p-4 flex flex-col justify-between transform transition-transform hover:scale-105"
+                className="w-[350px] h-[320px] overflow-auto bg-[#00BBD3] rounded-lg p-4 flex flex-col justify-between transform transition-transform hover:scale-95"
               >
                 <div className="flex flex-col gap-1 p-2">
-                  <h3 className="text-white font-bold text-lg sm:text-xl break-words">
-                    Эмийн нэр: {medicine?.name}
-                  </h3>
+                  <div className="bg-white rounded-xl p-1">
+                    <h3 className="text-[#00BBD3] font-bold text-lg sm:text-xl break-words">
+                      Эмийн нэр: {medicine?.name}
+                    </h3>
+                  </div>
 
                   <p className="text-white font-bold text-sm sm:text-base">
                     Хайрцгийн үнэ: {medicine?.price.toLocaleString()}₮
@@ -147,11 +149,12 @@ export const Cart = () => {
                     Ширхэгийн үнэ: {(medicine?.price / 10).toLocaleString()}₮
                   </p>
 
-                  <p className="text-white text-xs sm:text-sm">
-                    Хүргэгдэх эмийн сангийн хаяг: {medicine?.location}
-                  </p>
+                  <div className="text-white text-xs sm:text-sm">
+                    <p className="font-bold">Хүргэгдэх эмийн сангийн хаяг:</p>
+                    {medicine?.location}
+                  </div>
                   <p className="text-white font-bold text-xs sm:text-sm">
-                    {medicine?.getCatName[0].name}
+                    Эмийн төрөл: {medicine?.getCatName[0].name}
                   </p>
 
                   <div className="mt-2 flex gap-[10px]">
@@ -176,7 +179,7 @@ export const Cart = () => {
               </div>
             );
           })}
-          <div className="w-full p-4 border border-dashed border-gray-400 bg-gray-50 rounded-lg">
+          {/* <div className="w-full p-4 border border-dashed border-gray-400 bg-gray-50 rounded-lg">
             <input
               type="file"
               id="uploadFile1"
@@ -200,7 +203,7 @@ export const Cart = () => {
                 className="w-full h-[200px] object-contain border border-gray-400 border-dashed rounded-lg p-2"
               />
             </div>
-          )}
+          )} */}
         </div>
 
         <div className="w-full max-w-md mt-6 sm:mt-8">
@@ -231,7 +234,35 @@ export const Cart = () => {
           </button> */}
         </div>
       </div>
-      <div className="flex w-[50%] h-[60%] bg-[#E9F6FE] rounded-2xl border-[1px] border-gray-400 gap-2 p-3">
+      <div className="w-[500px]">
+        <div className="w-full p-4 border border-dashed border-gray-400 bg-gray-50 rounded-lg">
+          <input
+            type="file"
+            id="uploadFile1"
+            name="uploadFile1"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+          <label
+            htmlFor="uploadFile1"
+            className="block w-full py-3 text-center rounded-lg bg-[#00BBD3] text-white font-bold cursor-pointer hover:bg-[#2ca4b4] transition-colors"
+          >
+            Жорын зургийг оруулна уу
+          </label>
+        </div>
+
+        {imagePreview && (
+          <div className="w-full mt-2">
+            <img
+              src={imagePreview}
+              alt="Prescription Preview"
+              className="w-full h-[200px] object-contain border border-gray-400 border-dashed rounded-lg p-2"
+            />
+          </div>
+        )}
+      </div>
+
+      <div className="flex w-[1200px] h-[60%] bg-[#E9F6FE] rounded-2xl border-[1px] border-gray-400 gap-2 p-3">
         <div className="w-full h-full flex flex-col rounded-xl items-center py-4">
           <div className="text-zinc-700 font-semibold text-2xl pb-2">
             Баталгаажуулах
@@ -315,7 +346,7 @@ export const Cart = () => {
             </div>
 
             <button
-              className="bg-[#00BBD3] w-[12%] h-[40%] text-white rounded-xl textarea-md p-1 justify-center items-center hover:bg-amber-300 hover:text-[#0b2c3b]"
+              className="bg-[#00BBD3] w-[12%] h-[40%] text-white rounded-xl textarea-md p-1 justify-center items-center hover:bg-[#2ca4b4]"
               type="submit"
             >
               Захиалах
