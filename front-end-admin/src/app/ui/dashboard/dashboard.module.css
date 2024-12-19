@@ -1,13 +1,16 @@
 .container {
   display: flex;
+  height: screen;
 }
 .menu {
   flex: 1;
   background-color: var(--bgSoft);
   padding: 30px;
-  height: auto;
+  height: 3000px;
+  background-color: white;
 }
 .content {
   flex: 5;
+  height: screen;
   /* padding: ; */
 }

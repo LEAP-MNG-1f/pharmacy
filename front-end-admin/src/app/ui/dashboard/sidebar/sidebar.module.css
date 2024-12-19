@@ -2,8 +2,11 @@
   position: sticky;
   top: 40px;
   width: auto;
-  /* height: 2000px; */
+  position: flex;
+  background-color: white;
+  height: screen;
 }
+ 
 .user {
   display: flex;
   align-items: center;

@@ -106,7 +106,7 @@ export default function Page() {
 
   if (error) {
     return (
-      <div className="w-full max-w-4xl mx-auto p-4">
+      <div className="h-min-screen max-w-4xl mx-auto ">
         <div className="bg-red-50 border border-red-200 text-red-800 rounded-lg p-4">
           <h2 className="text-lg font-semibold mb-2">Error Loading Data</h2>
           <p>{error}</p>
@@ -122,7 +122,7 @@ export default function Page() {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
+    <div className="min-h-screen bg-[#E9F6FE] py-10 px-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-4">
           Pharmacy Inventory Management System

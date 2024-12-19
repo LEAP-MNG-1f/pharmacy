@@ -40,8 +40,9 @@ export default function Orders() {
     document.getElementById("my_modal_2").showModal();
   };
  
+
   return (
-    <div className="min-h-screen bg-[#edece9] py-10 px-6">
+    <div className="min-h-screen bg-[#E9F6FE] py-10 px-6">
       <div className="max-w-7xl mx-auto text-center mb-8">
         <h1 className="text-4xl font-bold text-[#242321]">Хяналтын Самбар</h1>
       </div>
@@ -50,7 +51,7 @@ export default function Orders() {
         {dataOrder?.map((order) => (
           <div
             key={order._id}
-            className=" rounded-xl border-white border-2  hover:shadow-lg transition-shadow flex flex-col"
+            className=" rounded-xl border-white border-[3px]  hover:shadow-lg transition-shadow flex flex-col"
           >
             <div className="bg-white text-[#242321] p-4 rounded-t-xl flex justify-between items-center">
               <div className="flex items-center gap-2">
@@ -71,7 +72,7 @@ export default function Orders() {
                 </div>
                 <div>{Array.isArray(order.medicineIds) &&
                 order.medicineIds.length > 0 ? (
-                  <div className="text-[#242321] pt-3 overflow-y-auto h-[100px] border-2 rounded-xl p-2 border-white">
+                  <div className="text-[#242321] pt-3 overflow-y-auto h-[100px] border-[3px] rounded-xl p-2 border-white">
                     {order.medicineIds.map((med,index) => (
                       <div
                         key={med._id}
@@ -121,13 +122,13 @@ export default function Orders() {
                   <div className="text-[#242321] text-base font-bold">
                     Нэмэлт мэдээлэл:
                   </div>
-                  <div className="text-[#242321]">{order.information}</div>
+                  <div className="text-black">{order.information}</div>
                 </div>
               )}
  
               <div className="flex items-center gap-2 border-t pt-2">
-                <Wallet className="w-5 h-5 text-[#242321]" />
-                <div className="text-[#242321] flex gap-1">
+                <Wallet className="w-5 h-5 text-black" />
+                <div className="text-black flex gap-1">
                   <div className="font-bold">Төлбөрийн төрөл:</div>
                   {order.paymentType}
                 </div>
