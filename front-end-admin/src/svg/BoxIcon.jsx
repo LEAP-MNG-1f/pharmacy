@@ -2,7 +2,7 @@ export const BoxIcon = () => {
   return (
     <div>
       <svg
-        className="w-6 h-6 text-white dark:text-white bg-[#00BBD3] rounded-xl "
+        className="w-6 h-6 text-[#242321] dark:text-white bg-[#00BBD3] rounded-xl "
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"

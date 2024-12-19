@@ -5,10 +5,16 @@ import { Plus } from "@/svg/Plus";
 import { Em } from "@/svg/Em";
 import { Orders } from "@/svg/Orders";
 import { Garah } from "@/svg/garah";
+import { Nemeh } from "@/svg/Nemeh";
 const menuItems = [
   {
     title: "Бүтээгдэхүүн",
     list: [
+      {
+        title: "Бүтээгдэхүүн нэмэх",
+        path: "/",
+        icon: <Nemeh/>,
+      },
       {
         title: "Бүх бүтээгдэхүүн",
         path: "/products",
