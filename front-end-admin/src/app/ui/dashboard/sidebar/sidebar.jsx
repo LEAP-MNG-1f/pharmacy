@@ -8,7 +8,6 @@ const menuItems = [
   {
     title: "Бүтээгдэхүүн",
     list: [
-      
       {
         title: "Бүх бүтээгдэхүүн",
         path: "/products",
@@ -20,7 +19,7 @@ const menuItems = [
     title: "Захиалга",
     list: [
       {
-        title: "Хяналтын самбар",
+        title: "Захиалгын самбар",
         path: "/orders",
         icon: <Orders />,
       },

@@ -79,4 +79,49 @@ const getAllOrders = async (request, response) => {
   }
 };
 
-export { getAllOrders, createOrder };
+const updateOrder = async (request, response) => {
+  try {
+    const { orderId } = request.params;
+    const { process } = request.body;
+
+    console.log("Updating order:", orderId, "with process:", process); // Debug log
+
+    // Validate orderId
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+      console.log("Invalid order ID"); // Debug log
+      return response.status(400).json({
+        success: false,
+        error: "Invalid order ID",
+      });
+    }
+
+    // Update the order
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { $set: { process: process } },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      console.log("Order not found"); // Debug log
+      return response.status(404).json({
+        success: false,
+        error: "Order not found",
+      });
+    }
+
+    console.log("Updated order:", updatedOrder); // Debug log
+
+    response.json({
+      success: true,
+      data: updatedOrder,
+    });
+  } catch (error) {
+    console.error("Error updating order:", error);
+    response.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+export { getAllOrders, createOrder, updateOrder };

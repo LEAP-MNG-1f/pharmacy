@@ -6,6 +6,16 @@ import OrderPage from "../pages/OrderPage";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import {
+  MapIcon,
+  Phone,
+  Home,
+  Info,
+  Camera,
+  ShoppingCart,
+  Package2,
+  CreditCard,
+} from "lucide-react";
 
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
@@ -171,6 +181,10 @@ export const Cart = () => {
         if (data?.success) {
           toast.success("Таны захиалга амжилттай баталгаажлаа");
           localStorage.removeItem("sags");
+          localStorage.setItem(
+            "orderNumber",
+            JSON.stringify(data?.data.orderNumber)
+          );
           formik.resetForm();
           setQuantities({});
           setImagePreview(null);
@@ -184,238 +198,246 @@ export const Cart = () => {
       }
     },
   });
+
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      className="flex flex-col w-full  bg-white justify-center items-center py-4 px-2 sm:py-6 gap-[50px]"
-    >
-      <div className="w-[1200px] h-full overflow-auto flex flex-col items-center rounded-2xl border border-gray-[] gap-3 p-4 sm:p-6">
-        <h2 className="text-zinc-700 text-2xl font-semibold mb-4">Таны сагс</h2>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <form onSubmit={formik.handleSubmit} className="max-w-7xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-10">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Таны сагс</h1>
+          {/* <p className="text-gray-600">{parsedData?.length || 0} items</p> */}
+        </div>
 
-        <div className="w-full h-full overflow-auto  grid grid-cols-3 gap-4">
-          {parsedData?.map((medicine) => {
-            const piecePrice = calculatePiecePrice(medicine.price);
-            const itemTotal = calculateItemTotal(medicine);
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content - Cart Items */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Cart Items */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {parsedData?.map((medicine) => {
+                const piecePrice = calculatePiecePrice(medicine.price);
+                const itemTotal = calculateItemTotal(medicine);
 
-            return (
-              <div
-                key={medicine?._id}
-                className="w-[350px] h-[320px] overflow-auto bg-[#00BBD3] rounded-lg p-4 flex flex-col justify-between transform transition-transform hover:scale-95"
-              >
-                <div className="flex flex-col gap-1 p-2">
-                  <div className="bg-white rounded-xl p-1">
-                    <h3 className="text-[#00BBD3] font-bold text-lg sm:text-xl break-words">
-                      Эмийн нэр: {medicine?.name}
-                    </h3>
-                  </div>
-
-                  <p className="text-white font-bold text-sm sm:text-base">
-                    Хайрцгийн үнэ: {parseInt(medicine?.price).toLocaleString()}₮
-                  </p>
-
-                  <p
-                    className={`text-white font-semibold text-sm sm:text-base ${
-                      medicine?.categoryName !== "Жортой" ? "hidden" : "flex"
-                    }`}
+                return (
+                  <div
+                    key={medicine?._id}
+                    className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden"
                   >
-                    Ширхэгийн үнэ: {(medicine?.price / 10).toLocaleString()}₮
-                  </p>
+                    <div className="bg-gradient-to-r from-[#00BBD3] to-[#00A0B4] p-4">
+                      <h3 className="text-white font-bold text-lg truncate">
+                        {medicine?.name}
+                      </h3>
+                    </div>
 
-                  <div className="text-white text-xs sm:text-sm">
-                    <p className="font-bold">Хүргэгдэх эмийн сангийн хаяг:</p>
-                    {medicine?.location}
+                    <div className="p-4 space-y-4">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600">Хайрцгийн үнэ:</span>
+                          <span className="font-semibold">
+                            {parseInt(medicine?.price).toLocaleString()}₮
+                          </span>
+                        </div>
+
+                        {medicine?.categoryName === "Жортой" && (
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-600">
+                              Ширхэгийн үнэ:
+                            </span>
+                            <span className="font-semibold">
+                              {(medicine?.price / 10).toLocaleString()}₮
+                            </span>
+                          </div>
+                        )}
+
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <MapIcon className="w-4 h-4" />
+                          <span>{medicine?.location}</span>
+                        </div>
+
+                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
+                          <Package2 className="w-4 h-4" />
+                          {medicine?.categoryName}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1">
+                          <input
+                            type="number"
+                            placeholder="Тоо ширхэг..."
+                            value={quantities[medicine._id] || ""}
+                            onChange={(e) =>
+                              handleQuantityChange(medicine._id, e.target.value)
+                            }
+                            min="0"
+                            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#00BBD3] focus:border-transparent transition-all"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex justify-between items-center pt-2 border-t">
+                        <span className="text-gray-600">Нийт дүн:</span>
+                        <span className="text-lg font-bold text-[#00BBD3]">
+                          {parseInt(itemTotal.toFixed(0)).toLocaleString()}₮
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-white font-bold text-xs sm:text-sm">
-                    Эмийн төрөл: {medicine?.categoryName}
-                  </p>
+                );
+              })}
+            </div>
 
-                  <div className="mt-2 flex gap-[10px]">
-                    <input
-                      type="number"
-                      placeholder="Тоо ширхэг... "
-                      value={quantities[medicine._id] || ""}
-                      onChange={(e) =>
-                        handleQuantityChange(medicine._id, e.target.value)
-                      }
-                      min="0"
-                      className="w-full p-2 rounded-lg bg-white text-sm sm:text-base"
+            {/* Prescription Upload */}
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <Camera className="w-5 h-5 text-[#00BBD3]" />
+                <h3 className="text-lg font-semibold">Жорын зураг</h3>
+              </div>
+
+              <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center">
+                <input
+                  type="file"
+                  id="uploadFile1"
+                  name="uploadFile1"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
+                <label
+                  htmlFor="uploadFile1"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#00BBD3] text-white rounded-lg cursor-pointer hover:bg-[#00A0B4] transition-colors"
+                >
+                  <Camera className="w-5 h-5" />
+                  Жорын зураг оруулах
+                </label>
+
+                {imagePreview && (
+                  <div className="mt-4">
+                    <img
+                      src={imagePreview}
+                      alt="Prescription Preview"
+                      className="max-h-[200px] mx-auto object-contain rounded-lg"
                     />
                   </div>
+                )}
+              </div>
+            </div>
+          </div>
 
-                  <div className="text-white text-right mt-2">
-                    <p className="text-base sm:text-lg font-bold">
-                      Нийт дүн:{" "}
-                      {parseInt(itemTotal.toFixed(0)).toLocaleString()}₮
-                    </p>
+          {/* Sidebar - Delivery Information */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-xl shadow-sm p-6 sticky top-6">
+              <div className="flex items-center gap-3 mb-6">
+                <Info className="w-5 h-5 text-[#00BBD3]" />
+                <h3 className="text-lg font-semibold">Хүргэлтийн мэдээлэл</h3>
+              </div>
+
+              <div className="space-y-4">
+                {/* District Selection */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Дүүрэг
+                  </label>
+                  <select
+                    name="district"
+                    value={formik.values.district}
+                    onChange={formik.handleChange}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#00BBD3] focus:border-transparent"
+                  >
+                    <option value="">Дүүрэг сонгоно уу</option>
+                    <option value="БЗД">Баянзүрх</option>
+                    <option value="СБД">Сүхбаатар</option>
+                    <option value="ХУД">Хан-Уул</option>
+                    <option value="БГД">Баянгол</option>
+                  </select>
+                </div>
+
+                {/* Khoroo Selection */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Хороо
+                  </label>
+                  <select
+                    name="khoroo"
+                    value={formik.values.khoroo}
+                    onChange={formik.handleChange}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#00BBD3] focus:border-transparent"
+                  >
+                    <option value="">Хороо сонгоно уу</option>
+                    <option value="1-р хороо">1-р Хороо</option>
+                    <option value="2-р хороо">2-р Хороо</option>
+                    <option value="3-р хороо">3-р Хороо</option>
+                    <option value="4-р хороо">4-р Хороо</option>
+                    <option value="5-р хороо">5-р Хороо</option>
+                  </select>
+                </div>
+
+                {/* Apartment Information */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Хотхон, байрны нэр
+                  </label>
+                  <textarea
+                    name="apartment"
+                    value={formik.values.apartment}
+                    onChange={formik.handleChange}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#00BBD3] focus:border-transparent"
+                    rows="2"
+                    placeholder="Байр хотхоны нэрийг оруулна уу"
+                  />
+                </div>
+
+                {/* Additional Information */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Нэмэлт мэдээлэл
+                  </label>
+                  <textarea
+                    name="information"
+                    value={formik.values.information}
+                    onChange={formik.handleChange}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#00BBD3] focus:border-transparent"
+                    rows="3"
+                    placeholder="Орц, давхар, орцны код ..."
+                  />
+                </div>
+
+                {/* Phone Number */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Утасны дугаар
+                  </label>
+                  <input
+                    type="tel"
+                    name="phoneNumber"
+                    value={formik.values.phoneNumber}
+                    onChange={formik.handleChange}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#00BBD3] focus:border-transparent"
+                    placeholder="Утасны дугаарыг оруулна уу"
+                  />
+                </div>
+
+                {/* Total and Submit */}
+                <div className="pt-6 border-t">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-gray-600">Нийт дүн:</span>
+                    <span className="text-2xl font-bold text-[#00BBD3]">
+                      {parseInt(calculateTotal().toFixed(0)).toLocaleString()}₮
+                    </span>
                   </div>
+
+                  <button
+                    type="submit"
+                    className="w-full px-6 py-3 bg-[#00BBD3] text-white rounded-lg hover:bg-[#00A0B4] transition-colors flex items-center justify-center gap-2"
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    Захиалах
+                  </button>
                 </div>
               </div>
-            );
-          })}
-
-          {/* <div className="w-full p-4 border border-dashed border-gray-400 bg-gray-50 rounded-lg">
-            <input
-              type="file"
-              id="uploadFile1"
-              name="uploadFile1"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            <label
-              htmlFor="uploadFile1"
-              className="block w-full py-3 text-center rounded-lg bg-[#577774] text-white font-bold cursor-pointer hover:bg-[#466461] transition-colors"
-            >
-              Жорын зургийг оруулна уу
-            </label>
-          </div>
-
-          {imagePreview && (
-            <div className="w-full mt-2">
-              <img
-                src={imagePreview}
-                alt="Prescription Preview"
-                className="w-full h-[200px] object-contain border border-gray-400 border-dashed rounded-lg p-2"
-              />
-            </div>
-          )} */}
-        </div>
-
-        <div className="w-full max-w-md mt-6 sm:mt-8">
-          <div className="bg-gray-50 p-4 rounded-lg shadow">
-            <div className="flex justify-between items-center">
-              <span className="text-base sm:text-lg font-semibold">
-                Нийт дүн:
-              </span>
-              <div className="text-lg sm:text-xl font-bold text-[#00BBD3]">
-                {parseInt(calculateTotal().toFixed(0)).toLocaleString()}₮
-              </div>
             </div>
           </div>
         </div>
-
-        <div className="flex flex-col items-center gap-4 mt-6 w-full max-w-md"></div>
-      </div>
-      <div className="w-[500px]">
-        <div className="w-full p-4 border border-dashed border-gray-400 bg-gray-50 rounded-lg">
-          <input
-            type="file"
-            id="uploadFile1"
-            name="uploadFile1"
-            className="hidden"
-            onChange={handleFileChange}
-          />
-          <label
-            htmlFor="uploadFile1"
-            className="block w-full py-3 text-center rounded-lg bg-[#00BBD3] text-white font-bold cursor-pointer hover:bg-[#2ca4b4] transition-colors"
-          >
-            Жорын зургийг оруулна уу
-          </label>
-        </div>
-
-        {imagePreview && (
-          <div className="w-full mt-2">
-            <img
-              src={imagePreview}
-              alt="Prescription Preview"
-              className="w-full h-[200px] object-contain border border-gray-400 border-dashed rounded-lg p-2"
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="flex w-[1200px] h-[60%] bg-[#E9F6FE] rounded-2xl border-[1px] border-gray-400 gap-2 p-3">
-        <div className="w-full h-full flex flex-col rounded-xl items-center py-4">
-          <div className="text-zinc-700 font-semibold text-2xl pb-2">
-            Хүргэгдэх хаягийн мэдээлэл
-          </div>
-          <div className="w-[95%] h-[40px] my-2 bg-white flex justify-between items-center px-4 rounded-lg font-semibold text-base">
-            <label
-              htmlFor="districts"
-              className="text-stone-700 h-full items-center justify-center flex"
-            >
-              Дүүрэг сонгох
-            </label>
-            <select
-              name="district"
-              className="bg-white text-stone-700"
-              value={formik.values.district}
-              onChange={formik.handleChange}
-            >
-              <option value="">Дүүрэг сонгоно уу</option>
-              <option value="БЗД">Баянзүрх</option>
-              <option value="СБД">Сүхбаатар</option>
-              <option value="ХУД">Хан-Уул</option>
-              <option value="БГД">Баянгол</option>
-            </select>
-          </div>
-          <div className="w-[95%] h-[40px] my-2 bg-white flex justify-between items-center px-4 font-semibold rounded-lg text-base">
-            <label
-              htmlFor="districts"
-              className="text-stone-700 font-semibold h-full  items-center justify-center flex"
-            >
-              Хороо сонгох
-            </label>
-            <select
-              name="khoroo"
-              className="bg-white text-stone-700"
-              value={formik.values.khoroo}
-              onChange={formik.handleChange}
-            >
-              <option value="">Хороо сонгоно уу</option>
-              <option value="1-р хороо">1-р Хороо</option>
-              <option value="2-р хороо">2-р Хороо</option>
-              <option value="3-р хороо">3-р Хороо</option>
-              <option value="4-р хороо">4-р Хороо</option>
-              <option value="5ы-р хороо">5-р Хороо</option>
-            </select>
-          </div>
-          <div className="w-[95%] h-[8%] text-base  text-stone-700 font-semibold my-2">
-            <p className="py-2">Хотхон, байрны нэр оруулах</p>
-            <textarea
-              name="apartment"
-              value={formik.values.apartment}
-              onChange={formik.handleChange}
-              className="bg-white text-stone-700 w-full h-full rounded-lg text-base p-3"
-              placeholder="Байр хотхоны нэрийг оруулна уу"
-            ></textarea>
-          </div>
-
-          <div className="w-[95%] h-[15%] text-base  text-stone-700 font-semibold ">
-            <div className="py-2">Нэмэлт мэдээлэл</div>
-            <textarea
-              name="information"
-              value={formik.values.information}
-              onChange={formik.handleChange}
-              className="bg-white text-stone-700 w-full h-full rounded-lg text-base p-3"
-              placeholder="Орц, давхар, орцны код ..."
-            ></textarea>
-          </div>
-          <div className="w-[95%] h-[8%] text-base  text-stone-700 font-semibold ">
-            <p className="py-2 ">Утасны дугаар</p>
-            <textarea
-              name="phoneNumber"
-              value={formik.values.phoneNumber}
-              onChange={formik.handleChange}
-              className="bg-white text-stone-700 w-full h-full rounded-lg text-base p-3 selection items-center flex"
-              placeholder="Утасны дугаарыг оруулна уу"
-            ></textarea>
-          </div>
-          <div className=" h-[20%] w-[95%] font-bold flex items-center justify-between my-3">
-            <div className="text-white flex text-lg bg-[#00BBD3] p-2 rounded-xl w-[40%] justify-between px-2">
-              <div>Нийт төлөх дүн:</div>
-              <div>{Number(calculateTotal().toFixed(0)).toLocaleString()}₮</div>
-            </div>
-
-            <button
-              className="bg-[#00BBD3] w-[12%] h-[40%] text-white rounded-xl textarea-md p-1 justify-center items-center hover:bg-[#2ca4b4]"
-              type="submit"
-            >
-              Захиалах
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

@@ -212,14 +212,10 @@ const EmiinSan = () => {
                                 medicineQuantity
                               );
                             }}
-                            className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#E9F6FE] text-black font-medium rounded-md hover:shadow-md transition-all duration-200"
+                            className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#00BBD3] text-white font-medium rounded-md hover:shadow-md transition-all duration-200 "
                           >
-
                             <Plus className="w-4 h-4" />
-                    
-
                             Сагслах
-
                           </button>
                         </div>
                       );

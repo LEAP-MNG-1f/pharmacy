@@ -56,6 +56,18 @@ const orderSchema = new mongoose.Schema({
     type: String,
     default: "Card",
   },
+  process: {
+    type: String,
+    enum: [
+      "Ordered",
+      "Confirmed",
+      "Processing",
+      "Out for Delivery",
+      "Delivered",
+      "Cancelled",
+    ],
+    default: "Ordered",
+  },
 });
 
 export const Order = mongoose.model("Order", orderSchema);

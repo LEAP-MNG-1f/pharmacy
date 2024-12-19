@@ -120,9 +120,9 @@ export default function Page() {
       </div>
     );
   }
-
+  //#E9F6FE
   return (
-    <div className="min-h-screen bg-[#E9F6FE] py-10 px-6">
+    <div className="min-h-screen bg-white py-10 px-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-4">
           Pharmacy Inventory Management System
@@ -142,7 +142,10 @@ export default function Page() {
       <div className="space-y-6">
         {filteredPharmacies.length > 0 ? (
           filteredPharmacies.map((pharmacy) => (
-            <div key={pharmacy.id} className="border rounded-lg p-4 shadow-sm">
+            <div
+              key={pharmacy.id}
+              className="border rounded-lg p-4 shadow-sm bg-[#E9F6FE]"
+            >
               <div className="mb-4">
                 <h2 className="text-xl font-semibold text-blue-600">
                   {pharmacy.name}
@@ -160,7 +163,7 @@ export default function Page() {
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-gray-50">
+                      <tr className="bg-gray-50 w-full grid grid-cols-4">
                         <th className="px-4 py-2 text-left">Medicine Name</th>
                         <th className="px-4 py-2 text-left">Category</th>
                         <th className="px-4 py-2 text-right">Stock</th>
@@ -171,7 +174,7 @@ export default function Page() {
                       {pharmacy.medicines.map((medicine, medIndex) => (
                         <tr
                           key={medicine.id}
-                          className="border-t hover:bg-gray-50 transition-colors"
+                          className="border-t hover:bg-gray-50 transition-colors grid grid-cols-4"
                         >
                           <td className="px-4 py-2">{medicine.name}</td>
                           <td className="px-4 py-2">
