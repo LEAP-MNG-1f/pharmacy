@@ -9,18 +9,17 @@ import { PhoneIcon, UserIcon } from "lucide-react";
 
 export default function Orders() {
   const [dataOrder, setDataOrder] = useState([]);
-  const [selectedImage, setSelectedImage] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null); // Changed to null
 
-  // Fetch orders data from the backend
   const getOrderData = async () => {
     try {
       const response = await fetch("http://localhost:8368/api/orders");
       if (!response.ok) throw new Error(`Error: ${response.status}`);
       const data = await response.json();
-
-      setDataOrder(data?.data);
+      setDataOrder(data?.data || []); // Added fallback array
     } catch (error) {
       console.error("Failed to fetch order data", error);
+      setDataOrder([]); // Set empty array on error
     }
   };
 
@@ -28,7 +27,16 @@ export default function Orders() {
     getOrderData();
   }, []);
 
-  console.log(dataOrder);
+  function formatPrice(price) {
+    if (!price) return "0"; // Return "0" instead of empty string
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+  }
+
+  const handleImageClick = (imageUrl) => {
+    if (!imageUrl) return; // Don't open modal if no image
+    setSelectedImage(imageUrl);
+    document.getElementById("my_modal_2").showModal();
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-6">
@@ -40,7 +48,7 @@ export default function Orders() {
         {dataOrder?.map((order) => (
           <div
             key={order._id}
-            className="bg-white shadow-md rounded-lg border border-gray-200 hover:shadow-lg transition-shadow"
+            className="bg-white shadow-md rounded-lg border border-gray-200 hover:shadow-lg transition-shadow flex flex-col"
           >
             <div className="bg-[#33E4DB] text-white p-4 rounded-t-lg flex justify-between items-center">
               <div className="flex items-center gap-2">
@@ -53,21 +61,21 @@ export default function Orders() {
                 {new Date(order.createdAt).toLocaleDateString()}
               </div>
             </div>
-            <div className="p-4 flex flex-col gap-4">
-              {/* Medicine List */}
-              <div>
-                <div className="text-gray-600 text-sm font-bold ">
+
+            <div className="p-4 flex flex-col gap-4 justify-start">
+              <div className="gap-7">
+                <div className="text-gray-600 text-sm font-bold">
                   Сагсалсан эмнүүд:
                 </div>
                 {Array.isArray(order.medicineIds) &&
                 order.medicineIds.length > 0 ? (
-                  <div className="text-gray-600 pt-3">
+                  <div className="text-gray-600 pt-3 overflow-y-auto h-[100px] border-2 rounded-sm p-2 border-[#33E4DB]">
                     {order.medicineIds.map((med) => (
                       <div
                         key={med._id}
                         className="flex items-center justify-between mb-2"
                       >
-                        <p className="">{med.name}</p>
+                        <p>{med.name}</p>
                         <p className="text-gray-600">Тоо: {med.quantity}</p>
                       </div>
                     ))}
@@ -77,15 +85,13 @@ export default function Orders() {
                 )}
               </div>
 
-              {/* Total Price */}
-              <div className="border-t pt-2">
-                <div className="font-extrabold text-gray-600 gap-2 flex">
-                  <div>Нийт Үнэ:</div>
-                  <span className="text-[#33E4DB]">{order.totalPrice}₮</span>
-                </div>
+              <div className="font-extrabold text-gray-600 gap-2 flex">
+                <div>Нийт Үнэ:</div>
+                <span className="text-[#33E4DB]">
+                  {formatPrice(order.totalPrice)}₮
+                </span>
               </div>
 
-              {/* Additional Information */}
               <div>
                 <div className="font-semibold text-gray-700">
                   Хүргэлтийн хаяг:
@@ -111,58 +117,67 @@ export default function Orders() {
                   <div className="text-gray-600 font-bold">
                     Нэмэлт мэдээлэл:
                   </div>
-                  <div className="text-gray-600 ">{order.information}</div>
+                  <div className="text-gray-600">{order.information}</div>
                 </div>
               )}
 
               <div className="flex items-center gap-2 border-t pt-2">
                 <Wallet className="w-5 h-5 text-gray-600" />
                 <div className="text-gray-600 flex gap-1">
-                  <div className="font-bold"> Төлбөрийн төрөл :</div>
+                  <div className="font-bold">Төлбөрийн төрөл:</div>
                   {order.paymentType}
                 </div>
               </div>
             </div>
 
-            {/* Prescription Image */}
-            {order.image_jor && (
-              <div className="div-4 border-t bg-gray-50 p-2 rounded-b-xl">
-                <div className="text-gray-600 text-sm mb-2 flex items-center gap-2 font-bold">
-                  <Info className="w-5 h-5 text-gray-600" />
-                  ЖОР:
-                </div>
-                {order.image_jor &&
-                  order.image_jor.trim() && ( // Ensure src is not empty
-                    <img
-                      src={order.image_jor}
-                      alt="Prescription"
-                      className="w-full h-40 object-cover rounded-lg shadow-sm p-3"
-                      onClick={() => {
-                        setSelectedImage(order.image_jor);
-                        document.getElementById("my_modal_2").showModal();
-                      }}
-                    />
-                  )}
-                <dialog id="my_modal_2" className="modal">
-                  <div className="modal-box">
-                    <div>Жорын зураг</div>
-                    {selectedImage && ( // Ensure modal img src is valid
-                      <img
-                        src={selectedImage}
-                        alt="Selected Prescription"
-                        className="w-[500px] h-[400px]"
-                      />
-                    )}
+            <div className="div-4 border-t bg-gray-50 p-2 rounded-b-xl">
+              {order.image_jor ? (
+                <>
+                  <div className="text-gray-600 text-sm mb-2 flex items-center gap-2 font-bold">
+                    <Info className="w-5 h-5 text-gray-600" />
+                    ЖОР:
                   </div>
-                  <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                  </form>
-                </dialog>
-              </div>
-            )}
+                  <img
+                    src={order.image_jor}
+                    alt="Prescription"
+                    className="w-full h-40 object-cover rounded-lg shadow-sm cursor-pointer"
+                    onClick={() => handleImageClick(order.image_jor)}
+                  />
+                </>
+              ) : (
+                <>
+                  <div className="text-gray-600 text-sm mb-2 flex items-center gap-2 font-bold">
+                    <Info className="w-5 h-5 text-gray-600" />
+                    ЖОРГҮЙ
+                  </div>
+                  <img
+                    src="/noimg.jpg" // Added leading slash
+                    alt="Default Prescription"
+                    className="w-full h-40 object-cover rounded-lg shadow-sm"
+                  />
+                </>
+              )}
+            </div>
           </div>
         ))}
       </div>
+
+      {/* Modal for larger image display */}
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <div>Жорын зураг</div>
+          {selectedImage && ( // Only render if selectedImage exists
+            <img
+              src={selectedImage}
+              alt="Selected Prescription"
+              className="w-[500px] h-[400px] object-contain"
+            />
+          )}
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </div>
   );
 }
