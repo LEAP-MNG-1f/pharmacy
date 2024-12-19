@@ -60,8 +60,8 @@ const MedicineSelector = () => {
   });
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-8">
-      <div className="mb-8">
+    <div className="container mx-auto py-8 px-4">
+      <div className="mb-12">
         <CustomSelect
           styles={customStyles}
           className="w-full max-w-3xl mx-auto"
@@ -79,13 +79,17 @@ const MedicineSelector = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-4 max-h-[600px] overflow-y-auto pr-4">
+        <div className="space-y-3 max-h-[600px] overflow-y-auto pr-4">
           {filteredEmiinsan?.length > 0 ? (
             filteredEmiinsan.map((pharmacy) => (
-              <Link key={pharmacy._id} href={`/${pharmacy._id}`}>
-                <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer">
+              <Link
+                key={pharmacy._id}
+                href={`/${pharmacy._id}`}
+                className="block"
+              >
+                <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer bg-white">
                   <div className="flex flex-col md:flex-row">
-                    <div className="w-full md:w-2/5 h-48">
+                    <div className="w-full md:w-2/5 h-[188px]">
                       <img
                         src={pharmacy.image || "/api/placeholder/400/300"}
                         alt={pharmacy.name}
@@ -93,9 +97,9 @@ const MedicineSelector = () => {
                       />
                     </div>
 
-                    <div className="w-full md:w-3/5 p-4">
+                    <div className="w-full md:w-3/5 py-4 pl-8">
                       <CardHeader className="p-0">
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center justify-between mb-4">
                           <h3 className="text-lg font-semibold text-gray-900">
                             {pharmacy.name || "Pharmacy Name"}
                           </h3>
@@ -107,7 +111,7 @@ const MedicineSelector = () => {
                         </div>
                       </CardHeader>
 
-                      <CardContent className="p-0 space-y-3">
+                      <CardContent className="p-0 space-y-4">
                         <div className="flex items-center text-gray-600">
                           <MapPin className="w-4 h-4 mr-2" />
                           <span className="text-sm">{pharmacy.location}</span>
@@ -129,18 +133,9 @@ const MedicineSelector = () => {
                           </div>
                         )}
 
-                        <div className="flex items-center text-gray-600">
-                          <Star className="w-4 h-4 mr-2 text-yellow-400" />
-                          <span className="text-sm">
-                            {pharmacy.rating
-                              ? `${pharmacy.rating} / 5`
-                              : "Not rated yet"}
-                          </span>
-                        </div>
-
                         {selectedMedicines.length > 0 && (
-                          <div className="mt-3">
-                            <h4 className="text-sm font-medium text-gray-700 mb-1">
+                          <div className="mt-4">
+                            <h4 className="text-sm font-medium text-gray-700 mb-2">
                               Available Medicines:
                             </h4>
                             <div className="flex flex-wrap gap-2">

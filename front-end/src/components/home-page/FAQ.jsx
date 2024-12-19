@@ -1,88 +1,108 @@
-export default function FAQ() {
+import React from "react";
+
+const FAQ = () => {
   return (
-    <>
-      <style jsx global>{`
-        .gradient-line {
-          background: linear-gradient(to right, #33e4db, #00bbd3);
-        }
+    <div className="container mx-auto py-8">
+      <div className="max-w-3xl mx-auto flex flex-col gap-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-[#00BBD3]">
+            Түгээмэл асуултууд
+          </h2>
+        </div>
 
-        .faq-collapse {
-          transition: all 0.3s ease;
-          border: 1px solid transparent;
-          background-image: linear-gradient(white, white),
-            linear-gradient(to right, #33e4db, #00bbd3);
-          background-origin: border-box;
-          background-clip: padding-box, border-box;
-          border-radius: 0.5rem;
-        }
-
-        .faq-collapse:hover {
-          box-shadow: 0 4px 12px rgba(51, 228, 219, 0.15);
-          transform: translateY(-2px);
-        }
-
-        .faq-collapse[open] {
-          background-image: linear-gradient(white, white),
-            linear-gradient(to bottom right, #33e4db, #00bbd3);
-        }
-
-        .collapse-title:after {
-          color: #00bbd3;
-        }
-      `}</style>
-
-      <div className=" w-screen flex justify-center ">
-        <div className=" flex-col gap-4 py-10 w-[820px] flex justify-between items-center">
-          <div className="flex flex-col items-center gap-2">
-            <div className="font-bold text-2xl text-[#00BBD3]">
-              Түгээмэл асуултууд
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4 w-full">
-            <div className="collapse collapse-arrow faq-collapse">
-              <input type="radio" name="my-accordion-2" defaultChecked />
-              <div className="collapse-title text-lg font-bold">
+        <div className="flex flex-col gap-4 w-full">
+          {/* FAQ Item 1 */}
+          <details className="group border border-[#e2e8f0] rounded-lg hover:border-[#cbd5e1] transition-all duration-200 bg-white">
+            <summary className="flex justify-between items-center cursor-pointer p-4 marker:content-none">
+              <h3 className="text-lg font-semibold text-[#1e293b]">
                 Захиалга хийхэд болон хүргэлтийн үнэ хэд вэ? Хүргэлт хэр уддаг
                 вэ?
-              </div>
-              <div className="collapse-content">
-                <p>
-                  Манай захиалга энгийн хүргэлтээр 6 цагын дотор 5000 төгрөгөөр
-                  хүргэгдэнэ. Яаралтай 10000 төгрөгний нэмэгдэлтэй 1-2 цагын
-                  дотор очино.
-                </p>
-              </div>
+              </h3>
+              <span className="transition-transform duration-200 group-open:rotate-180">
+                <svg
+                  className="h-5 w-5 text-[#2d3e50] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </summary>
+            <div className="px-4 pb-4">
+              <p className="text-gray-600">
+                Манай захиалга энгийн хүргэлтээр 6 цагын дотор 5000 төгрөгөөр
+                хүргэгдэнэ. Яаралтай 10000 төгрөгний нэмэгдэлтэй 1-2 цагын дотор
+                очино.
+              </p>
             </div>
+          </details>
 
-            <div className="collapse collapse-arrow faq-collapse">
-              <input type="radio" name="my-accordion-2" />
-              <div className="collapse-title text-lg font-bold">
+          {/* FAQ Item 2 */}
+          <details className="group border border-[#e2e8f0] rounded-lg hover:border-[#cbd5e1] transition-all duration-200 bg-white">
+            <summary className="flex justify-between items-center cursor-pointer p-4 marker:content-none">
+              <h3 className="text-lg font-semibold text-[#1e293b]">
                 Гэр хороолол руу хүргэлт хийдэг үү?
-              </div>
-              <div className="collapse-content">
-                <p>
-                  Хийдэг. Гэвч зөвхөн засмал зам дагуу хүргэлт хийх боломжтой
-                  бөгөөд гудам руу орохгүй ч зам дээр гарч ирээд авч болно.
-                </p>
-              </div>
+              </h3>
+              <span className="transition-transform duration-200 group-open:rotate-180">
+                <svg
+                  className="h-5 w-5 text-[#2d3e50] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </summary>
+            <div className="px-4 pb-4">
+              <p className="text-gray-600">
+                Хийдэг. Гэвч зөвхөн засмал зам дагуу хүргэлт хийх боломжтой
+                бөгөөд гудам руу орохгүй ч зам дээр гарч ирээд авч болно.
+              </p>
             </div>
+          </details>
 
-            <div className="collapse collapse-arrow faq-collapse">
-              <input type="radio" name="my-accordion-2" />
-              <div className="collapse-title text-lg font-bold">
+          {/* FAQ Item 3 */}
+          <details className="group border border-[#e2e8f0] rounded-lg hover:border-[#cbd5e1] transition-all duration-200 bg-white">
+            <summary className="flex justify-between items-center cursor-pointer p-4 marker:content-none">
+              <h3 className="text-lg font-semibold text-[#1e293b]">
                 Антибиотик хүргэдэг үү?
-              </div>
-              <div className="collapse-content">
-                <p>
-                  Бид эмчийн бичсэн жорын дагуу хүргэдэг. Жорын цаасны зургийг
-                  явуулах шаардлага хангасан тохиолдолд бид хүргэнэ.
-                </p>
-              </div>
+              </h3>
+              <span className="transition-transform duration-200 group-open:rotate-180">
+                <svg
+                  className="h-5 w-5 text-[#2d3e50] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </summary>
+            <div className="px-4 pb-4">
+              <p className="text-gray-600">
+                Бид эмчийн бичсэн жорын дагуу хүргэдэг. Жорын цаасны зургийг
+                явуулах шаардлага хангасан тохиолдолд бид хүргэнэ.
+              </p>
             </div>
-          </div>
+          </details>
         </div>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default FAQ;
