@@ -2,7 +2,7 @@ export const FacebookIcon = () => {
   return (
     <div>
       <svg
-        className="w-6 h-6 text-white"
+        className="w-6 h-6 text-[#33E4DB]"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
