@@ -24,6 +24,11 @@ export const Cart = () => {
     }
   }, []);
 
+  function formatPrice(price) {
+    if (!price) return ""; // Handle undefined or null prices gracefully
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+  }
+
   const handleFileChange = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -264,9 +269,13 @@ export const Cart = () => {
               <span className="text-base sm:text-lg font-semibold">
                 Нийт дүн:
               </span>
-              <span className="text-lg sm:text-xl font-bold text-[#00BBD3]">
-                {calculateTotal().toFixed(0).toLocaleString()}₮
-              </span>
+              <div className="text-lg sm:text-xl font-bold text-[#00BBD3]">
+                {calculateTotal()
+                  .toFixed(0)
+                  .toLocaleString()
+                  .replace(/,/g, "'")}
+                ₮
+              </div>
             </div>
           </div>
         </div>
@@ -381,7 +390,7 @@ export const Cart = () => {
           <div className=" h-[20%] w-[95%] font-bold flex items-center justify-between my-3">
             <div className="text-white flex text-lg bg-[#00BBD3] p-2 rounded-xl w-[40%] justify-between px-2">
               <div>Нийт төлөх дүн:</div>
-              <div>{calculateTotal().toFixed(0).toLocaleString()}</div>
+              <div>{formatPrice(calculateTotal().toFixed(0))}₮</div>
             </div>
 
             <button
