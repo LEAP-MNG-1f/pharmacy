@@ -6,9 +6,12 @@ import { Logo } from "../svg/Logo";
 import { UserButton, useUser } from "@clerk/nextjs";
 import Basket from "../svg/Basket";
 import CustomUserButton from "./custom-user-button";
+import { useDataContext } from "../context/dataContext";
 
 export default function Header() {
   const { isSignedIn, isLoaded } = useUser();
+  const { basket } = useDataContext();
+
   return (
     <div className="w-screen h-[80px] flex justify-center bg-[#E9F6FE]">
       <div className=" container flex justify-between items-center">
@@ -19,10 +22,11 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex items-center  gap-2">
           <Link href="cartpage">
             <Basket />
           </Link>
+          <p className="mr-[20px] text-[#00BBD3]">{basket?.length}</p>
 
           {isSignedIn ? (
             <UserButton afterSignOutUrl="/" />
