@@ -19,7 +19,14 @@ export const DataProvider = ({ children }) => {
   const fetchEmiinSans = async () => {
     setLoading(true); // Start loading
     try {
-      const response = await fetch(`${BACKEND_URL}/api/emiinsans`);
+      const response = await fetch(`${BACKEND_URL}/api/emiinsans`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          withCredentials: true,
+          mode: "no-cors",
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
@@ -37,7 +44,14 @@ export const DataProvider = ({ children }) => {
   const fetchYags = async () => {
     setLoading(true); // Start loading
     try {
-      const response = await fetch(`${BACKEND_URL}/api/yags`);
+      const response = await fetch(`${BACKEND_URL}/api/yags`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          withCredentials: true,
+          mode: "no-cors",
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
@@ -97,33 +111,58 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const addToBasket = (location, _id, name, price, balance, categoryId) => {
-    const getCatName = categories.filter((cat) => {
-      if (cat._id === categoryId) {
-        const catName = cat?.name;
-        return catName;
-      }
-    });
+  const addToBasket = (
+    location,
+    _id,
+    name,
+    price,
+    balance,
+    categoryId,
+    quantity
+  ) => {
+    // Check if the medicine is already in the basket (sags)
+    const savedCart = JSON.parse(localStorage.getItem("sags")) || [];
 
-    const selectedMedicine = {
-      location,
-      _id,
-      name,
-      price,
-      balance,
-      getCatName,
-    };
+    // Check if the medicine already exists in the cart
+    const existingItemIndex = savedCart.findIndex((item) => item._id === _id);
 
-    // Update the basket state by adding the new item
-    setBasket((prevMed) => {
-      const updatedBasket = [...prevMed, selectedMedicine];
+    // If the medicine exists in the basket, update its quantity
+    if (existingItemIndex !== -1) {
+      // Increase the quantity of the existing item
+      savedCart[existingItemIndex].quantity += quantity;
+    } else {
+      // If the medicine doesn't exist, create a new item and add it to the basket
+      const getCatName = categories.find((cat) => cat._id === categoryId);
 
-      // Store the updated basket in localStorage (after state update)
-      localStorage.setItem("sags", JSON.stringify(updatedBasket));
+      const selectedMedicine = {
+        location,
+        _id,
+        name,
+        price,
+        balance,
+        categoryName: getCatName ? getCatName.name : "", // Category name
+        quantity,
+      };
 
-      return updatedBasket; // return the updated basket to set the state
-    });
+      // Add the new medicine to the cart
+      savedCart.push(selectedMedicine);
+    }
+
+    // Save the updated basket to localStorage
+    localStorage.setItem("sags", JSON.stringify(savedCart));
+
+    // Update the basket state
+    setBasket(savedCart);
   };
+
+  useEffect(() => {
+    const data = localStorage.getItem("sags");
+
+    if (data) {
+      const parsed = JSON.parse(data);
+      setBasket(parsed);
+    }
+  }, []);
 
   const contextValue = {
     loading,

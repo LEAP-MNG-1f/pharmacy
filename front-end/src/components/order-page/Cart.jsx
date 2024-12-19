@@ -7,7 +7,7 @@ import OrderPage from "../pages/OrderPage";
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
   const [imagePreview, setImagePreview] = useState();
-  const [quantities, setQuantities] = useState(1);
+  const [quantities, setQuantities] = useState({});
   const [parsedData, setParsedData] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -19,8 +19,11 @@ export const Cart = () => {
     if (data) {
       const parsed = JSON.parse(data);
       setParsedData(parsed);
-    } else {
-      console.log("No data found in localStorage for the key 'sags'.");
+      const initialQuantities = parsed.reduce((acc, medicine) => {
+        acc[medicine._id] = medicine.quantity || 1; // default quantity to 1
+        return acc;
+      }, {});
+      setQuantities(initialQuantities);
     }
   }, []);
 
@@ -80,7 +83,7 @@ export const Cart = () => {
     const quantity = quantities[medicine._id] || 0;
 
     // Check if the medicine category is "Жортой"
-    if (medicine?.getCatName[0].name == "Жортой") {
+    if (medicine?.categoryName == "Жортой") {
       // Calculate total price based on unit price
       return piecePrice * quantity;
     } else {
@@ -148,6 +151,7 @@ export const Cart = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json", // Ensure correct header
+            "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify(orderData),
         });
@@ -155,7 +159,10 @@ export const Cart = () => {
         console.log(data);
         if (data?.success) {
           localStorage.removeItem("sags");
-          alert("Zahialga amjilttai bolloo");
+          formik.resetForm(); // Reset form fields to initial values
+          setQuantities({}); // Reset quantities state
+          setImagePreview(null); // Clear the image preview state
+          alert("Захиалга амжилттай боллоо");
         }
       } catch (error) {
         console.error("Error submitting form:", error);
@@ -193,9 +200,7 @@ export const Cart = () => {
 
                   <p
                     className={`text-white font-semibold text-sm sm:text-base ${
-                      medicine?.getCatName[0].name !== "Жортой"
-                        ? "hidden"
-                        : "flex"
+                      medicine?.categoryName !== "Жортой" ? "hidden" : "flex"
                     }`}
                   >
                     Ширхэгийн үнэ: {(medicine?.price / 10).toLocaleString()}₮
@@ -206,7 +211,7 @@ export const Cart = () => {
                     {medicine?.location}
                   </div>
                   <p className="text-white font-bold text-xs sm:text-sm">
-                    Эмийн төрөл: {medicine?.getCatName[0].name}
+                    Эмийн төрөл: {medicine?.categoryName}
                   </p>
 
                   <div className="mt-2 flex gap-[10px]">
@@ -231,6 +236,7 @@ export const Cart = () => {
               </div>
             );
           })}
+
           {/* <div className="w-full p-4 border border-dashed border-gray-400 bg-gray-50 rounded-lg">
             <input
               type="file"
