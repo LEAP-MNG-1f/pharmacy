@@ -34,8 +34,6 @@ const EmiinsanPage = () => {
 
   if (!emiinsan) return <div>Loading...</div>;
 
-  console.log(emiinsan);
-
   return (
     <div className="w-full flex justify-center mt-20">
       <div className="container flex flex-col lg:flex-row gap-10 p-5">

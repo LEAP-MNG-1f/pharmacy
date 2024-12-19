@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { BACKEND_URL } from "../../../constant/constant";
+import { toast } from "react-toastify";
 
 const DataContext = createContext(undefined);
 
@@ -153,6 +154,7 @@ export const DataProvider = ({ children }) => {
 
     // Update the basket state
     setBasket(savedCart);
+    toast.success("Амжилттай сагслагдлаа");
   };
 
   useEffect(() => {

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { BACKEND_URL } from "../../../constant/constant";
 import OrderPage from "../pages/OrderPage";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
@@ -13,6 +15,8 @@ export const Cart = () => {
 
   const CLOUDINARY_UPLOAD_PRESET = "pharmacy_preset";
   const CLOUDINARY_CLOUD_NAME = "dvsck0zho";
+
+  const router = useRouter();
 
   useEffect(() => {
     const data = localStorage.getItem("sags");
@@ -163,11 +167,13 @@ export const Cart = () => {
         const data = await response.json();
         console.log(data);
         if (data?.success) {
+          toast.success("Таны захиалга амжилттай баталгаажлаа");
           localStorage.removeItem("sags");
-          formik.resetForm(); // Reset form fields to initial values
-          setQuantities({}); // Reset quantities state
-          setImagePreview(null); // Clear the image preview state
-          alert("Захиалга амжилттай боллоо");
+          formik.resetForm();
+          setQuantities({});
+          setImagePreview(null);
+          router.push("./");
+          // alert("Захиалга амжилттай боллоо");
         }
       } catch (error) {
         console.error("Error submitting form:", error);
@@ -320,7 +326,7 @@ export const Cart = () => {
       <div className="flex w-[1200px] h-[60%] bg-[#E9F6FE] rounded-2xl border-[1px] border-gray-400 gap-2 p-3">
         <div className="w-full h-full flex flex-col rounded-xl items-center py-4">
           <div className="text-zinc-700 font-semibold text-2xl pb-2">
-            Баталгаажуулах
+            Хүргэгдэх хаягийн мэдээлэл
           </div>
           <div className="w-[95%] h-[40px] my-2 bg-white flex justify-between items-center px-4 rounded-lg font-semibold text-base">
             <label

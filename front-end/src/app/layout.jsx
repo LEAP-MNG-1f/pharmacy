@@ -4,6 +4,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { DataProvider } from "@/components/context/dataContext";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,6 +33,11 @@ export default function RootLayout({ children }) {
           >
             <Header />
             {children}
+            <ToastContainer
+              position="top-center"
+              autoClose={1000}
+              hideProgressBar={false}
+            />
             <Footer />
           </body>
         </html>
