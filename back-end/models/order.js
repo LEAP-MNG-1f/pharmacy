@@ -14,6 +14,7 @@ const orderSchema = new mongoose.Schema({
   image_jor: {
     type: String,
   },
+
   medicineIds: [
     {
       name: String,
