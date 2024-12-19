@@ -9,7 +9,7 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const BACKEND_URL = "http://localhost:8368";
+  const BACKEND_URL = "https://back-end-wine-five.vercel.app";
 
   const fetchCategories = async () => {
     try {
