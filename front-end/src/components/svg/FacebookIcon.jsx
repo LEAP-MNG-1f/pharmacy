@@ -2,33 +2,19 @@ export const FacebookIcon = () => {
   return (
     <div>
       <svg
-        width="41"
-        height="40"
-        viewBox="0 0 41 40"
-        fill="none"
+        className="w-6 h-6 text-white"
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="currentColor"
+        viewBox="0 0 24 24"
       >
-        <circle cx="20.5" cy="20" r="20" fill="url(#paint0_linear_2229_1088)" />
-        <circle cx="20.5" cy="20" r="12" stroke="#E9F6FE" />
         <path
-          d="M24.5 15H23.5C22 15 20.5 15.8 20.5 19C20.5 22.2 20.5 28.8333 20.5 32M24.5 22H16.5"
-          stroke="#E9F6FE"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          fillRule="evenodd"
+          d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z"
+          clipRule="evenodd"
         />
-        <defs>
-          <linearGradient
-            id="paint0_linear_2229_1088"
-            x1="20.5"
-            y1="0"
-            x2="20.5"
-            y2="40"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#33E4DB" />
-            <stop offset="1" stopColor="#00BBD3" />
-          </linearGradient>
-        </defs>
       </svg>
     </div>
   );

@@ -11,12 +11,10 @@ import MedicineSelector from "@/components/map/TestBadmaaEgch";
 export default function HomePage() {
   return (
     <div className="w-full flex flex-col items-center">
-      {/* <GoogleHomePage /> */}
       <MedicineSelector />
-      <CarouselAds />
-      <FAQ />
       <Advice />
       <Collab />
+      <FAQ />
     </div>
   );
 }
