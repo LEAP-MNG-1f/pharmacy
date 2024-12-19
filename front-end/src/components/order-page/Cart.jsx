@@ -174,6 +174,8 @@ export const Cart = () => {
           setImagePreview(null);
           router.push("./");
           // alert("Захиалга амжилттай боллоо");
+        } else {
+          toast.error("Мэдээллийг бүрэн оруулна уу");
         }
       } catch (error) {
         console.error("Error submitting form:", error);

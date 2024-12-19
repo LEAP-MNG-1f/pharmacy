@@ -35,7 +35,9 @@ export default function Header() {
           <a href="#" onClick={handleBasketClick}>
             <Basket />
           </a>
-          <p className="mr-[20px]">{basket?.length || 0}</p>
+          <p className="mr-[20px]">
+            {basket?.length > 0 ? basket?.length : ""}
+          </p>
           {isSignedIn ? (
             <UserButton afterSignOutUrl="/" />
           ) : (
