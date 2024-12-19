@@ -1,46 +1,16 @@
 export default function FAQ() {
   return (
-    <>
-      <style jsx global>{`
-        .gradient-line {
-          background: linear-gradient(to right, #33e4db, #00bbd3);
-        }
-
-        .faq-collapse {
-          transition: all 0.3s ease;
-          border: 1px solid transparent;
-          background-image: linear-gradient(white, white),
-            linear-gradient(to right, #33e4db, #00bbd3);
-          background-origin: border-box;
-          background-clip: padding-box, border-box;
-          border-radius: 0.5rem;
-        }
-
-        .faq-collapse:hover {
-          box-shadow: 0 4px 12px rgba(51, 228, 219, 0.15);
-          transform: translateY(-2px);
-        }
-
-        .faq-collapse[open] {
-          background-image: linear-gradient(white, white),
-            linear-gradient(to bottom right, #33e4db, #00bbd3);
-        }
-
-        .collapse-title:after {
-          color: #00bbd3;
-        }
-      `}</style>
-
+    <div className="bg-[#edece9]">
       <div className=" w-screen flex justify-center ">
-        <div className=" flex-col gap-4 py-10 w-[820px] flex justify-between items-center">
+        <div className=" flex-col gap-4 py-10 w-[820px] flex justify-between items-center ">
           <div className="flex flex-col items-center gap-2">
-            <div className="font-bold text-2xl text-[#00BBD3]">
+            <div className="font-black text-2xl text-[#242321]">
               Түгээмэл асуултууд
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 w-full">
-            <div className="collapse collapse-arrow faq-collapse">
+          <div className="flex flex-col gap-4 w-full ">
+            <div className="collapse collapse-arrow faq-collapse drop-shadow-2xl ">
               <input type="radio" name="my-accordion-2" defaultChecked />
               <div className="collapse-title text-lg font-bold">
                 Захиалга хийхэд болон хүргэлтийн үнэ хэд вэ? Хүргэлт хэр уддаг
@@ -83,6 +53,6 @@ export default function FAQ() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

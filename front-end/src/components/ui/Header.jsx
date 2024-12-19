@@ -22,14 +22,14 @@ export default function Header() {
   };
 
   return (
-    <div className="w-screen h-[80px] flex justify-center bg-[#E9F6FE]">
+    <div className="w-screen h-[80px] flex justify-center bg-[#edece9]">
       <div className="container flex justify-between items-center">
-        <div className="flex gap-2">
-          <Link href="./" className="flex gap-2">
-            <Logo />
-            <p className="font-bold text-2xl text-[#0b2c3b]">Pharma</p>
-          </Link>
-        </div>
+        <Link href="/about-us">
+          <p className=" text-[#242321]   ">Бидний тухай</p>
+        </Link>
+        <Link href="./" className="flex gap-2 items-center h-20">
+          <img src="logo.png" alt="" className="h-16 w-auto" />
+        </Link>
 
         <div className="flex gap-2 justify-center items-center">
           <a href="#" onClick={handleBasketClick}>
@@ -40,7 +40,7 @@ export default function Header() {
             <UserButton afterSignOutUrl="/" />
           ) : (
             <Link href="/sign-in?redirect=/orderpage">
-              <button className="bg-[#33E4DB] w-[100px] h-[36px] rounded-xl font-bold text-white">
+              <button className="bg-[#edece9] w-[100px] h-[36px] rounded-xl  text-[#242321]">
                 Нэвтрэх
               </button>
             </Link>
