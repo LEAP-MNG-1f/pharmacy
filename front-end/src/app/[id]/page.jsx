@@ -160,7 +160,7 @@ const EmiinsanPage = () => {
                             }}
                             className="px-6 py-3 w-[120px] bg-gradient-to-r from-[#33E4DB] to-[#00BBD3] text-white font-medium rounded-lg hover:shadow-md transition-all duration-300 whitespace-nowrap"
                           >
-                            Add to Cart
+                            Сагслах
                           </button>
                         </div>
                       </div>
