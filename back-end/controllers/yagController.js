@@ -7,6 +7,7 @@ const createYag = async (request, response) => {
       categoryId: "6757b8206c8c791974a24742",
       price: "33000",
       balance: 5,
+      img: "",
     });
     response.json({ success: true, data: result });
   } catch (error) {

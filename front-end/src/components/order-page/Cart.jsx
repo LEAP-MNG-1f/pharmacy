@@ -208,7 +208,7 @@ export const Cart = () => {
                   </div>
 
                   <p className="text-white font-bold text-sm sm:text-base">
-                    Хайрцгийн үнэ: {medicine?.price.toLocaleString()}₮
+                    Хайрцгийн үнэ: {parseInt(medicine?.price).toLocaleString()}₮
                   </p>
 
                   <p
@@ -285,11 +285,7 @@ export const Cart = () => {
                 Нийт дүн:
               </span>
               <div className="text-lg sm:text-xl font-bold text-[#00BBD3]">
-                {calculateTotal()
-                  .toFixed(0)
-                  .toLocaleString()
-                  .replace(/,/g, "'")}
-                ₮
+                {parseInt(calculateTotal().toFixed(0)).toLocaleString()}₮
               </div>
             </div>
           </div>
@@ -405,7 +401,7 @@ export const Cart = () => {
           <div className=" h-[20%] w-[95%] font-bold flex items-center justify-between my-3">
             <div className="text-white flex text-lg bg-[#00BBD3] p-2 rounded-xl w-[40%] justify-between px-2">
               <div>Нийт төлөх дүн:</div>
-              <div>{formatPrice(calculateTotal().toFixed(0))}₮</div>
+              <div>{Number(calculateTotal().toFixed(0)).toLocaleString()}₮</div>
             </div>
 
             <button

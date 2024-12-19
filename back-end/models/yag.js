@@ -5,6 +5,9 @@ const yagSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  img: {
+    type: String,
+  },
   categoryId: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Category",

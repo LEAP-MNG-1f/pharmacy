@@ -24,6 +24,7 @@ const MedicineSelector = () => {
   const handleIncreaseQuantity = (medicineId) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
+
       [medicineId]: (prevQuantities[medicineId] || 0) + 1,
     }));
   };

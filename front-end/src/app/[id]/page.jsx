@@ -1,12 +1,14 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDataContext } from "@/components/context/dataContext";
+import { toast } from "react-toastify";
 
 const EmiinsanPage = () => {
   const { apteks, addToBasket } = useDataContext();
   const [emiinsan, setEmiinsan] = useState(null);
   const [quantities, setQuantities] = useState({});
+  const [warningMessage, setWarningMessage] = useState(null);
 
   const { id } = useParams();
 
@@ -18,12 +20,26 @@ const EmiinsanPage = () => {
     }
   }, [id, apteks]);
 
-  const handleIncreaseQuantity = (medicineId) => {
-    setQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [medicineId]: (prevQuantities[medicineId] || 0) + 1,
-    }));
+  const handleIncreaseQuantity = (medicineId, stock) => {
+    setQuantities((prevQuantities) => {
+      const currentQuantity = prevQuantities[medicineId] || 0;
+      if (currentQuantity < stock) {
+        return {
+          ...prevQuantities,
+          [medicineId]: currentQuantity + 1,
+        };
+      } else {
+        setWarningMessage("Захиалгын хэмжээ эмийн нөөцөөс хэтэрсэн байна");
+        return prevQuantities;
+      }
+    });
   };
+  useEffect(() => {
+    if (warningMessage) {
+      toast.warning(warningMessage);
+      setWarningMessage(null);
+    }
+  }, [warningMessage]);
 
   const handleDecreaseQuantity = (medicineId) => {
     setQuantities((prevQuantities) => ({
@@ -35,7 +51,7 @@ const EmiinsanPage = () => {
   if (!emiinsan) return <div>Loading...</div>;
 
   return (
-    <div className="w-full flex justify-center mt-20">
+    <div className="w-full flex justify-center bg-[#edece9]">
       <div className="container flex flex-col lg:flex-row gap-10 p-5">
         {/* Left Column: Emiinsan Image and Location */}
         <div className="flex flex-col items-center w-full lg:w-1/3">
@@ -54,7 +70,7 @@ const EmiinsanPage = () => {
           <h4 className="font-medium text-2xl text-gray-700 mb-6">
             Боломжит эмийн жагсаалт
           </h4>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-col gap-3">
             {emiinsan?.emsId?.map((medicine) => {
               const medicineQuantity = quantities[medicine._id] || 1;
 
@@ -65,14 +81,21 @@ const EmiinsanPage = () => {
                 >
                   <div className="flex flex-col justify-between h-full">
                     {/* Medicine Info */}
-                    <div>
-                      <h5 className="font-semibold text-lg">{medicine.name}</h5>
-                      <p className="text-sm text-gray-500">
-                        {medicine.balance}
-                      </p>
-                      <p className="font-semibold text-blue-600 text-xl">
-                        {parseInt(medicine.price).toLocaleString()} ₮
-                      </p>
+                    <div className="flex gap-[6px]">
+                      <div className="flex flex-col">
+                        <h5 className="font-semibold text-lg">
+                          {medicine.name}
+                        </h5>
+                        <img src={medicine?.img} alt="" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500">
+                          Үлдэгдэл: {medicine.balance}
+                        </p>
+                        <p className="font-semibold text-blue-600 text-xl">
+                          Үнэ:{parseInt(medicine.price).toLocaleString()} ₮
+                        </p>
+                      </div>
                     </div>
 
                     {/* Quantity Controls and Add to Cart Button */}
@@ -88,7 +111,12 @@ const EmiinsanPage = () => {
                           {medicineQuantity}
                         </span>
                         <button
-                          onClick={() => handleIncreaseQuantity(medicine._id)}
+                          onClick={() =>
+                            handleIncreaseQuantity(
+                              medicine._id,
+                              medicine.balance
+                            )
+                          }
                           className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 transition"
                         >
                           +

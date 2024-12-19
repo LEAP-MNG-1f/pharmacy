@@ -13,7 +13,9 @@ export default function Orders() {
 
   const getOrderData = async () => {
     try {
-      const response = await fetch("http://localhost:8368/api/orders");
+      const response = await fetch(
+        "https://back-end-wine-five.vercel.app/api/orders"
+      );
       if (!response.ok) throw new Error(`Error: ${response.status}`);
       const data = await response.json();
       setDataOrder(data?.data || []); // Added fallback array
