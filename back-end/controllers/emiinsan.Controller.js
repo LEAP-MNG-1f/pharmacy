@@ -23,6 +23,7 @@ const createEmiinsan = async (request, response) => {
 const getAllEmiinsan = async (request, response) => {
   try {
     const result = await Emiinsan.find().populate("emsId");
+
     response.json({ success: true, data: result });
   } catch (error) {
     response.json({
