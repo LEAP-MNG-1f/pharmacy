@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useDataContext } from "../context/dataContext";
 
 export default function Header() {
-  const { isSignedIn, isLoaded } = useUser();
+  const { isSignedIn, isLoaded, user } = useUser();
   const { basket } = useDataContext();
   // const [sags, setSags] = useState([]);
 
@@ -24,6 +24,8 @@ export default function Header() {
   // }, []);
 
   // console.log(sags.length);
+  console.log(user?.id, "------!-------");
+  console.log(user?.fullName, "------!-------");
 
   return (
     <div className="w-screen h-[80px] flex justify-center bg-[#E9F6FE]">
