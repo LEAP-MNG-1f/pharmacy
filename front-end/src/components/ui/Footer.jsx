@@ -6,7 +6,7 @@ import { MapIcon } from "../svg/Map";
 
 export default function Footer() {
   return (
-    <div className=" bg-[#E9F6FE] h-[140px]  items-center flex flex-col justify-between py-7 w-screen ">
+    <div className=" bg-[#E9F6FE] h-[140px]  items-center flex flex-col justify-between py-7 w-screen fixed bottom-0">
       <div className="container flex justify-between items-center">
         <div className="flex gap-2">
           <Link href="./" className="flex items-center justify-center gap-2">

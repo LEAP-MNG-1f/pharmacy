@@ -234,7 +234,8 @@ export const Cart = () => {
 
                   <div className="text-white text-right mt-2">
                     <p className="text-base sm:text-lg font-bold">
-                      Нийт дүн: {itemTotal.toFixed(0).toLocaleString()}₮
+                      Нийт дүн:{" "}
+                      {parseInt(itemTotal.toFixed(0)).toLocaleString()}₮
                     </p>
                   </div>
                 </div>

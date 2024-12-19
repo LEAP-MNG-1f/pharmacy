@@ -12,9 +12,8 @@ export default function HomePage() {
   return (
     <div className="w-full flex flex-col items-center">
       {/* <GoogleHomePage /> */}
-      <CarouselAds />
       <MedicineSelector />
-
+      <CarouselAds />
       <FAQ />
       <Advice />
       <Collab />
