@@ -8,11 +8,7 @@ const menuItems = [
   {
     title: "Бүтээгдэхүүн",
     list: [
-      {
-        title: "Бүтээгдэхүүн нэмэх",
-        path: "/",
-        icon: <Nemeh/>,
-      },
+      
       {
         title: "Бүх бүтээгдэхүүн",
         path: "/products",
