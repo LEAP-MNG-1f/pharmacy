@@ -5,6 +5,7 @@ import { BACKEND_URL } from "../../../constant/constant";
 import OrderPage from "../pages/OrderPage";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
@@ -17,6 +18,7 @@ export const Cart = () => {
   const CLOUDINARY_CLOUD_NAME = "dvsck0zho";
 
   const router = useRouter();
+  const { user } = useUser();
 
   useEffect(() => {
     const data = localStorage.getItem("sags");
@@ -109,7 +111,7 @@ export const Cart = () => {
 
   const formik = useFormik({
     initialValues: {
-      userId: "6756f77fd78e8837a652da17",
+      userId: "",
       medicineIds: [],
       totalPrice: "",
       district: "",
@@ -139,7 +141,7 @@ export const Cart = () => {
       }
 
       const orderData = {
-        userId: values.userId,
+        userId: "6756f77fd78e8837a652da17",
         medicineIds: medicineIds,
         totalPrice: calculateTotal().toFixed(0),
         district: values.district,

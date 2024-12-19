@@ -21,6 +21,12 @@ const emiinsanSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  phone: {
+    type: String,
+  },
+  workingHours: {
+    type: String,
+  },
   emsId: [
     {
       type: mongoose.SchemaTypes.ObjectId,
