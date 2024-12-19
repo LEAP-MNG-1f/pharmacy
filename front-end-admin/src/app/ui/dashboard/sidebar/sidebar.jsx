@@ -1,7 +1,5 @@
-import { Dashboard } from "@/svg/Dashboard";
 import styles from "../sidebar/sidebar.module.css";
 import { MenuLink } from "./menuLink/menuLink";
-import { Plus } from "@/svg/Plus";
 import { Em } from "@/svg/Em";
 import { Orders } from "@/svg/Orders";
 import { Garah } from "@/svg/garah";

@@ -1,9 +1,9 @@
 import Layout from "./dashboard/layout";
+import styles from "../app/ui/dashboard/sidebar/sidebar.module.css"
 
 export default function Home() {
   return (
-    <div className="bg-white w-screen h-screen text-black just">
-      <div></div>
-    </div>
+    <div className={styles.container}>
+   </div>
   );
 }
