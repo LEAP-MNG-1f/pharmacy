@@ -10,11 +10,6 @@ const menuItems = [
     title: "Бүтээгдэхүүн",
     list: [
       {
-        title: " Нэмэх",
-        path: "/dashboard",
-        icon: <Plus />,
-      },
-      {
         title: "Бүх бүтээгдэхүүн",
         path: "/products",
         icon: <Em />,

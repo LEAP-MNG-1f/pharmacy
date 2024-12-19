@@ -5,7 +5,7 @@
   flex: 1;
   background-color: var(--bgSoft);
   padding: 30px;
-  height: 1206px;
+  height: auto;
 }
 .content {
   flex: 5;
