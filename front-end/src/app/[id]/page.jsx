@@ -9,10 +9,8 @@ const EmiinsanPage = () => {
   const [emiinsan, setEmiinsan] = useState(null);
   const [quantities, setQuantities] = useState({});
   const [warningMessage, setWarningMessage] = useState(null);
-
   const { id } = useParams();
 
-  // Fetch the emiinsan details by id
   useEffect(() => {
     if (id) {
       const foundEmiinsan = apteks.find((emi) => emi._id === id);
@@ -34,6 +32,7 @@ const EmiinsanPage = () => {
       }
     });
   };
+
   useEffect(() => {
     if (warningMessage) {
       toast.warning(warningMessage);
@@ -48,102 +47,128 @@ const EmiinsanPage = () => {
     }));
   };
 
-  if (!emiinsan) return <div>Loading...</div>;
+  if (!emiinsan)
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-[#33E4DB] to-[#00BBD3]/10">
+        <div className="animate-pulse text-[#00BBD3] text-xl">Loading...</div>
+      </div>
+    );
 
   return (
-    <div className="w-full flex justify-center bg-[#edece9]">
-      <div className="container flex flex-col lg:flex-row gap-10 p-5">
-        {/* Left Column: Emiinsan Image and Location */}
-        <div className="flex flex-col items-center w-full lg:w-1/3">
-          <img
-            className="rounded-lg w-full max-w-xs"
-            src={emiinsan?.image}
-            alt={emiinsan?.location}
-          />
-          <h2 className="text-xl font-semibold text-center mt-4">
-            {emiinsan.location}
-          </h2>
-        </div>
+    <div className="min-h-screen bg-gradient-to-b from-[#33E4DB]/10 to-white">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Pharmacy Details Card */}
+          <div className="lg:w-1/3">
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#33E4DB] to-[#00BBD3] opacity-20"></div>
+                <img
+                  className="w-full h-48 object-cover"
+                  src={emiinsan?.image}
+                  alt={emiinsan?.location}
+                />
+              </div>
+              <div className="p-6">
+                <h2 className="font-bold text-2xl text-[#00BBD3]">
+                  {emiinsan.location}
+                </h2>
+                <div className="font-bold text-2xl text-[#00BBD3]">
+                  Pharmacy Location
+                </div>
+              </div>
+            </div>
+          </div>
 
-        {/* Right Column: Medicines List */}
-        <div className="w-full lg:w-2/3">
-          <h4 className="font-medium text-2xl text-gray-700 mb-6">
-            Боломжит эмийн жагсаалт
-          </h4>
-          <div className="flex flex-col gap-3">
-            {emiinsan?.emsId?.map((medicine) => {
-              const medicineQuantity = quantities[medicine._id] || 1;
+          {/* Medicines List */}
+          <div className="lg:w-2/3">
+            <h4 className="text-2xl font-bold text-[#00BBD3] mb-6">
+              Available Medicines
+            </h4>
+            <div className="grid gap-4">
+              {emiinsan?.emsId?.map((medicine) => {
+                const medicineQuantity = quantities[medicine._id] || 1;
 
-              return (
-                <div
-                  key={medicine._id}
-                  className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div className="flex flex-col justify-between h-full">
-                    {/* Medicine Info */}
-                    <div className="flex gap-[6px]">
-                      <div className="flex flex-col">
-                        <h5 className="font-semibold text-lg">
-                          {medicine.name}
-                        </h5>
-                        <img src={medicine?.img} alt="" />
+                return (
+                  <div
+                    key={medicine._id}
+                    className="bg-white rounded-xl shadow-md w-[400px] hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+                  >
+                    <div className="flex justify-center p-6">
+                      <div className="flex flex-col justify-between gap-4">
+                        <div className="flex justify-center gap-10">
+                          <div className="w-[150px] h-[120px] rounded-lg overflow-hidden bg-gray-100">
+                            <img
+                              src={medicine?.img}
+                              alt={medicine.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex flex-col justify-between">
+                            <h5 className="text-xl font-bold text-gray-800">
+                              {medicine.name}
+                            </h5>
+                            <div className="space-y-1">
+                              <p className="text-sm text-gray-600">
+                                Stock: {medicine.balance}
+                              </p>
+                              <p className="text-2xl font-bold text-[#00BBD3]">
+                                {parseInt(medicine.price).toLocaleString()} ₮
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Quantity Controls and Add to Cart */}
+                        <div className="flex  items-center gap-24 ">
+                          <div className="flex items-center bg-gray-50 rounded-lg p-1">
+                            <button
+                              onClick={() =>
+                                handleDecreaseQuantity(medicine._id)
+                              }
+                              className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 transition text-gray-600"
+                            >
+                              -
+                            </button>
+                            <span className="w-8 text-center font-medium">
+                              {medicineQuantity}
+                            </span>
+                            <button
+                              onClick={() =>
+                                handleIncreaseQuantity(
+                                  medicine._id,
+                                  medicine.balance
+                                )
+                              }
+                              className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 transition text-gray-600"
+                            >
+                              +
+                            </button>
+                          </div>
+
+                          <button
+                            onClick={() => {
+                              addToBasket(
+                                emiinsan.location,
+                                medicine._id,
+                                medicine.name,
+                                medicine.price,
+                                medicine.balance,
+                                medicine.categoryId,
+                                medicineQuantity
+                              );
+                            }}
+                            className="px-6 py-3 w-[120px] bg-gradient-to-r from-[#33E4DB] to-[#00BBD3] text-white font-medium rounded-lg hover:shadow-md transition-all duration-300 whitespace-nowrap"
+                          >
+                            Add to Cart
+                          </button>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm text-gray-500">
-                          Үлдэгдэл: {medicine.balance}
-                        </p>
-                        <p className="font-semibold text-blue-600 text-xl">
-                          Үнэ:{parseInt(medicine.price).toLocaleString()} ₮
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Quantity Controls and Add to Cart Button */}
-                    <div className="flex justify-between items-center mt-4">
-                      <div className="flex items-center border rounded-lg bg-gray-100 p-2">
-                        <button
-                          onClick={() => handleDecreaseQuantity(medicine._id)}
-                          className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 transition"
-                        >
-                          -
-                        </button>
-                        <span className="w-8 text-center">
-                          {medicineQuantity}
-                        </span>
-                        <button
-                          onClick={() =>
-                            handleIncreaseQuantity(
-                              medicine._id,
-                              medicine.balance
-                            )
-                          }
-                          className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 transition"
-                        >
-                          +
-                        </button>
-                      </div>
-
-                      <button
-                        onClick={() => {
-                          addToBasket(
-                            emiinsan.location,
-                            medicine._id,
-                            medicine.name,
-                            medicine.price,
-                            medicine.balance,
-                            medicine.categoryId,
-                            medicineQuantity
-                          );
-                        }}
-                        className="px-6 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
-                      >
-                        Add to Cart
-                      </button>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
