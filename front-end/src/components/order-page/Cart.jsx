@@ -5,6 +5,7 @@ import { BACKEND_URL } from "../../../constant/constant";
 import OrderPage from "../pages/OrderPage";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 export const Cart = () => {
   const [spaceImage, setSpaceImage] = useState({});
