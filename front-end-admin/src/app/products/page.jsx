@@ -1,5 +1,4 @@
 "use client";
-import { BACKEND_URL } from "@/constants/constants";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -8,23 +7,19 @@ export default function Page() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const BACKEND_URL = "http://localhost:8368";
+
   const fetchData = async () => {
     try {
       setLoading(true);
       const response = await fetch(`${BACKEND_URL}/api/medicines`);
       const data = await response.json();
-      // Add this console.log to inspect the first item in the result array
-      console.log("Sample medicine data:", data.result[0]);
-
-      // This will specifically show the pharmacyId structure
-      console.log("PharmacyId structure:", data.result[0].pharmacyId);
 
       // Group medicines by pharmacy
       const groupedByPharmacy = data.result.reduce((acc, medicine) => {
         const pharmacyId = medicine.pharmacyId?._id;
-
         const pharmacyName = medicine.pharmacyId?.name || "Unknown Pharmacy";
-        console.log(pharmacyId, pharmacyName);
+
         if (!acc[pharmacyId]) {
           acc[pharmacyId] = {
             name: pharmacyName,
@@ -42,8 +37,10 @@ export default function Page() {
         return acc;
       }, {});
 
-      // Convert to array format
-      const pharmaciesArray = Object.values(groupedByPharmacy);
+      // Convert to array format and sort pharmacies alphabetically
+      const pharmaciesArray = Object.values(groupedByPharmacy).sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
       setPharmacies(pharmaciesArray);
     } catch (error) {
       console.error("Error fetching inventory:", error);
@@ -57,14 +54,17 @@ export default function Page() {
     fetchData();
   }, []);
 
-  const filteredPharmacies = pharmacies
-    .map((pharmacy) => ({
-      ...pharmacy,
-      medicines: pharmacy.medicines.filter((medicine) =>
-        medicine.name.toLowerCase().includes(searchTerm.toLowerCase())
-      ),
-    }))
-    .filter((pharmacy) => pharmacy.medicines.length > 0);
+  // Filter pharmacies and their medicines based on search term
+  const filteredPharmacies = searchTerm
+    ? pharmacies
+        .map((pharmacy) => ({
+          ...pharmacy,
+          medicines: pharmacy.medicines.filter((medicine) =>
+            medicine.name.toLowerCase().includes(searchTerm.toLowerCase())
+          ),
+        }))
+        .filter((pharmacy) => pharmacy.medicines.length > 0)
+    : pharmacies;
 
   if (loading) {
     return (
@@ -91,12 +91,19 @@ export default function Page() {
       </div>
 
       <div className="space-y-6">
-        {filteredPharmacies.map((pharmacy, index) => (
-          <div key={index} className="w-full">
-            <div>
-              <div className="text-xl text-blue-600">{pharmacy.name}</div>
-            </div>
-            <>
+        {filteredPharmacies.length > 0 ? (
+          filteredPharmacies.map((pharmacy, index) => (
+            <div key={index} className="border rounded-lg p-4 shadow-sm">
+              <div className="mb-4">
+                <h2 className="text-xl font-semibold text-blue-600">
+                  {pharmacy.name}
+                </h2>
+                <div className="flex justify-between items-center">
+                  <p className="text-sm text-gray-500">
+                    Total Medicines: {pharmacy.medicines.length}
+                  </p>
+                </div>
+              </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -109,19 +116,22 @@ export default function Page() {
                   </thead>
                   <tbody>
                     {pharmacy.medicines.map((medicine, medIndex) => (
-                      <tr key={medIndex} className="border-t">
+                      <tr
+                        key={medIndex}
+                        className="border-t hover:bg-gray-50 transition-colors"
+                      >
                         <td className="px-4 py-2">{medicine.name}</td>
                         <td className="px-4 py-2">
                           {medicine.category || "N/A"}
                         </td>
                         <td className="px-4 py-2 text-right">
                           <span
-                            className={`${
+                            className={`px-2 py-1 rounded-full text-sm ${
                               medicine.stock < 3
-                                ? "text-red-500"
+                                ? "bg-red-100 text-red-800"
                                 : medicine.stock < 5
-                                ? "text-yellow-500"
-                                : "text-green-500"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-green-100 text-green-800"
                             }`}
                           >
                             {medicine.stock}
@@ -135,9 +145,13 @@ export default function Page() {
                   </tbody>
                 </table>
               </div>
-            </>
+            </div>
+          ))
+        ) : (
+          <div className="text-center py-8 text-gray-500">
+            No pharmacies or medicines found matching your search.
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
